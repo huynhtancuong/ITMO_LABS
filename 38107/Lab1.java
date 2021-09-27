@@ -1,50 +1,45 @@
-
 import static java.lang.Math.*;
-
-
 public class Lab1 {
+
+    public static double myRandom() {
+        double number = random()*(1+0.0001);
+        while (number > 1) {
+            number = random()*(1+0.0001);
+        }
+        return number;
+    }
+
     public static void main(String[] args) {
-        /**
-            BEGIN OF SECTION 1
-        */
-            int[] a = new int[(17-3)/2+1];
+
+            int[] a = new int[(17-3)/2+1]; //odd
             int counter = 0;
             for (int i = 3; i<=17; i+=2)
             {
-                if (i%2==1) 
-                {
-                    a[counter]=i; 
-                    counter++;
-                }
+                a[counter]=i; 
+                counter++;
 
             }
             for (int i = 0; i<counter; i++)
             {
                 //System.out.println(a[i]);
             }
-        /**
-         * END OF SECTION 1
-         */
 
-        /**
-         * BEGIN OF SECTION 2
-         */
             double[] x = new double[13];
             for (int i = 0; i < 13; i++) 
             {
-                x[i] = random()*20-12;
+                x[i] = myRandom()*20-12;
             }
+
+            /**
+             * random() - [0,1]
+             * nextAfter(3) -> 3.000000001
+             * 
+             */
             for (int i = 0; i<counter; i++)
             {
-                //System.out.printf("%.4f\n", x[i]);
+                System.out.printf("%.4f\n", x[i]);
             }
-        /**
-         * END OF SECTION 2
-         */
 
-        /**
-         * BEGIN OF SECTION 3
-         */
             double[][] g = new double[8][13];
             for (int i = 0; i < g.length; i++)
             {
@@ -69,12 +64,10 @@ public class Lab1 {
             {
                 for (int j = 0; j < g[i].length; j++)
                 {
-                    System.out.printf("%.4f\t", g[i][j]);
+                    System.out.printf("%10.4f", g[i][j]);
                 }
                 System.out.println();
             }
-        /**
-         * END OF SECTION 3
-         */
+
     }
 }
