@@ -7,7 +7,11 @@ public class Lab1 {
             number = random()*(1+0.0001);
         }
         return number;
+<<<<<<< HEAD
     } //number  = [0,1]
+=======
+    }
+>>>>>>> 8c16fcec67d41e44c148e9b2f2e2433312df362a
 
     public static void main(String[] args) {
 
@@ -28,7 +32,10 @@ public class Lab1 {
             for (int i = 0; i < 13; i++) 
             {
                 x[i] = myRandom()*20-12;
+<<<<<<< HEAD
                 //x[i] = []
+=======
+>>>>>>> 8c16fcec67d41e44c148e9b2f2e2433312df362a
             }
 
             /**
