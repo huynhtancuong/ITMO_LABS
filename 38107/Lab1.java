@@ -7,7 +7,7 @@ public class Lab1 {
             number = random()*(1+0.0001);
         }
         return number;
-    }
+    } //number  = [0,1]
 
     public static void main(String[] args) {
 
@@ -28,6 +28,7 @@ public class Lab1 {
             for (int i = 0; i < 13; i++) 
             {
                 x[i] = myRandom()*20-12;
+                //x[i] = []
             }
 
             /**
