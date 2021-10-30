@@ -1,0 +1,101 @@
+Kartana Kartana from the team Blue enters the battle!
+Grubbin Grubbin from the team Yellow enters the battle!
+Kartana Kartana used Thunderbolt. 
+Grubbin Grubbin loses 4 hit points.
+
+Grubbin Grubbin misses
+
+Kartana Kartana used Swagger. 
+Kartana Kartana increases attack.
+
+Grubbin Grubbin used Facade. 
+
+Kartana Kartana used Thunderbolt. 
+Grubbin Grubbin loses 7 hit points.
+
+Grubbin Grubbin used Facade. 
+
+Kartana Kartana used Spark. 
+Grubbin Grubbin loses 5 hit points.
+Grubbin Grubbin is paralyzed
+Grubbin Grubbin faints.
+Charjabug Charjabug from the team Yellow enters the battle!
+Kartana Kartana used Ice Fang. 
+Charjabug Charjabug loses 6 hit points.
+
+Charjabug Charjabug used Facade. 
+
+Kartana Kartana hits himself in confusion. 
+Kartana Kartana loses 4 hit points.
+
+Charjabug Charjabug misses
+
+Kartana Kartana hits himself in confusion. 
+Kartana Kartana loses 4 hit points.
+
+Charjabug Charjabug used Facade. 
+
+Kartana Kartana used Ice Fang. 
+Charjabug Charjabug loses 6 hit points.
+
+Charjabug Charjabug used Facade. 
+
+Kartana Kartana used Thunderbolt. 
+Charjabug Charjabug loses 3 hit points.
+Charjabug Charjabug faints.
+Vikavolt Vikavolt from the team Yellow enters the battle!
+Kartana Kartana hits himself in confusion. 
+Kartana Kartana loses 6 hit points.
+Kartana Kartana faints.
+Cubone Cubone from the team Blue enters the battle!
+Vikavolt Vikavolt misses
+
+Cubone Cubone used Shadow Claw. 
+Vikavolt Vikavolt loses 5 hit points.
+
+Vikavolt Vikavolt misses
+
+Cubone Cubone used Swagger. 
+Cubone Cubone increases attack.
+
+Vikavolt Vikavolt used Scald. 
+Cubone Cubone loses 8 hit points.
+Cubone Cubone is burned
+
+Cubone Cubone used Swagger. 
+Cubone Cubone increases attack.
+
+Vikavolt Vikavolt misses
+
+Cubone Cubone misses
+
+Vikavolt Vikavolt used Facade. 
+Cubone Cubone loses 8 hit points.
+Cubone Cubone faints.
+Marowak Marowak from the team Blue enters the battle!
+Marowak Marowak used Swagger. 
+Marowak Marowak increases attack.
+
+Vikavolt Vikavolt used Charge Beam. 
+Marowak Marowak loses 1 hit points.
+Marowak Marowak isn't affected by ELECTRIC
+
+Marowak Marowak hits himself in confusion. 
+Marowak Marowak loses 5 hit points.
+
+Vikavolt Vikavolt used Facade. 
+
+Marowak Marowak used Shadow Claw. 
+Vikavolt Vikavolt loses 7 hit points.
+
+Vikavolt Vikavolt used Facade. 
+
+Marowak Marowak used Swagger. 
+Marowak Marowak increases attack.
+
+Vikavolt Vikavolt used Scald. 
+Marowak Marowak loses 10 hit points.
+Marowak Marowak is burned
+Marowak Marowak faints.
+Team Blue loses its last Pokemon.
+The team Yellow wins the battle!
