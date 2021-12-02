@@ -12,7 +12,7 @@ import ru.ifmo.se.pokemon.*;
 public class Swagger extends StatusMove{
     int raised_stats = 0;
     public Swagger() {
-        super(Type.NORMAL, 0, 85);
+        super(Type.NORMAL, 0, 0.85);
     }
     @Override
     protected void applySelfEffects(Pokemon p) {

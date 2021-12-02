@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="38.0" y="-135.5">com</node>
+    <node x="4063.0" y="-135.5">netscape</node>
+    <node x="1193.34727550774" y="-726.9735867786333">Hill</node>
+    <node x="-468.64625650968287" y="-608.0767661428433">Describable</node>
+    <node x="829.3563571486061" y="-272.47358677863326">Mumitroll</node>
+    <node x="-468.6462565096831" y="190.50766139672817">Characters</node>
+    <node x="38.0" y="-376.16538781423554">OutDoor</node>
+    <node x="3477.5" y="-135.5">toolbarButtonGraphics</node>
+    <node x="1193.643642851394" y="-568.5">Flowers</node>
+    <node x="1364.19455101548" y="-726.9735867786333">Windows</node>
+    <node x="3321.5" y="-135.5">sun</node>
+    <node x="829.3563571486061" y="-431.73679338931663">Fruits</node>
+    <node x="1035.5" y="-568.0">Eye</node>
+    <node x="-468.64625650968287" y="-676.7654408156851">Nameable</node>
+    <node x="1035.5" y="-726.9735867786333">Earth</node>
+    <node x="3079.0" y="-135.5">groovyjarjarasm</node>
+    <node x="414.0" y="-376.16538781423554">Rain</node>
+    <node x="-468.64625650968264" y="-450.64299512701473">EnumColor</node>
+    <node x="2919.0" y="-135.5">java</node>
+    <node x="2495.5" y="-135.5">javax</node>
+    <node x="-468.64625650968264" y="-529.359880634929">Pronounceable</node>
+    <node x="1364.19455101548" y="-568.5">Doors</node>
+    <node x="2230.5" y="-135.5">groovyjarjarpicocli</node>
+    <node x="1078.3903495828079" y="-272.47358677863326">Snutsmumrik</node>
+    <node x="225.3363413177624" y="-260.9462261070412">NonAnimal</node>
+    <node x="2048.5" y="-135.5">images</node>
+    <node x="1371.4243420170096" y="-272.97358677863326">HatOfSnutsmumrik</node>
+    <node x="1881.0" y="-135.5">org</node>
+    <node x="-467.64625650968264" y="-1.2092241111861313">EnumWeather</node>
+    <node x="1722.5" y="-135.5">jdk</node>
+    <node x="1609.8035307058728" y="-42.00274997987822">META-INF</node>
+    <node x="414.0" y="-657.0">Weather</node>
+    <node x="-468.64625650968264" y="-192.92610961910043">EnumLocation</node>
+    <node x="1591.2143776996754" y="-73.00274997987822">groovy</node>
+    <node x="829.3563571486062" y="-725.2367933893166">Stalk</node>
+    <node x="708.5" y="43.06357148606236">groovyjarjarcommonscli</node>
+    <node x="1292.0" y="-430.52641322136674">CarpetOfWildVegetation</node>
+    <node x="597.5" y="-135.5">groovyjarjarantlr</node>
+    <node x="405.5" y="-159.5">Main</node>
+    <node x="38.0" y="-691.3746851385391">Location</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Location" target="Pronounceable" relationship="REALIZATION">
+      <point x="0.0" y="-117.00031486146088" />
+      <point x="125.0" y="-720.0" />
+      <point x="-486.146" y="-720.0" />
+      <point x="-486.146" y="-501.36" />
+      <point x="-75.49974349031737" y="-1.1936507098653237E-4" />
+    </edge>
+    <edge source="HatOfSnutsmumrik" target="Nameable" relationship="REALIZATION">
+      <point x="-3.4201700964331394E-4" y="39.49958677863327" />
+      <point x="1459.924" y="-16.0" />
+      <point x="5.5" y="-16.0" />
+      <point x="5.5" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Weather" target="Pronounceable" relationship="REALIZATION">
+      <point x="0.0" y="-117.0" />
+      <point x="500.0" y="-720.0" />
+      <point x="-486.146" y="-720.0" />
+      <point x="-486.146" y="-501.36" />
+      <point x="-75.49974349031737" y="-1.1936507098653237E-4" />
+    </edge>
+    <edge source="EnumColor" target="Nameable" relationship="REALIZATION">
+      <point x="72.00025650968263" y="-117.50000487298524" />
+      <point x="-300.146" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="NonAnimal" target="Nameable" relationship="REALIZATION">
+      <point x="-3.413177623770025E-4" y="84.00022610704119" />
+      <point x="311.336" y="-16.0" />
+      <point x="5.5" y="-16.0" />
+      <point x="5.5" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Doors" target="Nameable" relationship="REALIZATION">
+      <point x="-69.99955101548017" y="0.0" />
+      <point x="1342.0" y="-517.5" />
+      <point x="1342.0" y="-586.0" />
+      <point x="1525.5" y="-586.0" />
+      <point x="1525.5" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Rain" target="Weather" relationship="GENERALIZATION">
+      <point x="0.0" y="-72.5" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="Earth" target="Nameable" relationship="REALIZATION">
+      <point x="0.0" y="-50.500413221366784" />
+      <point x="1100.0" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Earth" target="Pronounceable" relationship="REALIZATION">
+      <point x="-64.5" y="-4.132213667844553E-4" />
+      <point x="1019.356" y="-676.474" />
+      <point x="1019.356" y="-463.5" />
+      <point x="708.0" y="-463.5" />
+      <point x="708.0" y="-720.0" />
+      <point x="-486.146" y="-720.0" />
+      <point x="-486.146" y="-501.36" />
+      <point x="-75.49974349031737" y="-1.1936507098653237E-4" />
+    </edge>
+    <edge source="Characters" target="Describable" relationship="REALIZATION">
+      <point x="-85.99974349031692" y="3.386032718140086E-4" />
+      <point x="-491.0" y="274.508" />
+      <point x="-491.0" y="-48.5" />
+      <point x="-510.5" y="-48.5" />
+      <point x="-510.5" y="-580.077" />
+      <point x="-70.99974349031714" y="-2.3385715667245677E-4" />
+    </edge>
+    <edge source="NonAnimal" target="Describable" relationship="REALIZATION">
+      <point x="14.999658682237623" y="84.00022610704119" />
+      <point x="326.336" y="14.0" />
+      <point x="981.0" y="14.0" />
+      <point x="981.0" y="376.008" />
+      <point x="-491.0" y="376.008" />
+      <point x="-491.0" y="-48.5" />
+      <point x="-510.5" y="-48.5" />
+      <point x="-510.5" y="-580.077" />
+      <point x="-70.99974349031714" y="-2.3385715667245677E-4" />
+    </edge>
+    <edge source="OutDoor" target="Location" relationship="GENERALIZATION">
+      <point x="0.0" y="-72.5" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="Flowers" target="Nameable" relationship="REALIZATION">
+      <point x="63.0003571486061" y="0.0" />
+      <point x="1342.0" y="-517.5" />
+      <point x="1342.0" y="-586.0" />
+      <point x="1525.5" y="-586.0" />
+      <point x="1525.5" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="CarpetOfWildVegetation" target="Describable" relationship="REALIZATION">
+      <point x="108.0" y="4.132213667276119E-4" />
+      <point x="1598.714" y="-380.026" />
+      <point x="1598.714" y="-113.0" />
+      <point x="1474.924" y="-113.0" />
+      <point x="1474.924" y="14.0" />
+      <point x="981.0" y="14.0" />
+      <point x="981.0" y="376.008" />
+      <point x="-491.0" y="376.008" />
+      <point x="-491.0" y="-48.5" />
+      <point x="-510.5" y="-48.5" />
+      <point x="-510.5" y="-580.077" />
+      <point x="-70.99974349031714" y="-2.3385715667245677E-4" />
+    </edge>
+    <edge source="Fruits" target="Nameable" relationship="REALIZATION">
+      <point x="208.4996428513939" y="-2.0661068339222766E-4" />
+      <point x="1270.0" y="-369.737" />
+      <point x="1270.0" y="-312.026" />
+      <point x="1565.924" y="-312.026" />
+      <point x="1565.924" y="-16.0" />
+      <point x="5.5" y="-16.0" />
+      <point x="5.5" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Eye" target="Pronounceable" relationship="REALIZATION">
+      <point x="-22.5" y="50.5" />
+      <point x="1077.5" y="-449.0" />
+      <point x="708.0" y="-449.0" />
+      <point x="708.0" y="-720.0" />
+      <point x="-486.146" y="-720.0" />
+      <point x="-486.146" y="-501.36" />
+      <point x="-75.49974349031737" y="-1.1936507098653237E-4" />
+    </edge>
+    <edge source="Characters" target="Nameable" relationship="REALIZATION">
+      <point x="86.00025650968308" y="3.386032718140086E-4" />
+      <point x="667.5" y="274.508" />
+      <point x="667.5" y="136.0" />
+      <point x="682.5" y="136.0" />
+      <point x="682.5" y="-16.0" />
+      <point x="5.5" y="-16.0" />
+      <point x="5.5" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Hill" target="Describable" relationship="REALIZATION">
+      <point x="29.99972449225993" y="-61.500413221366784" />
+      <point x="1294.347" y="-789.5" />
+      <point x="-510.5" y="-789.5" />
+      <point x="-510.5" y="-580.077" />
+      <point x="-70.99974349031714" y="-2.3385715667245677E-4" />
+    </edge>
+    <edge source="Eye" target="Nameable" relationship="REALIZATION">
+      <point x="0.0" y="50.5" />
+      <point x="1100.0" y="-439.237" />
+      <point x="1270.0" y="-439.237" />
+      <point x="1270.0" y="-312.026" />
+      <point x="1565.924" y="-312.026" />
+      <point x="1565.924" y="-16.0" />
+      <point x="5.5" y="-16.0" />
+      <point x="5.5" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="EnumWeather" target="Nameable" relationship="REALIZATION">
+      <point x="104.00025650968263" y="72.20922411118613" />
+      <point x="652.5" y="155.5" />
+      <point x="652.5" y="136.0" />
+      <point x="682.5" y="136.0" />
+      <point x="682.5" y="-16.0" />
+      <point x="5.5" y="-16.0" />
+      <point x="5.5" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Stalk" target="Pronounceable" relationship="REALIZATION">
+      <point x="-3.571486062128315E-4" y="116.99979338931661" />
+      <point x="917.856" y="-463.5" />
+      <point x="708.0" y="-463.5" />
+      <point x="708.0" y="-720.0" />
+      <point x="-486.146" y="-720.0" />
+      <point x="-486.146" y="-501.36" />
+      <point x="-75.49974349031737" y="-1.1936507098653237E-4" />
+    </edge>
+    <edge source="CarpetOfWildVegetation" target="Nameable" relationship="REALIZATION">
+      <point x="-108.0" y="4.132213667276119E-4" />
+      <point x="1270.0" y="-380.026" />
+      <point x="1270.0" y="-312.026" />
+      <point x="1565.924" y="-312.026" />
+      <point x="1565.924" y="-16.0" />
+      <point x="5.5" y="-16.0" />
+      <point x="5.5" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Stalk" target="Nameable" relationship="REALIZATION">
+      <point x="-3.571486062128315E-4" y="-117.00020661068334" />
+      <point x="917.856" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Windows" target="Nameable" relationship="REALIZATION">
+      <point x="4.48984519834994E-4" y="-51.000413221366784" />
+      <point x="1434.195" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Mumitroll" target="Characters" relationship="GENERALIZATION">
+      <point x="108.9996428513939" y="-4.132213667276119E-4" />
+      <point x="1063.0" y="-188.974" />
+      <point x="1063.0" y="289.508" />
+      <point x="86.00025650968308" y="15.000338603271814" />
+    </edge>
+    <edge source="EnumLocation" target="Nameable" relationship="REALIZATION">
+      <point x="105.00025650968263" y="-3.57389038089957" />
+      <point x="5.5" y="-112.0" />
+      <point x="5.5" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Hill" target="Nameable" relationship="REALIZATION">
+      <point x="-2.755077400706796E-4" y="-61.500413221366784" />
+      <point x="1264.347" y="-749.0" />
+      <point x="-408.146" y="-749.0" />
+      <point x="2.5650968285617637E-4" y="-27.999559184314876" />
+    </edge>
+    <edge source="Hill" target="Pronounceable" relationship="REALIZATION">
+      <point x="14.99972449225993" y="-61.500413221366784" />
+      <point x="1279.347" y="-774.5" />
+      <point x="708.0" y="-774.5" />
+      <point x="708.0" y="-720.0" />
+      <point x="-486.146" y="-720.0" />
+      <point x="-486.146" y="-501.36" />
+      <point x="-75.49974349031737" y="-1.1936507098653237E-4" />
+    </edge>
+    <edge source="Snutsmumrik" target="Characters" relationship="GENERALIZATION">
+      <point x="-131.00034958280776" y="-4.132213667276119E-4" />
+      <point x="1063.0" y="-155.974" />
+      <point x="1063.0" y="289.508" />
+      <point x="86.00025650968308" y="15.000338603271814" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.33445661331086773" showDependencies="false" x="1853.0" y="-206.4999999999999" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
