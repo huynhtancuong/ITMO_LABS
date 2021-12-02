@@ -1,0 +1,17 @@
+./src/main/java/Battleground.java
+./src/main/java/Moves/Charge_Beam.java
+./src/main/java/Moves/Facade.java
+./src/main/java/Moves/Ice_Fang.java
+./src/main/java/Moves/Rest.java
+./src/main/java/Moves/Scald.java
+./src/main/java/Moves/Shadow_Claw.java
+./src/main/java/Moves/Spark.java
+./src/main/java/Moves/Swagger.java
+./src/main/java/Moves/Thunderbolt.java
+./src/main/java/Moves/Waterfall.java
+./src/main/java/Pokemons/Charjabug.java
+./src/main/java/Pokemons/Cubone.java
+./src/main/java/Pokemons/Grubbin.java
+./src/main/java/Pokemons/Kartana.java
+./src/main/java/Pokemons/Marowak.java
+./src/main/java/Pokemons/Vikavolt.java
