@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Eye implements Nameable, Pronounceable{
     private String name;
     private String pronoun;
@@ -20,5 +22,27 @@ public class Eye implements Nameable, Pronounceable{
     @Override
     public void setPronoun(String pronoun) {
         this.pronoun = pronoun;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Eye that = (Eye) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(pronoun, that.pronoun);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, pronoun);
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass() + "{" +
+                "name='" + name + '\'' +
+                ", description='" + pronoun + '\'' +
+                '}';
     }
 }
