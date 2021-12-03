@@ -1,0 +1,2 @@
+cd target
+java Main
