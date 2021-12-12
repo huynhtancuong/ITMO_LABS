@@ -58,6 +58,7 @@ public class Main {
         hatOfSnutsmumrik.setName("шляпы Снусмумрика ");
         System.out.println(stalk.chance() + stalk.wrappedAround() + hatOfSnutsmumrik.getName() + stalk.tookOff() + hatOfSnutsmumrik.getName());
 
-        //make no sense 
+        //make no sense
+        //hahahahaha
     }
 }
