@@ -1,1 +1,1 @@
-javac -d target/ src/main/java/*.java
+javac -d target/ @sources.list
