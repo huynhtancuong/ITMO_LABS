@@ -1,5 +1,5 @@
 public class Main {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Location outdoor = new OutDoor(EnumLocation.OUTDOOR.getName(), "A на ");
         Weather rain = new Rain(EnumWeather.RAIN.getName(), "под ");
         Mumitroll mumi = new Mumitroll("Муми-тролль ");
@@ -58,7 +58,5 @@ public class Main {
         hatOfSnutsmumrik.setName("шляпы Снусмумрика ");
         System.out.println(stalk.chance() + stalk.wrappedAround() + hatOfSnutsmumrik.getName() + stalk.tookOff() + hatOfSnutsmumrik.getName());
 
-        //make no sense
-        //hahahahaha
     }
 }
