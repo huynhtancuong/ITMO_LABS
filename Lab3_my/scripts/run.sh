@@ -1,2 +1,2 @@
 cd target
-java Main
+java Story.Main
