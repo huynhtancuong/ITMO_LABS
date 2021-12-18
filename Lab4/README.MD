@@ -4,7 +4,7 @@
 <p align="center" style ="font-size: 24px"><em>Хюинь Тан Куонг</em></p>
 <h3>Diagram</h3> 
 
-![This is diagram](https://github.com/huynhtancuong/ITMO_LABS/blob/master/Lab3_my/src/main/java/Diagrams/diagram.png?raw=true)
+![This is diagram](https://github.com/huynhtancuong/ITMO_LABS/blob/master/Lab4/src/main/java/Diagrams/diagram.png?raw=true)
 
 <h3>How to compile this project?</h3>
 
