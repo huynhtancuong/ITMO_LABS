@@ -3,6 +3,7 @@ package Story;
 import Characters.Mumitroll;
 import Characters.Snutsmumrik;
 import Enum.*;
+import Exceptions.WrongNameException;
 import Exceptions.WrongInstanceException;
 import NonAnimals.*;
 
@@ -24,6 +25,11 @@ public class Main {
         System.out.print(vines.getName());
         HomeOfMumi homeOfMumi = new HomeOfMumi();
         homeOfMumi.setName("Муми-дом");
+        try {
+            homeOfMumi.isValid();
+        } catch (WrongNameException e) {
+            System.out.println(e.getMessage());
+        }
         Carpet carpet = new Carpet();
         carpet.setName("ковром ");
         carpet.setDescription("пышным зеленым ");
