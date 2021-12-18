@@ -3,6 +3,8 @@ package NonAnimals;
 import Exceptions.WrongNameException;
 import Interfaces.Nameable;
 
+import java.util.Objects;
+
 public class HomeOfMumi implements Nameable {
     protected String name;
     @Override
@@ -17,6 +19,26 @@ public class HomeOfMumi implements Nameable {
 
     public void isValid() throws WrongNameException {
         if (this.name.equals("Муми-дом")) System.out.print("");
-        else throw new WrongNameException("The name of HomeOfMumi's instance must be \"Муми-дом\"!");
+        else throw new WrongNameException("The name of NonAnimals.HomeOfMumi's instance must be \"Муми-дом\"!");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HomeOfMumi that = (HomeOfMumi) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass() + "{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

@@ -1,12 +1,8 @@
 package Test;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 public class Test {
     public static void main(String[] args) throws ClassNotFoundException {
-        Class t = Class.forName("NonAnimals.Doors");
+        Class t = Class.forName("Doors");
         System.out.println(t.getName());
         try {
             chia2so(2, 0);

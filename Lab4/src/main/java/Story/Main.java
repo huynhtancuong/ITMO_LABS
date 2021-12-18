@@ -1,20 +1,108 @@
 package Story;
 
-import Characters.Mumitroll;
-import Characters.Snutsmumrik;
-import Enum.*;
-import Exceptions.WrongNameException;
-import Exceptions.WrongInstanceException;
+import Interfaces.Describable;
+import Interfaces.Nameable;
+
+import java.util.Objects;
 import NonAnimals.*;
+import Exceptions.*;
+import Characters.*;
+import Enum.*;
+
 
 public class Main {
+    //non-static inner class
+    class Doors implements Nameable {
+        private String name;
+
+        public String dontExist() {
+            return "Ни ";
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Doors that = (Doors) o;
+            return Objects.equals(name, that.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name);
+        }
+
+        @Override
+        public String toString() {
+            return this.getClass() + "{" +
+                    "name='" + name + '\'' +
+                    '}';
+        }
+    }
+
+    //static inner class
+    static class Carpet implements Nameable, Describable {
+        private String name;
+        private String description;
+        @Override
+        public String getDescription() {
+            return description;
+        }
+
+        @Override
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public void setName(String name) {
+            this.name = name;
+        }
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Carpet that = (Carpet) o;
+            return Objects.equals(name, that.name) &&
+                    Objects.equals(description, that.description);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name, description);
+        }
+
+        @Override
+        public String toString() {
+            return  this.getClass() + "{" +
+                    "name='" + name + '\'' +
+                    ", description='" + description + '\'' +
+                    '}';
+        }
+    }
+
     public static void main(String[] args) {
 
         Vines vines = new Vines(){ //this is an anonymous class
             public String enveloped(Object obj) throws WrongInstanceException {
                 if (obj instanceof HomeOfMumi) {
                     return "окутали весь " + ((HomeOfMumi) obj).getName();
-                } else throw new WrongInstanceException("The object is not a Roof.");
+                } else throw new WrongInstanceException("The object is not a NonAnimals.Roof.");
             }
         };
         vines.setName("Лианы ");
@@ -25,12 +113,12 @@ public class Main {
         System.out.print(vines.getName());
         HomeOfMumi homeOfMumi = new HomeOfMumi();
         homeOfMumi.setName("Муми-дом");
-        try {
+        try {   //try-catch
             homeOfMumi.isValid();
         } catch (WrongNameException e) {
             System.out.println(e.getMessage());
         }
-        Carpet carpet = new Carpet();
+        Main.Carpet carpet = new Main.Carpet();
         carpet.setName("ковром ");
         carpet.setDescription("пышным зеленым ");
         try{
@@ -87,7 +175,9 @@ public class Main {
 
         Windows windows = new Windows();
         windows.setName("окон ");
-        Doors doors = new Doors();
+
+        Main main_ = new Main();    //uses of non static inner class
+        Main.Doors doors = main_.new Doors();
         doors.setName("дверей ");
         System.out.println(windows.dontExist() + windows.getName() + ", " + doors.dontExist() + doors.getName() + ".");
 
@@ -113,4 +203,5 @@ public class Main {
         System.out.println(stalk.chance() + stalk.wrappedAround() + hatOfSnutsmumrik.getName() + stalk.tookOff() + hatOfSnutsmumrik.getName());
 
     }
+
 }

@@ -1,9 +1,9 @@
 package NonAnimals;
 
 import Interfaces.Nameable;
-import Enum.*;
 
 import java.util.Objects;
+import Enum.*;
 
 public class Fruits implements Nameable {
     private String name;
