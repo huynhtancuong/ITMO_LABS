@@ -3,10 +3,51 @@ package Story;
 import Characters.Mumitroll;
 import Characters.Snutsmumrik;
 import Enum.*;
+import Exceptions.WrongInstanceException;
 import NonAnimals.*;
 
 public class Main {
     public static void main(String[] args) {
+
+        Vines vines = new Vines(){ //this is an anonymous class
+            public String enveloped(Object obj) throws WrongInstanceException {
+                if (obj instanceof HomeOfMumi) {
+                    return "окутали весь " + ((HomeOfMumi) obj).getName();
+                } else throw new WrongInstanceException("The object is not a Roof.");
+            }
+        };
+        vines.setName("Лианы ");
+        Chimney chimney = new Chimney();
+        chimney.setName("печную трубу ");
+        Roof roof = new Roof();
+        roof.setName("крышу ");
+        System.out.print(vines.getName());
+        HomeOfMumi homeOfMumi = new HomeOfMumi();
+        homeOfMumi.setName("Муми-дом");
+        Carpet carpet = new Carpet();
+        carpet.setName("ковром ");
+        carpet.setDescription("пышным зеленым ");
+        try{
+            System.out.print(vines.sprouted(chimney));
+        } catch (WrongInstanceException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            System.out.print(", " + vines.braided(roof));
+        } catch (WrongInstanceException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            System.out.print("и " + vines.enveloped(homeOfMumi));
+        } catch (WrongInstanceException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(carpet.getDescription() + carpet.getName());
+
+
+
+
+
         Location outdoor = new OutDoor(EnumLocation.OUTDOOR.getName(), "A на ");
         Weather rain = new Rain(EnumWeather.RAIN.getName(), "под ");
         Mumitroll mumi = new Mumitroll("Муми-тролль ");
