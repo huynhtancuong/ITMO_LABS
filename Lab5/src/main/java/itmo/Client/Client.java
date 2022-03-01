@@ -1,32 +1,36 @@
 package itmo.Client;
 
 import itmo.Interface.Command;
-import itmo.Invoker.RemoteControl;
+import itmo.Invoker.CommandManager;
 import itmo.ConcreteCommand.*;
-
-import java.rmi.Remote;
 
 public class Client {
     public static void main(String[] args) {
-        RemoteControl remote = new RemoteControl();
+
         Command commandOff = new CommandOff();
         Command commandOn = new CommandOn();
+        new CommandManager(commandOn, commandOff);
+
+        System.out.println("Username is: " + System.getProperty("username"));
 
         //dong goi request lai thanh mot
-        int request = 0;
+        /*
+        String request = args[0];
         switch (request){
-            case 0:
+            case "Off":
             {
                 remote.setCommand(commandOff);
                 break;
             }
-            case 1:
+            case "On":
             {
                 remote.setCommand(commandOn);
                 break;
             }
         }
+        */
 
-        remote.run();
+
+        //remote.run();
     }
 }
