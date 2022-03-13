@@ -1,4 +1,6 @@
-package itmo.Data;
+package itmo.test;
+
+import itmo.Data.Ticket;
 
 import java.util.HashSet;
 

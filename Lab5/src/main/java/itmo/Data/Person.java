@@ -3,12 +3,20 @@ package itmo.Data;
 import itmo.Exceptions.DuplicatePassportID;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 
-public class Person {
+public class Person implements CSV {
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
     private Date birthday; //Поле не может быть null
+
+    public void setHeight(long height) {
+        this.height = height;
+    }
+
     private long height; //Значение поля должно быть больше 0
     private String passportID; //Строка не может быть пустой. Значение этого поля должно быть уникальным. Длина строки должна быть не меньше 10, Поле не может быть null
     private static HashSet<String> passportIDHashSet = new HashSet<String>();
@@ -28,19 +36,9 @@ public class Person {
     public Date getBirthday() {
         return birthday;
     }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
     public long getHeight() {
         return height;
     }
-
-    public void setHeight(long height) {
-        this.height = height;
-    }
-
     public String getPassportID() {
         return passportID;
     }
@@ -52,6 +50,30 @@ public class Person {
             this.passportID = passportID;
             passportIDHashSet.add(passportID);
          }
+    }
+
+    @Override
+    public String toString() {
+        String info = "";
+        info+= "PassportID = " + passportID;
+        info+= "\nHeight = " + height;
+        info+= "\nBirthday = " + birthday;
+        return info;
+    }
+
+    @Override
+    public int hashCode() {
+        return passportID.hashCode() + (int) height + birthday.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj instanceof Person) {
+            Person personObj = (Person) obj;
+            return passportID.equals(personObj.getPassportID()) && (height == personObj.getHeight()) && (birthday == personObj.getBirthday());
+        }
+        return false;
     }
 }
 

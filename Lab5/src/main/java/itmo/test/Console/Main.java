@@ -1,4 +1,4 @@
-package itmo.Console;
+package itmo.test.Console;
 
 import java.io.Console;
 

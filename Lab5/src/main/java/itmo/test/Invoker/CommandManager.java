@@ -1,6 +1,6 @@
-package itmo.Invoker;
+package itmo.test.Invoker;
 
-import itmo.Interface.Command;
+import itmo.Commands.Command;
 
 public class CommandManager {
     private Command command;

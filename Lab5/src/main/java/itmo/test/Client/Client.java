@@ -1,8 +1,9 @@
-package itmo.Client;
+package itmo.test.Client;
 
-import itmo.Interface.Command;
-import itmo.Invoker.CommandManager;
-import itmo.ConcreteCommand.*;
+import itmo.Commands.Command;
+import itmo.test.Invoker.CommandManager;
+import itmo.test.ConcreteCommand.CommandOff;
+import itmo.test.ConcreteCommand.CommandOn;
 
 public class Client {
     public static void main(String[] args) {

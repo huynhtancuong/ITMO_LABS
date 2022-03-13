@@ -1,6 +1,6 @@
-package itmo.ConcreteCommand;
+package itmo.test.ConcreteCommand;
 
-import itmo.Interface.Command;
+import itmo.Commands.Command;
 
 public class CommandOff implements Command {
 

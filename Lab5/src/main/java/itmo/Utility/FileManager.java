@@ -16,8 +16,26 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 
+// Task:
+// thêm biến môi trường
+// chuyển HashSet thành collection
+// thêm output message ra console trong try catch
+
+/*
+** Operates the file for saving/loading collection.
+ */
 public class FileManager {
     private static final String CSV_SEPARATOR = ",";
+    private String envVariable;
+
+    public FileManager(String envVariable) {
+        this.envVariable = envVariable;
+    }
+
+   /*
+   ** Writes collection to a file.
+   * @param collection Collection to write.
+    */
     public static void writeToCSV(HashSet<Ticket> tickets, String path_to_file) {
         try{
             //Specify the file name and path here
@@ -74,6 +92,7 @@ public class FileManager {
                 //if end of file reached, line would be null
                 line = br.readLine();
             }
+            return tickets;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (DuplicatePassportID e) {
@@ -81,7 +100,7 @@ public class FileManager {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return tickets;
+        return new HashSet<Ticket>();
     }
 
     private static Ticket createTicket(String[] metadata) throws ParseException, DuplicatePassportID {
@@ -97,7 +116,7 @@ public class FileManager {
         String passportID = metadata[9];
         Person person = new Person(birthday, height, passportID);
 
-        Ticket ticket = new Ticket(name, coordinates, price, type, person);
+        Ticket ticket = new Ticket(id, name, coordinates, price, type, person);
 
         return ticket;
     }

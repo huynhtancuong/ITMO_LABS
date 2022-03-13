@@ -1,8 +1,8 @@
 package itmo.Data;
 
-public class Coordinates {
+public class Coordinates implements CSV {
     private long x;
-    private long y;
+    private Long y = Long.valueOf(0);
 
     public String getCSVString(String CSV_SEPARATOR) {
         String CSV_String = Long.toString(x) + CSV_SEPARATOR + Long.toString(y);
@@ -28,4 +28,20 @@ public class Coordinates {
     public void setX(long x) {
         this.x = x;
     }
+
+    @Override
+    public int hashCode() {
+        return y.hashCode() + (int) x;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj instanceof Coordinates) {
+            Coordinates coordinatesObj = (Coordinates) obj;
+            return (x == coordinatesObj.getX()) && y.equals(coordinatesObj.getY());
+        }
+        return false;
+    }
+
 }

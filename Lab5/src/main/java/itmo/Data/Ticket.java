@@ -2,9 +2,7 @@ package itmo.Data;
 
 import java.time.LocalDate;
 
-public class Ticket {
-    private static Long max_id = Long.valueOf(0);
-
+public class Ticket implements CSV, Comparable<Ticket> {
     private Long id; //Поле не может быть null, Значение поля должно быть больше -1, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -12,6 +10,12 @@ public class Ticket {
     private Long price; //Поле не может быть null, Значение поля должно быть больше -1
     private TicketType type; //Поле может быть null
     private Person person; //Поле не может быть null
+
+    private static int currentId = 0;
+
+    public static int getCurrentId() {
+        return currentId++;
+    }
 
     public String getCSVString(String CSV_SEPARATOR) {
         return      id.toString()   +   CSV_SEPARATOR
@@ -50,24 +54,57 @@ public class Ticket {
         return person;
     }
     public Ticket(){}
-    public Ticket(String name, Coordinates coordinates, Long price, TicketType type, Person person) {
+    public Ticket(Long id, String name, Coordinates coordinates, Long price, TicketType type, Person person) {
+        this.id = id;
         this.name = name;
         this.coordinates = coordinates;
         this.price = price;
         this.type = type;
         this.person = person;
-        this.id = max_id++;
         this.creationDate = LocalDate.now();
     }
 
+    @Override
+    public int compareTo(Ticket ticketObj) {
+        return id.compareTo(ticketObj.getId());
+    }
 
+    @Override
+    public String toString() {
+        String info = "";
+        info += "Ticket №" + id;
+        info += " (created " + creationDate.toString() + ")";
+        info += "\nName: " + name;
+        info += "\nCoordinate: " + coordinates;
+        info += "\nPrice: " + price;
+        info += "\nType: " + type;
+        info += "\nPerson: " + person;
+        return info;
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode() + coordinates.hashCode() +  price.hashCode() + type.hashCode() +
+                person.hashCode() + creationDate.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj instanceof Ticket) {
+            Ticket ticketObj = (Ticket) obj;
+            return name.equals(ticketObj.getName()) && coordinates.equals(ticketObj.getCoordinates()) &&
+                    (price == ticketObj.getPrice()) && (type == ticketObj.getType()) &&
+                    (person == ticketObj.getPerson()) && (creationDate == ticketObj.getCreationDate());
+        }
+        return false;
+    }
 
     public static void main(String... args) {
         Coordinates coordinate = new Coordinates();
         TicketType ticketType = TicketType.CHEAP;
-        Ticket ticket1 = new Ticket("haha", coordinate, Long.valueOf(2), ticketType, new Person());
-        System.out.println(ticket1.id);
-        System.out.println(ticket1.creationDate);
+        Ticket ticket1 = new Ticket(Long.valueOf(1)," haha", coordinate, Long.valueOf(2), ticketType, new Person());
+        System.out.println(ticket1.toString());
     }
 
 }
