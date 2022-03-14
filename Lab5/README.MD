@@ -1,5 +1,7 @@
 
-# Факультет программной инженерии и компьютерной техники программирование
+# Факультет программной инженерии и компьютерной техники
+
+### Программирование
 
 #### Лабораторная работа №5
 
@@ -197,222 +199,222 @@ https://github.com/huynhtancuong/ITMO_LABS/tree/master/Lab5
 
 **Результат работы программы:**
 
->$help
-
-add {element} add new item to collection
-
-help display help on available commands
-
-clear clear the collection
-
-help display help on available commands
-
-exit exit program (without saving to file)
-
-add_if_max {element} add a new element if its value is less than that of the smallest
-
-show show all items of collection
-
-save save collection to file
-
-info show information about collection
-
-update <ID> {element} update the value of the collection element whose id is equal to the given
-
-remove_by_id <ID> remove item from collection by ID
-
-execute_script <file_name> execute script from specified file
-
-history show history of used commands
-
-remove_greater {element} remove all items from the collection that are greater than the given one
-
-remove_lower {element} remove all items from the collection that are less than the given one
-
-remove_all_by_person {element} remove all ticket of this person
-
-min_by_price display any object from the collection whose price field value is the minimum
-
-filter_by_price <Price> display elements whose price field value is greater than the specified one
-
->$show
-
-Collection is empty!
-
->$add
-
-Enter name:
-
->huynh
-
-Enter X:
-
->2
-
-Enter Y:
-
->2
-
-Enter price:
-
->150
-
-List of ticket types - VIP, USUAL, BUDGETARY, CHEAP
-
-Please enter ticket types:
-
->vip
-
-Enter Passport ID:
-
->this is a passport id
-
-Enter birthday (dd-MM-yyyy):
-
->08-06-2002
-
-Enter height:
-
->172
-
-Created new item successfully
-
-> $show
-
-Ticket №1 (created 2022-03-14)
-
-Name: huynh
-
-Coordinate:
-
--X = 2
-
--Y = 2
-
-Price: 150
-
-Type: VIP
-
-Person:
-
--PassportID = this is a passport id
-
--Height = 172
-
--Birthday = Sat Jun 08 00:00:00 MSD 2002
-
->$save
-
->$show
-
-Ticket №1 (created 2022-03-14)
-
-Name: huynh
-
-Coordinate:
-
--X = 2
-
--Y = 2
-
-Price: 150
-
-Type: VIP
-
-Person:
-
--PassportID = this is a passport id
-
--Height = 172
-
--Birthday = Sat Jun 08 00:00:00 MSD 2002
-
->$add
-
-Enter name:
-
->chau
-
-Enter X:
-
->1
-
-Enter Y:
-
->1
-
-Enter price:
-
->150
-
-List of ticket types - VIP, USUAL, BUDGETARY, CHEAP
-
-Please enter ticket types:
-
->vip
-
-Enter Passport ID:
-
->this is a passport id 2
-
-Enter birthday (dd-MM-yyyy):
-
->13-09-2002
-
-Enter height:
-
->156
-
-Created new item successfully
-
-$show
-
-Ticket №2 (created 2022-03-14)
-
-Name: chau
-
-Coordinate:
-
--X = 1
-
--Y = 1
-
-Price: 150
-
-Type: VIP
-
-Person:
-
--PassportID = this is a passport id 2
-
--Height = 156
-
--Birthday = Fri Sep 13 00:00:00 MSD 2002
-
-  
-  
-
-Ticket №1 (created 2022-03-14)
-
-Name: huynh
-
-Coordinate:
-
--X = 2
-
--Y = 2
-
-Price: 150
-
-Type: VIP
-
-Person:
-
--PassportID = this is a passport id
-
--Height = 172
-
--Birthday = Sat Jun 08 00:00:00 MSD 2002
+    >$help
+    
+    add {element} add new item to collection
+    
+    help display help on available commands
+    
+    clear clear the collection
+    
+    help display help on available commands
+    
+    exit exit program (without saving to file)
+    
+    add_if_max {element} add a new element if its value is less than that of the smallest
+    
+    show show all items of collection
+    
+    save save collection to file
+    
+    info show information about collection
+    
+    update <ID> {element} update the value of the collection element whose id is equal to the given
+    
+    remove_by_id <ID> remove item from collection by ID
+    
+    execute_script <file_name> execute script from specified file
+    
+    history show history of used commands
+    
+    remove_greater {element} remove all items from the collection that are greater than the given one
+    
+    remove_lower {element} remove all items from the collection that are less than the given one
+    
+    remove_all_by_person {element} remove all ticket of this person
+    
+    min_by_price display any object from the collection whose price field value is the minimum
+    
+    filter_by_price <Price> display elements whose price field value is greater than the specified one
+    
+    >$show
+    
+    Collection is empty!
+    
+    >$add
+    
+    Enter name:
+    
+    >huynh
+    
+    Enter X:
+    
+    >2
+    
+    Enter Y:
+    
+    >2
+    
+    Enter price:
+    
+    >150
+    
+    List of ticket types - VIP, USUAL, BUDGETARY, CHEAP
+    
+    Please enter ticket types:
+    
+    >vip
+    
+    Enter Passport ID:
+    
+    >this is a passport id
+    
+    Enter birthday (dd-MM-yyyy):
+    
+    >08-06-2002
+    
+    Enter height:
+    
+    >172
+    
+    Created new item successfully
+    
+    > $show
+    
+    Ticket №1 (created 2022-03-14)
+    
+    Name: huynh
+    
+    Coordinate:
+    
+    -X = 2
+    
+    -Y = 2
+    
+    Price: 150
+    
+    Type: VIP
+    
+    Person:
+    
+    -PassportID = this is a passport id
+    
+    -Height = 172
+    
+    -Birthday = Sat Jun 08 00:00:00 MSD 2002
+    
+    >$save
+    
+    >$show
+    
+    Ticket №1 (created 2022-03-14)
+    
+    Name: huynh
+    
+    Coordinate:
+    
+    -X = 2
+    
+    -Y = 2
+    
+    Price: 150
+    
+    Type: VIP
+    
+    Person:
+    
+    -PassportID = this is a passport id
+    
+    -Height = 172
+    
+    -Birthday = Sat Jun 08 00:00:00 MSD 2002
+    
+    >$add
+    
+    Enter name:
+    
+    >chau
+    
+    Enter X:
+    
+    >1
+    
+    Enter Y:
+    
+    >1
+    
+    Enter price:
+    
+    >150
+    
+    List of ticket types - VIP, USUAL, BUDGETARY, CHEAP
+    
+    Please enter ticket types:
+    
+    >vip
+    
+    Enter Passport ID:
+    
+    >this is a passport id 2
+    
+    Enter birthday (dd-MM-yyyy):
+    
+    >13-09-2002
+    
+    Enter height:
+    
+    >156
+    
+    Created new item successfully
+    
+    $show
+    
+    Ticket №2 (created 2022-03-14)
+    
+    Name: chau
+    
+    Coordinate:
+    
+    -X = 1
+    
+    -Y = 1
+    
+    Price: 150
+    
+    Type: VIP
+    
+    Person:
+    
+    -PassportID = this is a passport id 2
+    
+    -Height = 156
+    
+    -Birthday = Fri Sep 13 00:00:00 MSD 2002
+    
+      
+      
+    
+    Ticket №1 (created 2022-03-14)
+    
+    Name: huynh
+    
+    Coordinate:
+    
+    -X = 2
+    
+    -Y = 2
+    
+    Price: 150
+    
+    Type: VIP
+    
+    Person:
+    
+    -PassportID = this is a passport id
+    
+    -Height = 172
+    
+    -Birthday = Sat Jun 08 00:00:00 MSD 2002
 
 
 
