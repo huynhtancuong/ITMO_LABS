@@ -93,7 +93,34 @@
 **Описание хранимых в коллекции классов:**
 
 ```
-public class Ticket {
+```
+
+    public class Ticket {
+        private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+        private String name; //Поле не может быть null, Строка не может быть пустой
+        private Coordinates coordinates; //Поле не может быть null
+        private java.time.LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+        private Long price; //Поле не может быть null, Значение поля должно быть больше 0
+        private TicketType type; //Поле может быть null
+        private Person person; //Поле не может быть null
+    }
+    public class Coordinates {
+        private long x;
+        private long y;
+    }
+    public class Person {
+        private java.util.Date birthday; //Поле не может быть null
+        private long height; //Значение поля должно быть больше 0
+        private String passportID; //Строка не может быть пустой, Значение этого поля должно быть уникальным, Длина строки должна быть не меньше 10, Поле не может быть null
+    }
+    public enum TicketType {
+        VIP,
+        USUAL,
+        BUDGETARY,
+        CHEAP;
+    }
+
+```
 ```
 
 **Отчёт по работе должен содержать:**
