@@ -32,6 +32,7 @@ public class App {
             CollectionManager collectionManager = new CollectionManager(fileManager);
             CommandManager commandManager = new CommandManager();
 
+            commandManager.setAddCommand(new AddCommand(collectionManager, ticketAsker));
             commandManager.setHelpCommand(new HelpCommand());
             commandManager.setClearCommand(new ClearCommand(collectionManager));
             commandManager.setHelpCommand(new HelpCommand());

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"itmo.Commands"},{"l":"itmo.Data"},{"l":"itmo.Exceptions"},{"l":"itmo.run"},{"l":"itmo.Utility"}];updateSearchResults();
