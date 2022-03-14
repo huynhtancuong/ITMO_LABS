@@ -1,5 +1,7 @@
 package itmo.Commands;
 
 public interface Command {
-    public void execute();
+    String getDescription();
+    String getName();
+    boolean execute(String argument);
 }

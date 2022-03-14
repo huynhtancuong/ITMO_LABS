@@ -11,8 +11,8 @@ public class Test {
 //        String a = ticketAsker.askPassportID();
 //        System.out.println(a);
 //        System.out.println(ticketAsker.askBirthday());
-        Person person = ticketAsker.askPerson();
-        Person person1 = ticketAsker.askPerson();
+        Person person = ticketAsker.askPerson(false);
+        Person person1 = ticketAsker.askPerson(false);
         System.out.println(person);
         System.out.println(person1);
     }

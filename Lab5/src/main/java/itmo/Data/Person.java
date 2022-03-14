@@ -1,6 +1,7 @@
 package itmo.Data;
 
 import itmo.Exceptions.DuplicatePassportID;
+import itmo.Utility.Console;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +31,7 @@ public class Person implements CSV {
     public Person(Date birthday, long height, String passportID) throws DuplicatePassportID{
         this.birthday = birthday;
         this.height = height;
-        setPassportID(passportID);
+        setPassportID(passportID, true);
     }
 
     public Date getBirthday() {
@@ -43,8 +44,8 @@ public class Person implements CSV {
         return passportID;
     }
 
-    public void setPassportID(String passportID) throws DuplicatePassportID {
-        if (passportIDHashSet.contains(passportID))
+    public void setPassportID(String passportID, boolean bypassDuplicatedPassportID) throws DuplicatePassportID {
+        if (passportIDHashSet.contains(passportID) && bypassDuplicatedPassportID==false)
             throw new DuplicatePassportID("PassportID must be unique!");
         else {
             this.passportID = passportID;
@@ -55,9 +56,9 @@ public class Person implements CSV {
     @Override
     public String toString() {
         String info = "";
-        info+= "PassportID = " + passportID;
-        info+= "\nHeight = " + height;
-        info+= "\nBirthday = " + birthday;
+        info+= "\n-PassportID = " + passportID;
+        info+= "\n-Height = " + height;
+        info+= "\n-Birthday = " + birthday;
         return info;
     }
 
@@ -71,7 +72,10 @@ public class Person implements CSV {
         if (this == obj) return true;
         if (obj instanceof Person) {
             Person personObj = (Person) obj;
-            return passportID.equals(personObj.getPassportID()) && (height == personObj.getHeight()) && (birthday == personObj.getBirthday());
+            boolean birthdayCondition = false;
+            if (birthday.compareTo(personObj.getBirthday()) == 0) {birthdayCondition = true;}
+            boolean condition =  passportID.equals(personObj.getPassportID()) && (height == personObj.getHeight()) && birthdayCondition;
+            return condition;
         }
         return false;
     }

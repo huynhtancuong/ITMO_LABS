@@ -13,8 +13,10 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 
 // Task:
 // thêm biến môi trường
@@ -36,71 +38,108 @@ public class FileManager {
    ** Writes collection to a file.
    * @param collection Collection to write.
     */
-    public static void writeToCSV(HashSet<Ticket> tickets, String path_to_file) {
-        try{
-            //Specify the file name and path here
-            File file =new File(path_to_file);
+/*
+    public void writeCollection(Collection<?> collection) {
+        if (System.getenv(envVariable) != null) {
+            try {
+                File file = new File(System.getenv(envVariable));
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                FileWriter fw = new FileWriter(file, false);
+                BufferedWriter bw = new BufferedWriter(fw);
+                Iterator tickets = (Iterator) collection.iterator();
 
-            /* This logic is to create the file if the
-             * file is not already present
-             */
-            if(!file.exists()){
-                file.createNewFile();
+                for (Ticket ticket : tickets)
+                {
+                    StringBuffer oneLine = new StringBuffer();
+                    oneLine.append(ticket.getCSVString(CSV_SEPARATOR));
+                    bw.write(oneLine.toString());
+                    bw.newLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            //Here true is to append the content to file
-            FileWriter fw = new FileWriter(file,false);
-            //BufferedWriter writer give better performance
-            //BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path_to_file), "UTF-8"));
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            for (Ticket ticket : tickets)
-            {
-                StringBuffer oneLine = new StringBuffer();
-                oneLine.append(ticket.getCSVString(CSV_SEPARATOR));
-                bw.write(oneLine.toString());
-                bw.newLine();
-            }
-            bw.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    }
+*/
+    public void writeCollection(HashSet<Ticket> tickets) {
+        String path_to_file = System.getenv(envVariable);
+        if (path_to_file!=null) {
+            try {
+                //Specify the file name and path here
+                File file = new File(path_to_file);
 
+                /* This logic is to create the file if the
+                 * file is not already present
+                 */
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+
+                //Here true is to append the content to file
+                FileWriter fw = new FileWriter(file, false);
+                //BufferedWriter writer give better performance
+                //BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path_to_file), "UTF-8"));
+                BufferedWriter bw = new BufferedWriter(fw);
+
+                for (Ticket ticket : tickets) {
+                    StringBuffer oneLine = new StringBuffer();
+                    oneLine.append(ticket.getCSVString(CSV_SEPARATOR));
+                    bw.write(oneLine.toString());
+                    bw.newLine();
+                }
+                bw.close();
+            } catch (FileNotFoundException e) {
+                Console.printError("File not found!");
+                System.exit(0);
+            } catch (UnsupportedEncodingException e) {
+                Console.printError("Unsupported Encoding");
+                System.exit(0);
+            } catch (IOException e) {
+                Console.printError("Don't have permission to write file");
+                System.exit(0);
+            }
+        }
     }
 
-    public static HashSet<Ticket> readFromCSV(String fileName) {
+    public HashSet<Ticket> readCollection() {
         HashSet<Ticket> tickets = new HashSet<Ticket>();
-        Path pathToFile = Paths.get(fileName);
+        Path pathToFile = null;
+        try {
+            pathToFile = Paths.get(System.getenv(envVariable));
+        } catch (NullPointerException e) {
+            Console.printError("Can not file environment variable");
+        }
 
-        //create an instance of BufferdReader
-        //using try with resource
-        try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.UTF_8)) {
-            //read the first line from the text file
-            String line = br.readLine();
-            //loop until all lines are read
-            while (line!=null) {
-                //use string.split to lead a string array with the value from each line of the file
-                String[] attributes = line.split(CSV_SEPARATOR);
-                Ticket ticket = createTicket(attributes);
-                //add the Ticket to hashset
-                tickets.add(ticket);
-                //read the next line before looping
-                //if end of file reached, line would be null
-                line = br.readLine();
+        if (pathToFile!=null) {
+            //create an instance of BufferdReader
+            //using try with resource
+            try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.UTF_8)) {
+                //read the first line from the text file
+                String line = br.readLine();
+                //loop until all lines are read
+                while (line != null) {
+                    //use string.split to lead a string array with the value from each line of the file
+                    String[] attributes = line.split(CSV_SEPARATOR);
+                    Ticket ticket = createTicket(attributes);
+                    //add the Ticket to hashset
+                    tickets.add(ticket);
+                    //read the next line before looping
+                    //if end of file reached, line would be null
+                    line = br.readLine();
+                }
+                return tickets;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (DuplicatePassportID e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-            return tickets;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (DuplicatePassportID e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
         return new HashSet<Ticket>();
+
     }
 
     private static Ticket createTicket(String[] metadata) throws ParseException, DuplicatePassportID {
@@ -116,7 +155,7 @@ public class FileManager {
         String passportID = metadata[9];
         Person person = new Person(birthday, height, passportID);
 
-        Ticket ticket = new Ticket(id, name, coordinates, price, type, person);
+        Ticket ticket = new Ticket(id, name, coordinates, price, type, person, creationDate);
 
         return ticket;
     }
@@ -152,7 +191,8 @@ public class FileManager {
 
 
          */
-        tickets = readFromCSV("data.csv");
+        FileManager fileManager = new FileManager("HEHE");
+        tickets = fileManager.readCollection();
         for (Ticket ticket : tickets) {
             System.out.println(ticket.getCSVString(","));
         }

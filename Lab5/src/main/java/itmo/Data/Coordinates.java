@@ -5,7 +5,7 @@ public class Coordinates implements CSV {
     private Long y = Long.valueOf(0);
 
     public String getCSVString(String CSV_SEPARATOR) {
-        String CSV_String = Long.toString(x) + CSV_SEPARATOR + Long.toString(y);
+        String CSV_String = x + CSV_SEPARATOR + y;
         return CSV_String;
     }
     public Coordinates(){}
@@ -42,6 +42,11 @@ public class Coordinates implements CSV {
             return (x == coordinatesObj.getX()) && y.equals(coordinatesObj.getY());
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "\n-X = " + getX() + "\n-Y = " + getY();
     }
 
 }

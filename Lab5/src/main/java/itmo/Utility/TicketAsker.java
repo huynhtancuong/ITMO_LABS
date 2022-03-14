@@ -63,13 +63,13 @@ public class TicketAsker {
                 if (name.equals("")) throw new MustBeNotEmptyException();
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Имя не распознано!");
+                Console.printError("Name is not recognized");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (MustBeNotEmptyException exception) {
                 Console.printError("Name must not be empty");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (IllegalStateException exception) {
-                Console.printError("Непредвиденная ошибка!");
+                Console.printError("Unexpected error");
                 System.exit(0);
             }
         }
@@ -78,9 +78,9 @@ public class TicketAsker {
 
 
     /**
-     * Asks a user the marine's X coordinate.
+     * Asks a user the ticket's X coordinate.
      *
-     * @return Marine's X coordinate.
+     * @return Ticket's X coordinate.
      * @throws IncorrectInputInScriptException If script is running and something goes wrong.
      */
     public long askX() throws IncorrectInputInScriptException {
@@ -95,13 +95,13 @@ public class TicketAsker {
                 x = Long.parseLong(strX);
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Координата X не распознана!");
+                Console.printError("X coordinate not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Console.printError("Координата X должна быть представлена числом!");
+                Console.printError("The X coordinate must be represented by a number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
-                Console.printError("Непредвиденная ошибка!");
+                Console.printError("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -109,9 +109,9 @@ public class TicketAsker {
     }
 
     /**
-     * Asks a user the marine's Y coordinate.
+     * Asks a user the ticket's Y coordinate.
      *
-     * @return Marine's Y coordinate.
+     * @return Ticket's Y coordinate.
      * @throws IncorrectInputInScriptException If script is running and something goes wrong.
      */
     public Long askY() throws IncorrectInputInScriptException {
@@ -126,13 +126,13 @@ public class TicketAsker {
                 y = Long.parseLong(strY);
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Координата Y не распознана!");
+                Console.printError("Y coordinate not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Console.printError("Координата Y должна быть представлена числом!");
+                Console.printError("The Y coordinate must be represented by a number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
-                Console.printError("Непредвиденная ошибка!");
+                Console.printError("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -140,9 +140,9 @@ public class TicketAsker {
     }
 
     /**
-     * Asks a user the marine's coordinates.
+     * Asks a user the ticket's coordinates.
      *
-     * @return Marine's coordinates.
+     * @return Ticket's coordinates.
      * @throws IncorrectInputInScriptException If script is running and something goes wrong.
      */
     public Coordinates askCoordinates() throws IncorrectInputInScriptException {
@@ -155,9 +155,9 @@ public class TicketAsker {
 
 
     /**
-     * Asks a user the marine's price.
+     * Asks a user the ticket's price.
      *
-     * @return Marine's price.
+     * @return Ticket's price.
      * @throws IncorrectInputInScriptException If script is running and something goes wrong.
      */
     public Long askPrice() throws IncorrectInputInScriptException {
@@ -173,16 +173,16 @@ public class TicketAsker {
                 if (price < PRICE_DOWN_LIMIT) throw new NotInDeclaredLimitsException();
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Здоровье не распознано!");
+                Console.printError("Price not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NotInDeclaredLimitsException exception) {
-                Console.printError("Здоровье должно быть больше нуля!");
+                Console.printError("Price must be greater than zero!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Console.printError("Здоровье должно быть представлено числом!");
+                Console.printError("Price must be represented by a number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
-                Console.printError("Непредвиденная ошибка!");
+                Console.printError("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -202,16 +202,16 @@ public class TicketAsker {
                 if (height < HEIGHT_DOWN_LIMIT) throw new NotInDeclaredLimitsException();
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Здоровье не распознано!");
+                Console.printError("Height not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NotInDeclaredLimitsException exception) {
-                Console.printError("Здоровье должно быть больше нуля!");
+                Console.printError("Height must be greater than zero!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Console.printError("Здоровье должно быть представлено числом!");
+                Console.printError("Height must be represented by a number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
-                Console.printError("Непредвиденная ошибка!");
+                Console.printError("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -219,9 +219,9 @@ public class TicketAsker {
     }
 
     /**
-     * Asks a user the marine's weapon type.
+     * Asks a user the ticket's  type.
      *
-     * @return Marine's weapon type.
+     * @return Ticket's  type.
      * @throws IncorrectInputInScriptException If script is running and something goes wrong.
      */
     public TicketType askTicketType() throws IncorrectInputInScriptException {
@@ -229,21 +229,21 @@ public class TicketAsker {
         TicketType ticketType;
         while (true) {
             try {
-                Console.println("Список оружия дальнего боя - " + TicketType.nameList());
-                Console.println("Введите оружие дальнего боя:");
+                Console.println("List of ticket types - " + TicketType.nameList());
+                Console.println("Please enter ticket types:");
                 Console.print(App.PS2);
                 strTicketType = userScanner.nextLine().trim();
                 if (fileMode) Console.println(strTicketType);
                 ticketType = TicketType.valueOf(strTicketType.toUpperCase());
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Оружие не распознано!");
+                Console.printError("Ticket type is not recognized");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (IllegalArgumentException exception) {
-                Console.printError("Оружия нет в списке!");
+                Console.printError("Ticket type is not listed");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (IllegalStateException exception) {
-                Console.printError("Непредвиденная ошибка!");
+                Console.printError("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -254,7 +254,7 @@ public class TicketAsker {
         String strPassportID;
         while (true) {
             try {
-                Console.println("Enter PassportID: ");
+                Console.println("Enter Passport ID: ");
                 Console.print(App.PS2);
                 strPassportID = userScanner.nextLine().trim();
                 if (fileMode) Console.println(strPassportID);
@@ -262,13 +262,13 @@ public class TicketAsker {
                 if (strPassportID.length() < PASSPORTID_DOWN_LIMIT) throw new NotInDeclaredLimitsException();
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Имя не распознано!");
+                Console.printError("Passport ID not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (MustBeNotEmptyException exception) {
-                Console.printError("Имя не может быть пустым!");
+                Console.printError("Passport ID cannot be empty!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (IllegalStateException exception) {
-                Console.printError("Непредвиденная ошибка!");
+                Console.printError("Unexpected error!");
                 System.exit(0);
             } catch (NotInDeclaredLimitsException e) {
                 Console.printError("Length of Passport ID must be greater than " + PASSPORTID_DOWN_LIMIT);
@@ -298,7 +298,40 @@ public class TicketAsker {
         return birthday;
     }
 
-    public Person askPerson() throws IncorrectInputInScriptException {
+
+    /**
+     * Asks a user a question.
+     * @return Answer (true/false).
+     * @param question A question.
+     * @throws IncorrectInputInScriptException If script is running and something goes wrong.
+     */
+    public boolean askQuestion(String question) throws IncorrectInputInScriptException {
+        String finalQuestion = question + " (+/-):";
+        String answer;
+        while (true) {
+            try {
+                Console.println(finalQuestion);
+                Console.print(App.PS2);
+                answer = userScanner.nextLine().trim();
+                if (fileMode) Console.println(answer);
+                if (!answer.equals("+") && !answer.equals("-")) throw new NotInDeclaredLimitsException();
+                break;
+            } catch (NoSuchElementException exception) {
+                Console.printError("Answer is not recognized ");
+                if (fileMode) throw new IncorrectInputInScriptException();
+            } catch (NotInDeclaredLimitsException exception) {
+                Console.printError("Answer must be '+' or '-'.");
+                if (fileMode) throw new IncorrectInputInScriptException();
+            } catch (IllegalStateException exception) {
+                Console.printError("Unexpected error!");
+                System.exit(0);
+            }
+        }
+        return (answer.equals("+")) ? true : false;
+    }
+
+
+    public Person askPerson(boolean bypassDuplicatedPassportID) throws IncorrectInputInScriptException {
         String passportID;
         Date birthday;
         long height;
@@ -306,7 +339,7 @@ public class TicketAsker {
         while(true) {
             try {
                 passportID = askPassportID();
-                person.setPassportID(passportID);
+                person.setPassportID(passportID, bypassDuplicatedPassportID);
                 birthday = askBirthday();
                 person.setBirthday(birthday);
                 height = askHeight();
