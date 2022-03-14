@@ -10,6 +10,9 @@ import itmo.Utility.Console;
 public class SaveCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * @param collectionManager Instance of Collection Manager
+     */
     public SaveCommand(CollectionManager collectionManager) {
         super("save", "save collection to file");
         this.collectionManager = collectionManager;

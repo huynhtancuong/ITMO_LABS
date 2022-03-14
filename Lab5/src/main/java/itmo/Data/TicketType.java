@@ -1,9 +1,24 @@
 package itmo.Data;
 
+/**
+ * Creating a new type of object called `TicketType`.
+ */
 public enum TicketType {
+    /**
+     * VIP Ticket Type
+     */
     VIP,
+    /**
+     * Usual ticket type
+     */
     USUAL,
+    /**
+     * budgetary ticket type
+     */
     BUDGETARY,
+    /**
+     * cheap ticket type
+     */
     CHEAP;
 
     /**

@@ -15,6 +15,10 @@ public class RemoveGreaterCommand extends AbstractCommand {
     private CollectionManager collectionManager;
     private TicketAsker ticketAsker;
 
+    /**
+     * @param collectionManager Instance of Collection Manager
+     * @param ticketAsker Instance of TicketAkser
+     */
     public RemoveGreaterCommand(CollectionManager collectionManager, TicketAsker ticketAsker) {
         super("remove_greater {element}", "remove all items from the collection that are greater than the given one");
         this.collectionManager = collectionManager;

@@ -8,6 +8,9 @@ import itmo.Utility.Console;
  */
 public class HelpCommand extends AbstractCommand {
 
+    /**
+     * Constructor
+     */
     public HelpCommand() {
         super("help", "display help on available commands");
     }

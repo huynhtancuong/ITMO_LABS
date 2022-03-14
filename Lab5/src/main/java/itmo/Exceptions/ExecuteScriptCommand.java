@@ -8,6 +8,9 @@ import itmo.Utility.Console;
  */
 public class ExecuteScriptCommand extends AbstractCommand {
 
+    /**
+     * Constructor
+     */
     public ExecuteScriptCommand() {
         super("execute_script <file_name>", "execute script from specified file");
     }

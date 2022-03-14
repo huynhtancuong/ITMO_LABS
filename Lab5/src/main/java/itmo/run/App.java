@@ -6,10 +6,23 @@ import itmo.Utility.*;
 
 import java.util.Scanner;
 
+/**
+ * Class which create all instance and run the program
+ */
 public class App {
+    /**
+     * Symbol for program
+     */
     public static String PS1 = "$";
+    /**
+     * Another symbol for program
+     */
     public static String PS2 = ">";
 
+    /**
+     * entry point for the program
+     * @param args argument passed by JVM
+     */
     public static void main(String[] args) {
         try (Scanner userScanner = new Scanner(System.in)) {
             final String envVariable = "HEHE";

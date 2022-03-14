@@ -15,42 +15,75 @@ import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * TicketAsker class is a class that asks a user the ticket's name, coordinates, price, type, passport ID, birthday and
+ * height
+ */
 public class TicketAsker {
     //Some data validation here
-    private int HEIGHT_DOWN_LIMIT = 0;
-    private int PASSPORTID_DOWN_LIMIT = 10;
-    private int PRICE_DOWN_LIMIT = 0;
-    private String DATE_PATTERN = "dd-MM-yyyy";
+    private final int HEIGHT_DOWN_LIMIT = 0;
+    private final int PASSPORTID_DOWN_LIMIT = 10;
+    private final int PRICE_DOWN_LIMIT = 0;
+    private final String DATE_PATTERN = "dd-MM-yyyy";
 
+    /**
+     * Just a Scanner
+     */
+    //
     private Scanner userScanner;
+    /**
+     * Just a file Mode
+     */
     private boolean fileMode;
-    private SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN);
+    /**
+     * Just a date formatter
+     */
+    private final SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN);
 
+    /**
+     * @param userScanner Scanner
+     */
     public TicketAsker(Scanner userScanner) {
         this.userScanner = userScanner;
         fileMode = false;
     }
 
+    /**
+     * @param userScanner Scanner
+     */
     //Sets a scanner to scan user input
     public void setUserScanner(Scanner userScanner) {
         this.userScanner = userScanner;
     }
 
+    /**
+     * @return Scanner
+     */
     // Return Scanner, which uses for user input
     public Scanner getUserScanner() {
         return userScanner;
     }
 
+    /**
+     * Setter
+     */
     // Set ticket asker mode to "file mode"
     public void setFileMode() {
         fileMode = true;
     }
 
+    /**
+     * Setter
+     */
     // Set ticket asker mode to "User mode"
     public void setUserMode() {
         fileMode = false;
     }
 
+    /**
+     * @return a name
+     * @throws IncorrectInputInScriptException an exception
+     */
     // Ask a user the ticket name
     public String askName() throws IncorrectInputInScriptException {
         String name;
@@ -189,6 +222,14 @@ public class TicketAsker {
         return price;
     }
 
+    /**
+     * The function asks the user to enter a height, and then checks if the height is in the declared limits. If it is, the
+     * function returns the height as a Long. If it isn't, the function prints an error message and asks the user to enter
+     * the height again
+     *
+     * @return The height.
+     * @throws IncorrectInputInScriptException an exception
+     */
     public Long askHeight() throws IncorrectInputInScriptException {
         String strHeight;
         Long height;
@@ -250,6 +291,12 @@ public class TicketAsker {
         return ticketType;
     }
 
+    /**
+     * Ask for a passport ID
+     *
+     * @return String
+     * @throws IncorrectInputInScriptException an exception
+     */
     public String askPassportID() throws IncorrectInputInScriptException {
         String strPassportID;
         while (true) {
@@ -277,6 +324,12 @@ public class TicketAsker {
         return strPassportID;
     }
 
+    /**
+     * Ask the user to enter a birthday and return it
+     *
+     * @return birthday.
+     * @throws IncorrectInputInScriptException an exception
+     */
     public Date askBirthday() throws IncorrectInputInScriptException {
         String strBirthday;
         Date birthday;
@@ -327,10 +380,15 @@ public class TicketAsker {
                 System.exit(0);
             }
         }
-        return (answer.equals("+")) ? true : false;
+        return answer.equals("+");
     }
 
 
+    /**
+     * @param bypassDuplicatedPassportID boolean condition
+     * @return Person
+     * @throws IncorrectInputInScriptException an exception
+     */
     public Person askPerson(boolean bypassDuplicatedPassportID) throws IncorrectInputInScriptException {
         String passportID;
         Date birthday;

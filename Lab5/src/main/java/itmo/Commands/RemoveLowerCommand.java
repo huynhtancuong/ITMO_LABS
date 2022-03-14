@@ -16,6 +16,10 @@ public class RemoveLowerCommand extends AbstractCommand {
     private CollectionManager collectionManager;
     private TicketAsker ticketAsker;
 
+    /**
+     * @param collectionManager Instance of Collection Manager
+     * @param ticketAsker Instance of TicketAkser
+     */
     public RemoveLowerCommand(CollectionManager collectionManager, TicketAsker ticketAsker) {
         super("remove_lower {element}", "remove all items from the collection that are less than the given one");
 

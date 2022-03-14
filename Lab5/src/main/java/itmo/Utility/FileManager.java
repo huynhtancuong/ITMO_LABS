@@ -18,18 +18,17 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 
-// Task:
-// thêm biến môi trường
-// chuyển HashSet thành collection
-// thêm output message ra console trong try catch
 
-/*
-** Operates the file for saving/loading collection.
+/**
+ * This class is responsible for reading and writing to a file
  */
 public class FileManager {
     private static final String CSV_SEPARATOR = ",";
     private String envVariable;
 
+    /**
+     * @param envVariable environment variable
+     */
     public FileManager(String envVariable) {
         this.envVariable = envVariable;
     }
@@ -63,6 +62,11 @@ public class FileManager {
         }
     }
 */
+    /**
+     * Write a collection of tickets to a file
+     *
+     * @param tickets The collection of tickets to write to the file.
+     */
     public void writeCollection(HashSet<Ticket> tickets) {
         String path_to_file = System.getenv(envVariable);
         if (path_to_file!=null) {
@@ -103,6 +107,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Reads the file and creates a collection of tickets
+     *
+     * @return A HashSet of Tickets.
+     */
     public HashSet<Ticket> readCollection() {
         HashSet<Ticket> tickets = new HashSet<Ticket>();
         Path pathToFile = null;
@@ -161,6 +170,10 @@ public class FileManager {
     }
 
 
+    /**
+     * It writes the collection of tickets to a CSV file.
+     * @param args arguments
+     */
     public static void main(String... args)
     {
         HashSet<Ticket> tickets = new HashSet<Ticket>();

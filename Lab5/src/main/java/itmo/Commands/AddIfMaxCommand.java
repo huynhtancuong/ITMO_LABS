@@ -14,6 +14,10 @@ public class AddIfMaxCommand extends AbstractCommand {
     private CollectionManager collectionManager;
     private TicketAsker ticketAsker;
 
+    /**
+     * @param collectionManager Collection Manager Class which manage collection
+     * @param ticketAsker Ticket Asker which responsible for asking input data
+     */
     public AddIfMaxCommand(CollectionManager collectionManager, TicketAsker ticketAsker) {
         super("add_if_max {element}", "add a new element if its value is less than that of the smallest");
         this.collectionManager = collectionManager;

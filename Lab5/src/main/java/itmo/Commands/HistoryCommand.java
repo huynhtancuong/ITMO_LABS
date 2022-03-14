@@ -8,6 +8,9 @@ import itmo.Utility.Console;
  */
 public class HistoryCommand extends AbstractCommand {
 
+    /**
+     * Constructor
+     */
     public HistoryCommand() {
         super("history", "show history of used commands");
     }

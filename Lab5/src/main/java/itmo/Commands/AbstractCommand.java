@@ -6,7 +6,10 @@ package itmo.Commands;
 public abstract class AbstractCommand implements Command {
     private String name;
     private String description;
-
+    /**
+     * @param name name of command
+     * @param description description of command
+     */
     public AbstractCommand(String name, String description) {
         this.name = name;
         this.description = description;

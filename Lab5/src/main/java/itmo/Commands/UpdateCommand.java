@@ -20,6 +20,10 @@ public class UpdateCommand extends AbstractCommand {
     private CollectionManager collectionManager;
     private TicketAsker ticketAsker;
 
+    /**
+     * @param collectionManager collection Manager
+     * @param ticketAsker ticket Asker
+     */
     public UpdateCommand(CollectionManager collectionManager, TicketAsker ticketAsker) {
         super("update <ID> {element}", "update the value of the collection element whose id is equal to the given");
         this.collectionManager = collectionManager;

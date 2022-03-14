@@ -8,6 +8,9 @@ import itmo.Utility.Console;
  */
 public class ExitCommand extends AbstractCommand {
 
+    /**
+     * Constructor
+     */
     public ExitCommand() {
         super("exit", "exit program (without saving to file)");
     }

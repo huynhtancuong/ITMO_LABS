@@ -13,6 +13,10 @@ import java.time.LocalDateTime;
 public class InfoCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * Constructor
+     * @param collectionManager Instance of Collection manager
+     */
     public InfoCommand(CollectionManager collectionManager) {
         super("info", "show information about collection");
         this.collectionManager = collectionManager;

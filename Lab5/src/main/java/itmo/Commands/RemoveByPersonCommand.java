@@ -11,12 +11,16 @@ import itmo.Utility.Console;
 import itmo.Utility.TicketAsker;
 
 /**
- * Command 'remove_greater'. Removes elements greater than user entered.
+ * Command 'remove_by_person'. Removes elements greater than user entered.
  */
 public class RemoveByPersonCommand extends AbstractCommand {
     private CollectionManager collectionManager;
     private TicketAsker ticketAsker;
 
+    /**
+     * @param collectionManager instance of Collection Manager
+     * @param ticketAsker instance of ticketAsker
+     */
     public RemoveByPersonCommand(CollectionManager collectionManager, TicketAsker ticketAsker) {
         super("remove_all_by_person {element}", "remove all ticket of this person");
         this.collectionManager = collectionManager;

@@ -11,6 +11,10 @@ import itmo.Utility.Console;
 public class MinByPriceCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * Constructor
+     * @param collectionManager instance of CollectionManager
+     */
     public MinByPriceCommand(CollectionManager collectionManager) {
         super("min_by_price", "display any object from the collection whose price field value is the minimum");
         this.collectionManager = collectionManager;

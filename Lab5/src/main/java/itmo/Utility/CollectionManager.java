@@ -15,6 +15,9 @@ public class CollectionManager {
     private LocalDateTime lastSaveTime;
     private FileManager fileManager;
 
+    /**
+     * @param fileManager File Manager class for managing the file
+     */
     public CollectionManager(FileManager fileManager) {
         this.lastInitTime = null;
         this.lastSaveTime = null;
@@ -92,6 +95,9 @@ public class CollectionManager {
         return null;
     }
 
+    /**
+     * @return A ticket whose price is the greatest
+     */
     public Ticket getGreatestValue() {
         Ticket max = null;
         long max_price = -1;
@@ -111,6 +117,10 @@ public class CollectionManager {
         return null;
     }
 
+    /**
+     * @param personToFind A person who's value will be found.
+     * @return A ticket by his value or null if person isn't found.
+     */
     public Ticket getByPerson(Person personToFind) {
         for (Ticket ticket: ticketsCollection) {
            if (ticket.getPerson().equals(personToFind)) return ticket;

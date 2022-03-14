@@ -13,6 +13,10 @@ import itmo.Utility.Console;
 public class RemoveByIdCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * Constructor
+     * @param collectionManager instance of Collection Manager
+     */
     public RemoveByIdCommand(CollectionManager collectionManager) {
         super("remove_by_id <ID>", "remove item from collection by ID");
         this.collectionManager = collectionManager;

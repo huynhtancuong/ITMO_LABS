@@ -10,18 +10,29 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * A class for display text on console
+ */
 public class Console {
     private CommandManager commandManager;
     private Scanner userScanner;
     private TicketAsker ticketAsker;
     private List<String> scriptStack = new ArrayList<>();
 
+    /**
+     * @param commandManager Instance of CommandManager Class
+     * @param scanner Instance of Scanner class
+     * @param ticketAsker Instance of TicketAsker class
+     */
     public Console(CommandManager commandManager, Scanner scanner, TicketAsker ticketAsker) {
         this.commandManager = commandManager;
         this.userScanner = scanner;
         this.ticketAsker = ticketAsker;
     }
 
+    /**
+     * Start Interactive Mode with user input
+     */
     public void interactiveMode() {
         String[] userCommand = {"", ""};
         int commandStatus;
@@ -161,15 +172,32 @@ public class Console {
         }
         return 0;
     }
+
+    /**
+     * @param toOut Object to print out
+     */
     public static void print(Object toOut) {
         System.out.print(toOut);
     }
+
+    /**
+     * @param toOut Object to be printed out
+     */
     public static void println(Object toOut) {
         System.out.println(toOut);
     }
+
+    /**
+     * @param toOut Object to be printed out
+     */
     public static void printError(Object toOut) {
         System.out.println("Error: " +  toOut);
     }
+
+    /**
+     * @param toOut1 Object to be printed out on the left
+     * @param toOut2 Object to be printed out on the right
+     */
     public static void printTable(Object toOut1, Object toOut2) {
         System.out.printf("%-37s%-1s%n", toOut1, toOut2);
     }

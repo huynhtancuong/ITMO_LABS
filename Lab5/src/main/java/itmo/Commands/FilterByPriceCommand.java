@@ -11,6 +11,10 @@ import itmo.Utility.Console;
 public class FilterByPriceCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * Constructor
+     * @param collectionManager instance of CollectionManager
+     */
     public FilterByPriceCommand(CollectionManager collectionManager) {
         super("filter_by_price <Price>", "display elements whose price field value is greater than the specified one");
         this.collectionManager = collectionManager;

@@ -10,6 +10,10 @@ import itmo.Utility.Console;
 public class ClearCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * Constructor for Clear Command
+     * @param collectionManager Collection Manager Class which manage collection
+     */
     public ClearCommand(CollectionManager collectionManager) {
         super("clear", "clear the collection");
         this.collectionManager = collectionManager;

@@ -15,6 +15,11 @@ public class AddCommand extends AbstractCommand {
     private CollectionManager collectionManager;
     private TicketAsker ticketAsker;
 
+    /**
+     * Constructor
+     * @param collectionManager Collection Manager Class which manage collection
+     * @param ticketAsker Ticket Asker which responsible for asking input data
+     */
     public AddCommand(CollectionManager collectionManager, TicketAsker ticketAsker) {
         super("add {element}", "add new item to collection");
         this.collectionManager = collectionManager;

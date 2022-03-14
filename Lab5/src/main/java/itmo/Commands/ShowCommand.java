@@ -10,6 +10,10 @@ import itmo.Utility.Console;
 public class ShowCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * Constructor
+     * @param collectionManager Instance of Collection Manager
+     */
     public ShowCommand(CollectionManager collectionManager) {
         super("show", "show all items of collection");
         this.collectionManager = collectionManager;
