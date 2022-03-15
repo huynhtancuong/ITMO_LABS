@@ -24,7 +24,21 @@ public class CollectionManager {
         this.fileManager = fileManager;
         
         loadCollection();
+
+        regenerateID();
     }
+
+    public void regenerateID() {
+        if (ticketsCollection.size()>0) {
+            Iterator itr = ticketsCollection.iterator();
+            Long id = Long.valueOf(1);
+            while (itr.hasNext()) {
+                Ticket ticket = (Ticket) itr.next();
+                ticket.setId(id++);
+            }
+        }
+    }
+
 
     /**
      * @return The collecton itself.

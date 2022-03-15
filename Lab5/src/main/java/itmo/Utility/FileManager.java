@@ -140,11 +140,13 @@ public class FileManager {
                 }
                 return tickets;
             } catch (IOException e) {
-                e.printStackTrace();
+                Console.printError("Error when reading the file. May be the program doesn't have permission to read it.");
             } catch (DuplicatePassportID e) {
-                e.printStackTrace();
+                Console.printError("The data in file is not correct (PassportID is not correct)");
             } catch (ParseException e) {
-                e.printStackTrace();
+                Console.printError("The data in file is not correct.");
+            } catch (NumberFormatException e) {
+                Console.printError("The data in file is not correct");
             }
         }
         return new HashSet<Ticket>();

@@ -6,6 +6,10 @@ import java.time.LocalDate;
  * It represents a ticket.
  */
 public class Ticket implements CSV, Comparable<Ticket> {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     private Long id; //Поле не может быть null, Значение поля должно быть больше -1, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
