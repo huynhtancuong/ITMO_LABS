@@ -1,7 +1,6 @@
 package itmo.Data;
 
 import itmo.Exceptions.DuplicatePassportID;
-import itmo.Utility.Console;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +10,10 @@ import java.util.HashSet;
  * Person is a class that represents a person
  */
 public class Person implements CSV {
+    private long height; ///Значение поля должно быть больше 0
+    private String passportID; //Строка не может быть пустой. Значение этого поля должно быть уникальным. Длина строки должна быть не меньше 10, Поле не может быть null
+    private static HashSet<String> passportIDHashSet = new HashSet<String>();
+    private Date birthday; ///Поле не может быть null
     /**
      * Setter
      * @param birthday birthday
@@ -19,7 +22,9 @@ public class Person implements CSV {
         this.birthday = birthday;
     }
 
-    private Date birthday; //Поле не может быть null
+    public void setPassportID(String passportID) {
+        this.passportID = passportID;
+    }
 
     /**
      * Setter
@@ -29,9 +34,7 @@ public class Person implements CSV {
         this.height = height;
     }
 
-    private long height; //Значение поля должно быть больше 0
-    private String passportID; //Строка не может быть пустой. Значение этого поля должно быть уникальным. Длина строки должна быть не меньше 10, Поле не может быть null
-    private static HashSet<String> passportIDHashSet = new HashSet<String>();
+
 
     // A method that returns a string that represents a person in a CSV format.
     public String getCSVString(String CSV_SEPARATOR) {

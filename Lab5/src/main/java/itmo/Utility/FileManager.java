@@ -5,6 +5,7 @@ import itmo.Data.Ticket;
 import itmo.Data.TicketType;
 import itmo.Exceptions.DuplicatePassportID;
 
+import java.beans.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -82,18 +83,41 @@ public class FileManager {
                 }
 
                 //Here true is to append the content to file
-                FileWriter fw = new FileWriter(file, false);
+//                FileWriter fw = new FileWriter(file, false);
                 //BufferedWriter writer give better performance
                 //BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path_to_file), "UTF-8"));
-                BufferedWriter bw = new BufferedWriter(fw);
+//                BufferedWriter bw = new BufferedWriter(fw);
+
+
+                // This is File Output Stream
+                FileOutputStream fos = new FileOutputStream(path_to_file);
+
+                // This is Buffered Output stream
+                BufferedOutputStream bos = new BufferedOutputStream(fos);
+
+                // This is XML Encoder
+                XMLEncoder encoder = null;
+                encoder = new XMLEncoder(bos);
+                encoder.setPersistenceDelegate(LocalDate.class,
+                        new PersistenceDelegate() {
+                            @Override
+                            protected Expression instantiate(Object localDate, Encoder encdr) {
+                                return new Expression(localDate,
+                                        LocalDate.class,
+                                        "parse",
+                                        new Object[]{localDate.toString()});
+                            }
+                        });
 
                 for (Ticket ticket : tickets) {
-                    StringBuffer oneLine = new StringBuffer();
-                    oneLine.append(ticket.getCSVString(CSV_SEPARATOR));
-                    bw.write(oneLine.toString());
-                    bw.newLine();
+                    encoder.writeObject(ticket);
+//                    StringBuffer oneLine = new StringBuffer();
+//                    oneLine.append(ticket.getCSVString(CSV_SEPARATOR));
+//                    bw.write(oneLine.toString());
+//                    bw.newLine();
                 }
-                bw.close();
+//                bw.close();
+                encoder.close();
             } catch (FileNotFoundException e) {
                 Console.printError("File not found!");
                 System.exit(0);
@@ -124,27 +148,43 @@ public class FileManager {
         if (pathToFile!=null) {
             //create an instance of BufferdReader
             //using try with resource
-            try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.UTF_8)) {
-                //read the first line from the text file
-                String line = br.readLine();
-                //loop until all lines are read
-                while (line != null) {
-                    //use string.split to lead a string array with the value from each line of the file
-                    String[] attributes = line.split(CSV_SEPARATOR);
-                    Ticket ticket = createTicket(attributes);
-                    //add the Ticket to hashset
-                    tickets.add(ticket);
-                    //read the next line before looping
-                    //if end of file reached, line would be null
-                    line = br.readLine();
+            try {
+                FileInputStream fis = new FileInputStream(String.valueOf(pathToFile));
+                XMLDecoder decoder = new XMLDecoder(fis);
+
+                int stop = 0;
+                while(stop==0) {
+                    try {
+                        tickets.add((Ticket) decoder.readObject());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        stop=1;
+                    }
                 }
+
+
+                //read the first line from the text file
+//                String line = br.readLine();
+                //loop until all lines are read
+//                while (line != null) {
+//                    //use string.split to lead a string array with the value from each line of the file
+//                    String[] attributes = line.split(CSV_SEPARATOR);
+//                    Ticket ticket = createTicket(attributes);
+//                    //add the Ticket to hashset
+//                    tickets.add(ticket);
+//                    //read the next line before looping
+//                    //if end of file reached, line would be null
+//                    line = br.readLine();
+//                }
+                decoder.close();
+                fis.close();
+
                 return tickets;
             } catch (IOException e) {
                 Console.printError("Error when reading the file. May be the program doesn't have permission to read it.");
-            } catch (DuplicatePassportID e) {
-                Console.printError("The data in file is not correct (PassportID is not correct)");
-            } catch (ParseException e) {
-                Console.printError("The data in file is not correct.");
+//            } catch (DuplicatePassportID e) {
+//                Console.printError("The data in file is not correct (PassportID is not correct)");
+//            } catch (ParseException e) {
+//                Console.printError("The data in file is not correct.");
             } catch (NumberFormatException e) {
                 Console.printError("The data in file is not correct");
             }
@@ -212,6 +252,6 @@ public class FileManager {
             System.out.println(ticket.getCSVString(","));
         }
         System.out.println(tickets);
-        //writeToCSV(tickets, "data.csv");
+        //writeToCSV(tickets, "data.xml");
      }
 }

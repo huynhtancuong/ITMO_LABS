@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="17.0.1" class="java.beans.XMLDecoder">
+ <object class="itmo.Data.Ticket">
+  <void property="coordinates">
+   <object class="itmo.Data.Coordinates">
+    <void property="x">
+     <long>3</long>
+    </void>
+    <void property="y">
+     <long>5</long>
+    </void>
+   </object>
+  </void>
+  <void property="creationDate">
+   <object class="java.time.LocalDate" method="parse">
+    <string>2022-04-10</string>
+   </object>
+  </void>
+  <void property="id">
+   <long>2</long>
+  </void>
+  <void property="name">
+   <string>chau</string>
+  </void>
+  <void property="person">
+   <object class="itmo.Data.Person">
+    <void property="birthday">
+     <object class="java.util.Date">
+      <long>1039640400000</long>
+     </object>
+    </void>
+    <void property="height">
+     <long>158</long>
+    </void>
+    <void property="passportID">
+     <string>aklsjdflkjaskdlf</string>
+    </void>
+   </object>
+  </void>
+  <void property="price">
+   <long>150</long>
+  </void>
+  <void property="type">
+   <object class="java.lang.Enum" id="TicketType0" method="valueOf">
+    <class>itmo.Data.TicketType</class>
+    <string>VIP</string>
+   </object>
+  </void>
+ </object>
+ <object class="itmo.Data.Ticket">
+  <void property="coordinates">
+   <object class="itmo.Data.Coordinates">
+    <void property="x">
+     <long>2</long>
+    </void>
+    <void property="y">
+     <long>5</long>
+    </void>
+   </object>
+  </void>
+  <void property="creationDate">
+   <object class="java.time.LocalDate" method="parse">
+    <string>2022-04-10</string>
+   </object>
+  </void>
+  <void property="id">
+   <long>1</long>
+  </void>
+  <void property="name">
+   <string>huynh</string>
+  </void>
+  <void property="person">
+   <object class="itmo.Data.Person">
+    <void property="birthday">
+     <object class="java.util.Date">
+      <long>1039640400000</long>
+     </object>
+    </void>
+    <void property="height">
+     <long>150</long>
+    </void>
+    <void property="passportID">
+     <string>lkasjdflkjalsdf</string>
+    </void>
+   </object>
+  </void>
+  <void property="price">
+   <long>120</long>
+  </void>
+  <void property="type">
+   <object idref="TicketType0"/>
+  </void>
+ </object>
+</java>

@@ -5,26 +5,53 @@ import java.time.LocalDate;
 /**
  * It represents a ticket.
  */
-public class Ticket implements CSV, Comparable<Ticket> {
+public class Ticket implements CSV, Comparable<Ticket>, java.io.Serializable {
+    private Long id; ///Поле не может быть null, Значение поля должно быть больше -1, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private String name; ///Поле не может быть null, Строка не может быть пустой
+    private Coordinates coordinates; ///Поле не может быть null
+    private java.time.LocalDate creationDate; ///Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private Long price; ///Поле не может быть null, Значение поля должно быть больше -1
+    private TicketType type; //Поле может быть null
+    private Person person; ///Поле не может быть null
+
+    //Consctructor with no argument
+    public Ticket(){}
+
+    public TicketType getType() {
+        return type;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+    public void setType(TicketType type) {
+        this.type = type;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
-
-    private Long id; //Поле не может быть null, Значение поля должно быть больше -1, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
-    private java.time.LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-
     /**
      * @param creationDate creationDate
      */
+
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
-    private Long price; //Поле не может быть null, Значение поля должно быть больше -1
-    private TicketType type; //Поле может быть null
-    private Person person; //Поле не может быть null
 
 
     public String getCSVString(String CSV_SEPARATOR) {
@@ -130,6 +157,7 @@ public class Ticket implements CSV, Comparable<Ticket> {
         this.type = type;
         this.person = person;
         this.creationDate = LocalDate.now();
+
     }
 
     @Override
