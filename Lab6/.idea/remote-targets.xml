@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="s336231@helios.se.ifmo.ru:2222" type="ssh/sftp" uuid="0cac59c5-bf14-4c69-9c33-cfb76ef6cab8">
+        <config>
+          <option name="projectRootOnTarget" value="$PROJECT_DIR$/../../../../s336231/Lab5" />
+          <option name="serverName" value="s336231@helios.se.ifmo.ru:2222 password" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="homePath" value="/usr/jdk/latest" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>
