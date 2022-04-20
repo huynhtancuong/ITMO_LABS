@@ -436,6 +436,6 @@ I learned about:
     
 6.  Working with files in Java. Class `java.io.File`.
     
-7.  Package `java.nio`- purpose, main classes and interfaces.
+7.  Package `java.nio`- purpose, main2 classes and interfaces.
     
 8.  Utility `javadoc`... Features of automatic code documentation in Java.
