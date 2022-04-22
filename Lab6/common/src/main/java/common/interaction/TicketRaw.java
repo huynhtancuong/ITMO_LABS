@@ -17,6 +17,7 @@ public class TicketRaw implements Serializable {
     public TicketRaw(String name, Coordinates coordinates, Long price, TicketType type,
                      Person person) {
         this.name = name;
+        // A constructor.
         this.coordinates = coordinates;
         this.price = price;
         this.type = type;
@@ -60,6 +61,7 @@ public class TicketRaw implements Serializable {
     }
 
     @Override
+    // A method that returns a hash code value for the object.
     public int hashCode() {
         return name.hashCode() + coordinates.hashCode() +  price.hashCode() + type.hashCode() +
                 person.hashCode();
