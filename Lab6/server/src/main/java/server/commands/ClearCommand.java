@@ -10,14 +10,17 @@ import server.utility.ResponseOutputer;
 public class ClearCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * Constructor for Clear Command
+     * @param collectionManager Collection Manager Class which manage collection
+     */
     public ClearCommand(CollectionManager collectionManager) {
-        super("clear", "", "очистить коллекцию");
+        super("clear",  "","clear the collection");
         this.collectionManager = collectionManager;
     }
 
     /**
      * Executes the command.
-     *
      * @return Command exit status.
      */
     @Override
@@ -25,10 +28,10 @@ public class ClearCommand extends AbstractCommand {
         try {
             if (!stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
             collectionManager.clearCollection();
-            ResponseOutputer.appendln("Коллекция очищена!");
+            ResponseOutputer.appendln("Collection cleared!");
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + "'");
         }
         return false;
     }

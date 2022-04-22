@@ -1,8 +1,8 @@
 package server.commands;
 
-import common.data.SpaceMarine;
+import common.data.Ticket;
 import common.exceptions.CollectionIsEmptyException;
-import common.exceptions.MarineNotFoundException;
+import common.exceptions.TicketNotFoundException;
 import common.exceptions.WrongAmountOfElementsException;
 import server.utility.CollectionManager;
 import server.utility.ResponseOutputer;
@@ -13,35 +13,38 @@ import server.utility.ResponseOutputer;
 public class RemoveByIdCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * Constructor
+     * @param collectionManager instance of Collection Manager
+     */
     public RemoveByIdCommand(CollectionManager collectionManager) {
-        super("remove_by_id", "<ID>", "удалить элемент из коллекции по ID");
+        super("remove_by_id <ID>",  "","remove item from collection by ID");
         this.collectionManager = collectionManager;
     }
 
     /**
      * Executes the command.
-     *
      * @return Command exit status.
      */
     @Override
     public boolean execute(String stringArgument, Object objectArgument) {
         try {
-            if (stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
+            if (stringArgument.isEmpty()) throw new WrongAmountOfElementsException();
             if (collectionManager.collectionSize() == 0) throw new CollectionIsEmptyException();
             Long id = Long.parseLong(stringArgument);
-            SpaceMarine marineToRemove = collectionManager.getById(id);
-            if (marineToRemove == null) throw new MarineNotFoundException();
-            collectionManager.removeFromCollection(marineToRemove);
-            ResponseOutputer.appendln("Солдат успешно удален!");
+            Ticket ticketToRemove = collectionManager.getById(id);
+            if (ticketToRemove == null) throw new TicketNotFoundException();
+            collectionManager.removeFromCollection(ticketToRemove);
+            ResponseOutputer.appendln("Deleted ticket successfully");
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + "'");
         } catch (CollectionIsEmptyException exception) {
-            ResponseOutputer.appenderror("Коллекция пуста!");
+            ResponseOutputer.appenderror("Collection is empty");
         } catch (NumberFormatException exception) {
-            ResponseOutputer.appenderror("ID должен быть представлен числом!");
-        } catch (MarineNotFoundException exception) {
-            ResponseOutputer.appenderror("Солдата с таким ID в коллекции нет!");
+            ResponseOutputer.appenderror("ID must be number");
+        } catch (TicketNotFoundException exception) {
+            ResponseOutputer.appenderror("Can not find ticket with this ID");
         }
         return false;
     }

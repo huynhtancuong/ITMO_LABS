@@ -10,14 +10,16 @@ import server.utility.ResponseOutputer;
 public class SaveCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * @param collectionManager Instance of Collection Manager
+     */
     public SaveCommand(CollectionManager collectionManager) {
-        super("save", "", "сохранить коллекцию в файл");
+        super("save", "","save collection to file");
         this.collectionManager = collectionManager;
     }
 
     /**
      * Executes the command.
-     *
      * @return Command exit status.
      */
     @Override
@@ -27,7 +29,7 @@ public class SaveCommand extends AbstractCommand {
             collectionManager.saveCollection();
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + "'");
         }
         return false;
     }

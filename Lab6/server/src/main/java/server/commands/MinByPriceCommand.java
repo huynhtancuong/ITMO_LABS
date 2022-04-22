@@ -6,34 +6,35 @@ import server.utility.CollectionManager;
 import server.utility.ResponseOutputer;
 
 /**
- * Command 'sum_of_health'. Prints the sum of health of all marines.
+ * Command 'min_by_price'. Prints the element of the collection with minimum price.
  */
-public class SumOfHealthCommand extends AbstractCommand {
+public class MinByPriceCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
-    public SumOfHealthCommand(CollectionManager collectionManager) {
-        super("sum_of_health", "", "вывести сумму значений поля health для всех элементов коллекции");
+    /**
+     * Constructor
+     * @param collectionManager instance of CollectionManager
+     */
+    public MinByPriceCommand(CollectionManager collectionManager) {
+        super("min_by_price",  "","display any object from the collection whose price field value is the minimum");
         this.collectionManager = collectionManager;
     }
 
     /**
      * Executes the command.
-     *
      * @return Command exit status.
      */
     @Override
     public boolean execute(String stringArgument, Object objectArgument) {
         try {
             if (!stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
-            double sum_of_health = collectionManager.getSumOfHealth();
-            if (sum_of_health == 0) throw new CollectionIsEmptyException();
-            ResponseOutputer.appendln("Сумма здоровья всех солдат: " + sum_of_health);
+            ResponseOutputer.appendln(collectionManager.minByPrice());
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + "'");
         } catch (CollectionIsEmptyException exception) {
             ResponseOutputer.appenderror("Коллекция пуста!");
         }
-        return false;
+        return true;
     }
 }

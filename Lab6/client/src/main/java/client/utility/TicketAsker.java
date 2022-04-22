@@ -1,13 +1,14 @@
-package itmo.Utility;
+package client.utility;
 
-import itmo.Data.Coordinates;
-import itmo.Data.Person;
-import itmo.Data.TicketType;
-import itmo.Exceptions.DuplicatePassportID;
-import itmo.Exceptions.IncorrectInputInScriptException;
-import itmo.Exceptions.MustBeNotEmptyException;
-import itmo.Exceptions.NotInDeclaredLimitsException;
-import itmo.run.App;
+import client.App;
+import common.data.Coordinates;
+import common.data.Person;
+import common.data.TicketType;
+import common.exceptions.DuplicatePassportID;
+import common.exceptions.IncorrectInputInScriptException;
+import common.exceptions.MustBeNotEmptyException;
+import common.exceptions.NotInDeclaredLimitsException;
+import common.utility.Outputer;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -89,20 +90,20 @@ public class TicketAsker {
         String name;
         while (true) {
             try {
-                Console.println("Enter name: ");
-                Console.print(App.PS2);
+                Outputer.println("Enter name: ");
+                Outputer.print(App.PS2);
                 name = userScanner.nextLine().trim();
-                if (fileMode) Console.println(name);
+                if (fileMode) Outputer.println(name);
                 if (name.equals("")) throw new MustBeNotEmptyException();
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Name is not recognized");
+                Outputer.printerror("Name is not recognized");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (MustBeNotEmptyException exception) {
-                Console.printError("Name must not be empty");
+                Outputer.printerror("Name must not be empty");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (IllegalStateException exception) {
-                Console.printError("Unexpected error");
+                Outputer.printerror("Unexpected error");
                 System.exit(0);
             }
         }
@@ -121,20 +122,20 @@ public class TicketAsker {
         long x;
         while (true) {
             try {
-                Console.println("Enter X: ");
-                Console.print(App.PS2);
+                Outputer.println("Enter X: ");
+                Outputer.print(App.PS2);
                 strX = userScanner.nextLine().trim();
-                if (fileMode) Console.println(strX);
+                if (fileMode) Outputer.println(strX);
                 x = Long.parseLong(strX);
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("X coordinate not recognized!");
+                Outputer.printerror("X coordinate not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Console.printError("The X coordinate must be represented by a number!");
+                Outputer.printerror("The X coordinate must be represented by a number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
-                Console.printError("Unexpected error!");
+                Outputer.printerror("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -152,20 +153,20 @@ public class TicketAsker {
         Long y;
         while (true) {
             try {
-                Console.println("Enter Y: ");
-                Console.print(App.PS2);
+                Outputer.println("Enter Y: ");
+                Outputer.print(App.PS2);
                 strY = userScanner.nextLine().trim();
-                if (fileMode) Console.println(strY);
+                if (fileMode) Outputer.println(strY);
                 y = Long.parseLong(strY);
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Y coordinate not recognized!");
+                Outputer.printerror("Y coordinate not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Console.printError("The Y coordinate must be represented by a number!");
+                Outputer.printerror("The Y coordinate must be represented by a number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
-                Console.printError("Unexpected error!");
+                Outputer.printerror("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -198,24 +199,24 @@ public class TicketAsker {
         Long price;
         while (true) {
             try {
-                Console.println("Enter price: ");
-                Console.print(App.PS2);
+                Outputer.println("Enter price: ");
+                Outputer.print(App.PS2);
                 strHealth = userScanner.nextLine().trim();
-                if (fileMode) Console.println(strHealth);
+                if (fileMode) Outputer.println(strHealth);
                 price = Long.parseLong(strHealth);
                 if (price < PRICE_DOWN_LIMIT) throw new NotInDeclaredLimitsException();
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Price not recognized!");
+                Outputer.printerror("Price not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NotInDeclaredLimitsException exception) {
-                Console.printError("Price must be greater than zero!");
+                Outputer.printerror("Price must be greater than zero!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Console.printError("Price must be represented by a number!");
+                Outputer.printerror("Price must be represented by a number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
-                Console.printError("Unexpected error!");
+                Outputer.printerror("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -235,24 +236,24 @@ public class TicketAsker {
         Long height;
         while (true) {
             try {
-                Console.println("Enter height: ");
-                Console.print(App.PS2);
+                Outputer.println("Enter height: ");
+                Outputer.print(App.PS2);
                 strHeight = userScanner.nextLine().trim();
-                if (fileMode) Console.println(strHeight);
+                if (fileMode) Outputer.println(strHeight);
                 height = Long.parseLong(strHeight);
                 if (height < HEIGHT_DOWN_LIMIT) throw new NotInDeclaredLimitsException();
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Height not recognized!");
+                Outputer.printerror("Height not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NotInDeclaredLimitsException exception) {
-                Console.printError("Height must be greater than zero!");
+                Outputer.printerror("Height must be greater than zero!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Console.printError("Height must be represented by a number!");
+                Outputer.printerror("Height must be represented by a number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
-                Console.printError("Unexpected error!");
+                Outputer.printerror("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -270,21 +271,21 @@ public class TicketAsker {
         TicketType ticketType;
         while (true) {
             try {
-                Console.println("List of ticket types - " + TicketType.nameList());
-                Console.println("Please enter ticket types:");
-                Console.print(App.PS2);
+                Outputer.println("List of ticket types - " + TicketType.nameList());
+                Outputer.println("Please enter ticket types:");
+                Outputer.print(App.PS2);
                 strTicketType = userScanner.nextLine().trim();
-                if (fileMode) Console.println(strTicketType);
+                if (fileMode) Outputer.println(strTicketType);
                 ticketType = TicketType.valueOf(strTicketType.toUpperCase());
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Ticket type is not recognized");
+                Outputer.printerror("Ticket type is not recognized");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (IllegalArgumentException exception) {
-                Console.printError("Ticket type is not listed");
+                Outputer.printerror("Ticket type is not listed");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (IllegalStateException exception) {
-                Console.printError("Unexpected error!");
+                Outputer.printerror("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -301,24 +302,24 @@ public class TicketAsker {
         String strPassportID;
         while (true) {
             try {
-                Console.println("Enter Passport ID: ");
-                Console.print(App.PS2);
+                Outputer.println("Enter Passport ID: ");
+                Outputer.print(App.PS2);
                 strPassportID = userScanner.nextLine().trim();
-                if (fileMode) Console.println(strPassportID);
+                if (fileMode) Outputer.println(strPassportID);
                 if (strPassportID.equals("")) throw new MustBeNotEmptyException();
                 if (strPassportID.length() < PASSPORTID_DOWN_LIMIT) throw new NotInDeclaredLimitsException();
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Passport ID not recognized!");
+                Outputer.printerror("Passport ID not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (MustBeNotEmptyException exception) {
-                Console.printError("Passport ID cannot be empty!");
+                Outputer.printerror("Passport ID cannot be empty!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (IllegalStateException exception) {
-                Console.printError("Unexpected error!");
+                Outputer.printerror("Unexpected error!");
                 System.exit(0);
             } catch (NotInDeclaredLimitsException e) {
-                Console.printError("Length of Passport ID must be greater than " + PASSPORTID_DOWN_LIMIT);
+                Outputer.printerror("Length of Passport ID must be greater than " + PASSPORTID_DOWN_LIMIT);
             }
         }
         return strPassportID;
@@ -335,17 +336,17 @@ public class TicketAsker {
         Date birthday;
         while (true) {
             try {
-                Console.println("Enter birthday ("+DATE_PATTERN+ "): ");
-                Console.print(App.PS2);
+                Outputer.println("Enter birthday ("+DATE_PATTERN+ "): ");
+                Outputer.print(App.PS2);
                 strBirthday = userScanner.nextLine().trim();
                 if (strBirthday==null) throw new NullPointerException();
-                if (fileMode) Console.println(strBirthday);
+                if (fileMode) Outputer.println(strBirthday);
                 birthday = formatter.parse(strBirthday);
                 break;
             } catch (ParseException e) {
-                Console.printError("Entered birthday does not have the right format.");
+                Outputer.printerror("Entered birthday does not have the right format.");
             } catch (NullPointerException e) {
-                Console.printError("Birthday can not be null");
+                Outputer.printerror("Birthday can not be null");
             }
         }
         return birthday;
@@ -363,20 +364,20 @@ public class TicketAsker {
         String answer;
         while (true) {
             try {
-                Console.println(finalQuestion);
-                Console.print(App.PS2);
+                Outputer.println(finalQuestion);
+                Outputer.print(App.PS2);
                 answer = userScanner.nextLine().trim();
-                if (fileMode) Console.println(answer);
+                if (fileMode) Outputer.println(answer);
                 if (!answer.equals("+") && !answer.equals("-")) throw new NotInDeclaredLimitsException();
                 break;
             } catch (NoSuchElementException exception) {
-                Console.printError("Answer is not recognized ");
+                Outputer.printerror("Answer is not recognized ");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NotInDeclaredLimitsException exception) {
-                Console.printError("Answer must be '+' or '-'.");
+                Outputer.printerror("Answer must be '+' or '-'.");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (IllegalStateException exception) {
-                Console.printError("Unexpected error!");
+                Outputer.printerror("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -404,7 +405,7 @@ public class TicketAsker {
                 person.setHeight(height);
                 break;
             } catch (DuplicatePassportID e) {
-                Console.printError("Passport is unique");
+                Outputer.printerror("Passport is unique");
             }
         }
         return person;

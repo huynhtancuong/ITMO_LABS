@@ -5,22 +5,18 @@ package server.commands;
  */
 public abstract class AbstractCommand implements Command {
     private String name;
-    private String usage;
     private String description;
-
+    private String usage;
+    /**
+     * @param name name of command
+     * @param description description of command
+     */
     public AbstractCommand(String name, String usage, String description) {
         this.name = name;
-        this.usage = usage;
         this.description = description;
+        this.usage = usage;
     }
 
-    /**
-     * @return Name of the command.
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
 
     /**
      * @return Usage of the command.
@@ -31,30 +27,35 @@ public abstract class AbstractCommand implements Command {
     }
 
     /**
+     * @return Name and usage way of the command.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
      * @return Description of the command.
      */
-    @Override
     public String getDescription() {
         return description;
     }
 
     @Override
     public String toString() {
-        return name + " " + usage + " (" + description + ")";
-    }
+        return name + " (" + description + ")";
+    };
 
     @Override
     public int hashCode() {
-        return name.hashCode() + usage.hashCode() + description.hashCode();
+        return name.hashCode() + description.hashCode();
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         AbstractCommand other = (AbstractCommand) obj;
-        return name.equals(other.getName()) && usage.equals(other.getUsage()) &&
-                description.equals(other.getDescription());
+        return name.equals(other.name) && description.equals(other.description);
     }
 }

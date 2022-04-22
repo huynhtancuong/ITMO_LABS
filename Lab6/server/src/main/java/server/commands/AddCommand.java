@@ -1,12 +1,11 @@
 package server.commands;
 
-import common.data.SpaceMarine;
+import common.data.Ticket;
 import common.exceptions.WrongAmountOfElementsException;
-import common.interaction.MarineRaw;
+import common.interaction.TicketRaw;
 import server.utility.CollectionManager;
 import server.utility.ResponseOutputer;
 
-import java.time.LocalDateTime;
 
 /**
  * Command 'add'. Adds a new element to collection.
@@ -14,38 +13,36 @@ import java.time.LocalDateTime;
 public class AddCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * Constructor
+     * @param collectionManager Collection Manager Class which manage collection
+     */
     public AddCommand(CollectionManager collectionManager) {
-        super("add", "{element}", "добавить новый элемент в коллекцию");
+        super("add {element}",  "","add new item to collection");
         this.collectionManager = collectionManager;
     }
 
     /**
      * Executes the command.
-     *
      * @return Command exit status.
      */
     @Override
     public boolean execute(String stringArgument, Object objectArgument) {
         try {
-            if (!stringArgument.isEmpty() || objectArgument == null) throw new WrongAmountOfElementsException();
-            MarineRaw marineRaw = (MarineRaw) objectArgument;
-            collectionManager.addToCollection(new SpaceMarine(
+            if (!stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
+            TicketRaw ticketRaw = (TicketRaw) objectArgument;
+            Ticket ticketToAdd = new Ticket(
                     collectionManager.generateNextId(),
-                    marineRaw.getName(),
-                    marineRaw.getCoordinates(),
-                    LocalDateTime.now(),
-                    marineRaw.getHealth(),
-                    marineRaw.getCategory(),
-                    marineRaw.getWeaponType(),
-                    marineRaw.getMeleeWeapon(),
-                    marineRaw.getChapter()
-            ));
-            ResponseOutputer.appendln("Солдат успешно добавлен!");
+                    ticketRaw.getName(),
+                    ticketRaw.getCoordinates(),
+                    ticketRaw.getPrice(),
+                    ticketRaw.getTicketType(),
+                    ticketRaw.getPerson()
+            );
+            ResponseOutputer.appendln("Created new item successfully");
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
-        } catch (ClassCastException exception) {
-            ResponseOutputer.appenderror("Переданный клиентом объект неверен!");
+            ResponseOutputer.appendln("Usage: '" + getName() + "'");
         }
         return false;
     }

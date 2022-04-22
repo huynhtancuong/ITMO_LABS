@@ -1,4 +1,4 @@
-package itmo.Exceptions;
+package common.exceptions;
 
 /**
  * It throws an exception if a passport ID is already in use.

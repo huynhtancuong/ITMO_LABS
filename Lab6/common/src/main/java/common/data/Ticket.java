@@ -175,14 +175,5 @@ public class Ticket implements CSV, Comparable<Ticket> {
         return false;
     }
 
-    /**
-     * @param args arguments
-     */
-    public static void main(String... args) {
-        Coordinates coordinate = new Coordinates(x, y);
-        TicketType ticketType = TicketType.CHEAP;
-        Ticket ticket1 = new Ticket(Long.valueOf(1)," haha", coordinate, Long.valueOf(2), ticketType, new Person());
-        System.out.println(ticket1.toString());
-    }
 
 }

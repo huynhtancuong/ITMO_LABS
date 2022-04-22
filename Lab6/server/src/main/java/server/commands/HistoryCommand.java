@@ -8,13 +8,15 @@ import server.utility.ResponseOutputer;
  */
 public class HistoryCommand extends AbstractCommand {
 
+    /**
+     * Constructor
+     */
     public HistoryCommand() {
-        super("history", "", "вывести историю использованных команд");
+        super("history", "", "show history of used commands");
     }
 
     /**
      * Executes the command.
-     *
      * @return Command exit status.
      */
     @Override
@@ -23,7 +25,7 @@ public class HistoryCommand extends AbstractCommand {
             if (!stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + "'");
         }
         return false;
     }

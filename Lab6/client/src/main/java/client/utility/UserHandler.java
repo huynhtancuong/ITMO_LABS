@@ -5,7 +5,7 @@ import common.data.*;
 import common.exceptions.CommandUsageException;
 import common.exceptions.IncorrectInputInScriptException;
 import common.exceptions.ScriptRecursionException;
-import common.interaction.MarineRaw;
+import common.interaction.TicketRaw;
 import common.interaction.Request;
 import common.interaction.ResponseCode;
 import common.utility.Outputer;
@@ -81,10 +81,10 @@ public class UserHandler {
                     throw new IncorrectInputInScriptException();
                 switch (processingCode) {
                     case OBJECT:
-                        MarineRaw marineAddRaw = generateMarineAdd();
+                        TicketRaw marineAddRaw = generateTicketAdd();
                         return new Request(userCommand[0], userCommand[1], marineAddRaw);
                     case UPDATE_OBJECT:
-                        MarineRaw marineUpdateRaw = generateMarineUpdate();
+                        TicketRaw marineUpdateRaw = generateTicketUpdate();
                         return new Request(userCommand[0], userCommand[1], marineUpdateRaw);
                     case SCRIPT:
                         File scriptFile = new File(userCommand[1]);
@@ -191,54 +191,46 @@ public class UserHandler {
     /**
      * Generates marine to add.
      *
-     * @return Marine to add.
+     * @return Ticket to add.
      * @throws IncorrectInputInScriptException When something went wrong in script.
      */
-    private MarineRaw generateMarineAdd() throws IncorrectInputInScriptException {
-        MarineAsker marineAsker = new MarineAsker(userScanner);
-        if (fileMode()) marineAsker.setFileMode();
-        return new MarineRaw(
-                marineAsker.askName(),
-                marineAsker.askCoordinates(),
-                marineAsker.askHealth(),
-                marineAsker.askCategory(),
-                marineAsker.askWeaponType(),
-                marineAsker.askMeleeWeapon(),
-                marineAsker.askChapter()
+    private TicketRaw generateTicketAdd() throws IncorrectInputInScriptException {
+        TicketAsker ticketAsker = new TicketAsker(userScanner);
+        if (fileMode()) ticketAsker.setFileMode();
+        return new TicketRaw(
+                ticketAsker.askName(),
+                ticketAsker.askCoordinates(),
+                ticketAsker.askPrice(),
+                ticketAsker.askTicketType(),
+                ticketAsker.askPerson(false)
         );
     }
 
     /**
      * Generates marine to update.
      *
-     * @return Marine to update.
+     * @return Ticket to update.
      * @throws IncorrectInputInScriptException When something went wrong in script.
      */
-    private MarineRaw generateMarineUpdate() throws IncorrectInputInScriptException {
-        MarineAsker marineAsker = new MarineAsker(userScanner);
-        if (fileMode()) marineAsker.setFileMode();
-        String name = marineAsker.askQuestion("Хотите изменить имя солдата?") ?
-                marineAsker.askName() : null;
-        Coordinates coordinates = marineAsker.askQuestion("Хотите изменить координаты солдата?") ?
-                marineAsker.askCoordinates() : null;
-        double health = marineAsker.askQuestion("Хотите изменить здоровье солдата?") ?
-                marineAsker.askHealth() : -1;
-        AstartesCategory category = marineAsker.askQuestion("Хотите изменить категорию солдата?") ?
-                marineAsker.askCategory() : null;
-        Weapon weaponType = marineAsker.askQuestion("Хотите изменить оружие дальнего боя солдата?") ?
-                marineAsker.askWeaponType() : null;
-        MeleeWeapon meleeWeapon = marineAsker.askQuestion("Хотите изменить оружие ближнего боя солдата?") ?
-                marineAsker.askMeleeWeapon() : null;
-        Chapter chapter = marineAsker.askQuestion("Хотите изменить орден солдата?") ?
-                marineAsker.askChapter() : null;
-        return new MarineRaw(
+    private TicketRaw generateTicketUpdate() throws IncorrectInputInScriptException {
+        TicketAsker ticketAsker = new TicketAsker(userScanner);
+        if (fileMode()) ticketAsker.setFileMode();
+        String name = ticketAsker.askQuestion("Do you want to change name?") ?
+                ticketAsker.askName() : null;
+        Coordinates coordinates = ticketAsker.askQuestion("Do you want to change coordinate?") ?
+                ticketAsker.askCoordinates() : null;
+        Long price = ticketAsker.askQuestion("Do you want to change price?") ?
+                ticketAsker.askPrice() : -1;
+        TicketType type = ticketAsker.askQuestion("Do you want to change ticket type?") ?
+                ticketAsker.askTicketType() : null;
+        Person person = ticketAsker.askQuestion("Do you want to change person?") ?
+                ticketAsker.askPerson(false) : null;
+        return new TicketRaw(
                 name,
                 coordinates,
-                health,
-                category,
-                weaponType,
-                meleeWeapon,
-                chapter
+                price,
+                type,
+                person
         );
     }
 

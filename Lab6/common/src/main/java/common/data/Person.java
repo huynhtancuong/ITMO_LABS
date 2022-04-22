@@ -1,7 +1,6 @@
 package common.data;
 
-import itmo.Exceptions.DuplicatePassportID;
-import itmo.Utility.Console;
+import common.exceptions.DuplicatePassportID;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,7 +50,7 @@ public class Person implements CSV {
      * @param passportID passportID
      * @throws DuplicatePassportID an exception
      */
-    public Person(Date birthday, long height, String passportID) throws DuplicatePassportID{
+    public Person(Date birthday, long height, String passportID) throws DuplicatePassportID {
         this.birthday = birthday;
         this.height = height;
         setPassportID(passportID, true);

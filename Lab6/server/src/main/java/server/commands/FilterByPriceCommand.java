@@ -1,9 +1,9 @@
-package itmo.Commands;
+package server.commands;
 
-import itmo.Exceptions.CollectionIsEmptyException;
-import itmo.Exceptions.WrongAmountOfElementsException;
-import itmo.Utility.CollectionManager;
-import itmo.Utility.Console;
+import common.exceptions.CollectionIsEmptyException;
+import common.exceptions.WrongAmountOfElementsException;
+import server.utility.CollectionManager;
+import server.utility.ResponseOutputer;
 
 /**
  * Command 'filter_by_price'. Filters the collection by price.
@@ -16,7 +16,7 @@ public class FilterByPriceCommand extends AbstractCommand {
      * @param collectionManager instance of CollectionManager
      */
     public FilterByPriceCommand(CollectionManager collectionManager) {
-        super("filter_by_price <Price>", "display elements whose price field value is greater than the specified one");
+        super("filter_by_price <Price>", "", "display elements whose price field value is greater than the specified one");
         this.collectionManager = collectionManager;
     }
 
@@ -25,24 +25,24 @@ public class FilterByPriceCommand extends AbstractCommand {
      * @return Command exit status.
      */
     @Override
-    public boolean execute(String argument) {
+    public boolean execute(String stringArgument, Object objectArgument) {
         Long price = null;
         try {
-            if (argument.isEmpty()) throw new WrongAmountOfElementsException();
+            if (stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
             if (collectionManager.collectionSize() == 0) throw new CollectionIsEmptyException();
 
-            price = Long.parseLong(argument);
+            price = Long.parseLong(stringArgument);
             String filteredInfo = collectionManager.priceFilteredInfo(price);
             if (!filteredInfo.isEmpty()) {
-                Console.println(filteredInfo);
+                ResponseOutputer.appendln(filteredInfo);
                 return true;
-            } else Console.println("There are no elements whose price field value is greater than the specified one");
+            } else ResponseOutputer.appendln("There are no elements whose price field value is greater than the specified one");
         } catch (WrongAmountOfElementsException exception) {
-            Console.println("Usage: '" + getName() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + "'");
         } catch (CollectionIsEmptyException exception) {
-            Console.printError("Collection is empty");
+            ResponseOutputer.appenderror("Collection is empty");
         } catch (IllegalArgumentException exception) {
-            Console.printError("Price must be number");
+            ResponseOutputer.appenderror("Price must be number");
         }
         return false;
     }

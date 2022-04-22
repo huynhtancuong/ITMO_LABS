@@ -8,22 +8,24 @@ import server.utility.ResponseOutputer;
  */
 public class ExitCommand extends AbstractCommand {
 
+    /**
+     * Constructor
+     */
     public ExitCommand() {
-        super("exit", "", "завершить работу клиента");
+        super("exit", "", "exit program (without saving to file)");
     }
 
     /**
      * Executes the command.
-     *
      * @return Command exit status.
      */
     @Override
     public boolean execute(String stringArgument, Object objectArgument) {
         try {
-            if (!stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
+            if (!stringArgument.isEmpty() || objectArgument == null) throw new WrongAmountOfElementsException();
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + "'");
         }
         return false;
     }

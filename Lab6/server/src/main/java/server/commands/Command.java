@@ -1,14 +1,25 @@
 package server.commands;
 
 /**
- * Interface for all commands.
+ * A interface for Command structure
  */
 public interface Command {
-    String getName();
+    /**
+     *
+     * @return Description of command
+     */
+    String getDescription();
 
     String getUsage();
 
-    String getDescription();
+    /**
+     * @return Name of command
+     */
+    String getName();
 
-    boolean execute(String commandStringArgument, Object commandObjectArgument);
+    /**
+     * @param argument argument of the command
+     * @return exit status of command
+     */
+    boolean execute(String stringArgument, Object commandObjectArgument);
 }

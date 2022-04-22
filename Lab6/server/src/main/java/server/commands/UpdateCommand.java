@@ -1,14 +1,16 @@
 package server.commands;
 
-import common.data.*;
+import common.data.Coordinates;
+import common.data.Person;
+import common.data.Ticket;
+import common.data.TicketType;
 import common.exceptions.CollectionIsEmptyException;
-import common.exceptions.MarineNotFoundException;
+import common.exceptions.TicketNotFoundException;
 import common.exceptions.WrongAmountOfElementsException;
-import common.interaction.MarineRaw;
+import common.interaction.TicketRaw;
 import server.utility.CollectionManager;
 import server.utility.ResponseOutputer;
 
-import java.time.LocalDateTime;
 
 /**
  * Command 'update'. Updates the information about selected marine.
@@ -16,14 +18,16 @@ import java.time.LocalDateTime;
 public class UpdateCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * @param collectionManager collection Manager
+     */
     public UpdateCommand(CollectionManager collectionManager) {
-        super("update", "<ID> {element}", "обновить значение элемента коллекции по ID");
+        super("update <ID> {element}", "", "update the value of the collection element whose id is equal to the given");
         this.collectionManager = collectionManager;
     }
 
     /**
      * Executes the command.
-     *
      * @return Command exit status.
      */
     @Override
@@ -33,44 +37,38 @@ public class UpdateCommand extends AbstractCommand {
             if (collectionManager.collectionSize() == 0) throw new CollectionIsEmptyException();
 
             Long id = Long.parseLong(stringArgument);
-            if (id <= 0) throw new NumberFormatException();
-            SpaceMarine oldMarine = collectionManager.getById(id);
-            if (oldMarine == null) throw new MarineNotFoundException();
+            Ticket oldTicket = collectionManager.getById(id);
+            if (oldTicket == null) throw new TicketNotFoundException();
 
-            MarineRaw marineRaw = (MarineRaw) objectArgument;
-            String name = marineRaw.getName() == null ? oldMarine.getName() : marineRaw.getName();
-            Coordinates coordinates = marineRaw.getCoordinates() == null ? oldMarine.getCoordinates() : marineRaw.getCoordinates();
-            LocalDateTime creationDate = oldMarine.getCreationDate();
-            double health = marineRaw.getHealth() == -1 ? oldMarine.getHealth() : marineRaw.getHealth();
-            AstartesCategory category = marineRaw.getCategory() == null ? oldMarine.getCategory() : marineRaw.getCategory();
-            Weapon weaponType = marineRaw.getWeaponType() == null ? oldMarine.getWeaponType() : marineRaw.getWeaponType();
-            MeleeWeapon meleeWeapon = marineRaw.getMeleeWeapon() == null ? oldMarine.getMeleeWeapon() : marineRaw.getMeleeWeapon();
-            Chapter chapter = marineRaw.getChapter() == null ? oldMarine.getChapter() : marineRaw.getChapter();
 
-            collectionManager.removeFromCollection(oldMarine);
-            collectionManager.addToCollection(new SpaceMarine(
-                    id,
+            TicketRaw ticketRaw = (TicketRaw) objectArgument;
+            String name = ticketRaw.getName() == null ? oldTicket.getName() : ticketRaw.getName();
+            Coordinates coordinates = ticketRaw.getCoordinates() == null ? oldTicket.getCoordinates() : ticketRaw.getCoordinates();
+            java.time.LocalDate creationDate = oldTicket.getCreationDate();
+            Long price = ticketRaw.getPrice() == null ? oldTicket.getPrice() : ticketRaw.getPrice();
+            TicketType type = ticketRaw.getTicketType() == null ? oldTicket.getTicketType() : ticketRaw.getTicketType();
+            Person person = ticketRaw.getPerson() == null ? oldTicket.getPerson() : ticketRaw.getPerson();
+
+            collectionManager.removeFromCollection(oldTicket);
+            collectionManager.addToCollection(new Ticket(
+                    oldTicket.getId(),
                     name,
                     coordinates,
-                    creationDate,
-                    health,
-                    category,
-                    weaponType,
-                    meleeWeapon,
-                    chapter
+                    price,
+                    type,
+                    person,
+                    creationDate
             ));
-            ResponseOutputer.appendln("Солдат успешно изменен!");
+            ResponseOutputer.appendln("Ticket changed successfully");
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + "'");
         } catch (CollectionIsEmptyException exception) {
-            ResponseOutputer.appenderror("Коллекция пуста!");
+            ResponseOutputer.appenderror("Collection is empty");
         } catch (NumberFormatException exception) {
-            ResponseOutputer.appenderror("ID должен быть представлен положительным числом!");
-        } catch (MarineNotFoundException exception) {
-            ResponseOutputer.appenderror("Солдата с таким ID в коллекции нет!");
-        } catch (ClassCastException exception) {
-            ResponseOutputer.appenderror("Переданный клиентом объект неверен!");
+            ResponseOutputer.appenderror("ID must be number");
+        } catch (TicketNotFoundException exception) {
+            ResponseOutputer.appenderror("Ticket with this ID can not be found");
         }
         return false;
     }

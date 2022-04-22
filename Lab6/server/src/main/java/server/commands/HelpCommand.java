@@ -8,13 +8,15 @@ import server.utility.ResponseOutputer;
  */
 public class HelpCommand extends AbstractCommand {
 
+    /**
+     * Constructor
+     */
     public HelpCommand() {
-        super("help", "", "вывести справку по доступным командам");
+        super("help", "", "display help on available commands");
     }
 
     /**
      * Executes the command.
-     *
      * @return Command exit status.
      */
     @Override
@@ -23,7 +25,7 @@ public class HelpCommand extends AbstractCommand {
             if (!stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + "'");
         }
         return false;
     }

@@ -10,14 +10,17 @@ import server.utility.ResponseOutputer;
 public class ShowCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
+    /**
+     * Constructor
+     * @param collectionManager Instance of Collection Manager
+     */
     public ShowCommand(CollectionManager collectionManager) {
-        super("show", "", "вывести все элементы коллекции");
+        super("show", "", "show all items of collection");
         this.collectionManager = collectionManager;
     }
 
     /**
      * Executes the command.
-     *
      * @return Command exit status.
      */
     @Override
@@ -27,7 +30,7 @@ public class ShowCommand extends AbstractCommand {
             ResponseOutputer.appendln(collectionManager.showCollection());
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + "'");
         }
         return false;
     }

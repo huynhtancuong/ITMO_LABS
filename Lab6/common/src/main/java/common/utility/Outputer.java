@@ -5,7 +5,7 @@ package common.utility;
  */
 public class Outputer {
     /**
-     * Prints toOut.toString() to Console
+     * Prints toOut.toString() to Outputer
      *
      * @param toOut Object to print
      */
@@ -14,14 +14,14 @@ public class Outputer {
     }
 
     /**
-     * Prints \n to Console
+     * Prints \n to Outputer
      */
     public static void println() {
         System.out.println();
     }
 
     /**
-     * Prints toOut.toString() + \n to Console
+     * Prints toOut.toString() + \n to Outputer
      *
      * @param toOut Object to print
      */
@@ -30,7 +30,7 @@ public class Outputer {
     }
 
     /**
-     * Prints error: toOut.toString() to Console
+     * Prints error: toOut.toString() to Outputer
      *
      * @param toOut Error to print
      */
@@ -39,7 +39,7 @@ public class Outputer {
     }
 
     /**
-     * Prints formatted 2-element table to Console
+     * Prints formatted 2-element table to Outputer
      *
      * @param element1 Left element of the row.
      * @param element2 Right element of the row.

@@ -8,16 +8,17 @@ import server.utility.CollectionManager;
 import server.utility.ResponseOutputer;
 
 /**
- * Command 'remove_greater'. Removes elements greater than user entered.
+ * Command 'remove_lower'. Removes elements lower than user entered.
  */
-public class RemoveGreaterCommand extends AbstractCommand {
+public class RemoveLowerCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
     /**
      * @param collectionManager Instance of Collection Manager
      */
-    public RemoveGreaterCommand(CollectionManager collectionManager) {
-        super("remove_greater {element}",  "","remove all items from the collection that are greater than the given one");
+    public RemoveLowerCommand(CollectionManager collectionManager) {
+        super("remove_lower {element}", "", "remove all items from the collection that are less than the given one");
+
         this.collectionManager = collectionManager;
     }
 
@@ -39,7 +40,7 @@ public class RemoveGreaterCommand extends AbstractCommand {
                     ticketRaw.getTicketType(),
                     ticketRaw.getPerson()
             );
-            collectionManager.removeGreater(ticketToFind);
+            collectionManager.removeLower(ticketToFind);
             ResponseOutputer.appendln("Removed item successfully");
             return true;
         } catch (WrongAmountOfElementsException exception) {
