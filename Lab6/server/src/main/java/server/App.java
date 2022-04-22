@@ -3,10 +3,13 @@ package server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import server.commands.*;
-import server.utility.CollectionFileManager;
+import server.utility.CollectionFileManager_old;
 import server.utility.CollectionManager;
 import server.utility.CommandManager;
 import server.utility.RequestHandler;
+
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
  * Main server class. Creates all server instances.
@@ -20,7 +23,7 @@ public class App {
     public static Logger logger = LogManager.getLogger("ServerLogger");
 
     public static void main(String[] args) {
-        CollectionFileManager collectionFileManager = new CollectionFileManager(ENV_VARIABLE);
+        CollectionFileManager_old collectionFileManager = new CollectionFileManager_old(ENV_VARIABLE);
         CollectionManager collectionManager = new CollectionManager(collectionFileManager);
         CommandManager commandManager = new CommandManager(
                 new HelpCommand(),

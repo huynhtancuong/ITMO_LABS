@@ -15,9 +15,9 @@ public class CollectionManager {
     private NavigableSet<SpaceMarine> marinesCollection;
     private LocalDateTime lastInitTime;
     private LocalDateTime lastSaveTime;
-    private CollectionFileManager collectionFileManager;
+    private CollectionFileManager_old collectionFileManager;
 
-    public CollectionManager(CollectionFileManager collectionFileManager) {
+    public CollectionManager(CollectionFileManager_old collectionFileManager) {
         this.lastInitTime = null;
         this.lastSaveTime = null;
         this.collectionFileManager = collectionFileManager;
