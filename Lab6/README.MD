@@ -439,3 +439,7 @@ I learned about:
 7.  Package `java.nio`- purpose, main2 classes and interfaces.
     
 8.  Utility `javadoc`... Features of automatic code documentation in Java.
+
+# How to use makefile?
+To compile java file into class file
+> $make target
