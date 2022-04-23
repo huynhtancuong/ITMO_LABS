@@ -106,6 +106,7 @@ public class Client {
                 serverResponse = (Response) serverReader.readObject();
                 Outputer.print(serverResponse.getResponseBody());
             } catch (InvalidClassException | NotSerializableException exception) {
+                Outputer.printerror(exception);
                 Outputer.printerror("Произошла ошибка при отправке данных на сервер!");
             } catch (ClassNotFoundException exception) {
                 Outputer.printerror("Произошла ошибка при чтении полученных данных!");

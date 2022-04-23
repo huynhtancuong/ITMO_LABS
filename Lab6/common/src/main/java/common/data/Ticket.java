@@ -1,11 +1,12 @@
 package common.data;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * It represents a ticket.
  */
-public class Ticket implements CSV, Comparable<Ticket> {
+public class Ticket implements CSV, Comparable<Ticket> , Serializable {
     public void setId(Long id) {
         this.id = id;
     }

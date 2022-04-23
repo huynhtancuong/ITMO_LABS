@@ -2,6 +2,7 @@ package common.data;
 
 import common.exceptions.DuplicatePassportID;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -9,7 +10,7 @@ import java.util.HashSet;
 /**
  * Person is a class that represents a person
  */
-public class Person implements CSV {
+public class Person implements CSV , Serializable {
     /**
      * Setter
      * @param birthday birthday

@@ -4,10 +4,12 @@
 package common.data;
 
 
+import java.io.Serializable;
+
 /**
  * This class is used to store the x and y coordinates of a point
  */
-public class Coordinates implements CSV {
+public class Coordinates implements CSV, Serializable {
     private long x;
     private Long y = Long.valueOf(0);
 

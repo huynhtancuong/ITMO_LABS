@@ -1,9 +1,11 @@
 package common.data;
 
+import java.io.Serializable;
+
 /**
  * Creating a new type of object called `TicketType`.
  */
-public enum TicketType {
+public enum TicketType implements Serializable {
     /**
      * VIP Ticket Type
      */
