@@ -25,6 +25,7 @@ path_libs := $(subst $(space),:,$(_path_libs))
 sourceslist.%:
 	find . -name *.java > $(out_sourceslist)
 target: $(out_sourceslist)
+	mkdir target
 	javac -cp $(path_libs) -d target @$(out_sourceslist)
 env-var:
 	export $(env_var_name)=$(shell pwd)/$(env_var_value)

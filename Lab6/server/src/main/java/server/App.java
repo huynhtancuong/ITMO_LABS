@@ -17,7 +17,7 @@ public class App {
     public static final int PORT = 1821;
     public static final int CONNECTION_TIMEOUT = 60 * 1000;
     public static final String ENV_VARIABLE = "HEHE";
-    public static final Logger logger = LoggerFactory.getLogger(App.class);
+    public static final Logger logger = LoggerFactory.getLogger("ServerLogger");
 
     public static void main(String[] args) {
         CollectionFileManager collectionFileManager = new CollectionFileManager(ENV_VARIABLE);
