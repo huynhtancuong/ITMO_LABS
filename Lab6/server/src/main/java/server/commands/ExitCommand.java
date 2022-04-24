@@ -22,7 +22,7 @@ public class ExitCommand extends AbstractCommand {
     @Override
     public boolean execute(String stringArgument, Object objectArgument) {
         try {
-            if (!stringArgument.isEmpty() || objectArgument == null) throw new WrongAmountOfElementsException();
+            if (!stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
             return true;
         } catch (WrongAmountOfElementsException exception) {
             ResponseOutputer.appendln("Usage: '" + getName() + "'");

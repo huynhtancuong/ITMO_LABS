@@ -29,9 +29,7 @@ public class AddCommand extends AbstractCommand {
     @Override
     public boolean execute(String stringArgument, Object objectArgument) {
         try {
-            if (stringArgument.isEmpty()) ResponseOutputer.appenderror("stringArg");
-            if (objectArgument==null) ResponseOutputer.appenderror("objectArg");
-            if (!stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
+            if (!stringArgument.isEmpty() || objectArgument == null) throw new WrongAmountOfElementsException();
             TicketRaw ticketRaw = (TicketRaw) objectArgument;
             collectionManager.addToCollection(new Ticket(
                     collectionManager.generateNextId(),

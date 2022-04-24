@@ -42,14 +42,14 @@ public class Server {
                 } catch (ConnectionErrorException | SocketTimeoutException exception) {
                     break;
                 } catch (IOException exception) {
-                    Outputer.printerror("Произошла ошибка при попытке завершить соединение с клиентом!");
-                    App.logger.error("Произошла ошибка при попытке завершить соединение с клиентом!");
+                    Outputer.printerror("An error occurred while trying to terminate the connection with the client!");
+                    App.logger.error("An error occurred while trying to terminate the connection with the client!");
                 }
             }
             stop();
         } catch (OpeningServerSocketException exception) {
-            Outputer.printerror("Сервер не может быть запущен!");
-            App.logger.fatal("Сервер не может быть запущен!");
+            Outputer.printerror("Server cannot be started!");
+            App.logger.error("Server cannot be started!");
         }
     }
 
@@ -83,11 +83,11 @@ public class Server {
             App.logger.info("Сервер успешно запущен.");
         } catch (IllegalArgumentException exception) {
             Outputer.printerror("Порт '" + port + "' находится за пределами возможных значений!");
-            App.logger.fatal("Порт '" + port + "' находится за пределами возможных значений!");
+            App.logger.error("Порт '" + port + "' находится за пределами возможных значений!");
             throw new OpeningServerSocketException();
         } catch (IOException exception) {
             Outputer.printerror("Произошла ошибка при попытке использовать порт '" + port + "'!");
-            App.logger.fatal("Произошла ошибка при попытке использовать порт '" + port + "'!");
+            App.logger.error("Произошла ошибка при попытке использовать порт '" + port + "'!");
             throw new OpeningServerSocketException();
         }
     }

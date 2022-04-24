@@ -1,4 +1,4 @@
-.PHONY: server client
+.PHONY: server client 
 
 out_server := server.jar 
 out_client := client.jar
@@ -11,10 +11,14 @@ server_entry := server.App
 client_entry := client.App
 manifest := MANIFEST.MF
 
-path_libs += libs/log4j-api-2.17.2.jar
-path_libs := $(path_libs):libs/log4j-core-2.17.2.jar
+# _path_libs is a variable that store path to all jar file in folder lib
+# the separator between paths is SPACE
+_path_libs += $(shell find lib -name "*.jar") 
 
-_path_libs := $(subst :, ,$(path_libs))
+# path_libs is a variable that store path to all jar file in folder lib
+# the separator between paths is COLON
+space := $(subst ,, )
+path_libs := $(subst $(space),:,$(_path_libs))
 
 sourceslist.%:
 	find . -name *.java > $(out_sourceslist)
@@ -25,7 +29,7 @@ env-var:
 
 server: target
 	echo "Main-class: $(server_entry) \nClass-Path: target/ $(_path_libs) \n" > $(manifest) 
-	jar -cvfm $(out_server) $(manifest) target/* $(_path_libs)
+	jar -cvfm $(out_server) $(manifest) target/common target/server $(_path_libs)
 
 run-server: $(out_server) 
 	export $(env_var_name)=$(shell pwd)/$(env_var_value);\
@@ -36,10 +40,20 @@ run-client: $(out_client)
 
 client: target
 	echo "Main-class: $(client_entry) \nClass-Path: target/ $(_path_libs) \n" > $(manifest) 
-	jar -cvfm $(out_client) $(manifest) target/* $(_path_libs)
+	jar -cvfm $(out_client) $(manifest) target/client target/common $(_path_libs)
 clean:
+	# -f flag here to make sure rm won't complain if file doesn't exist
 	rm -rf target
-	rm $(out_server)
-	rm $(out_client)
-	rm $(out_sourceslist)
-	rm $(manifest)
+	rm -f $(out_server)
+	rm -f $(out_client)
+	rm -f $(out_sourceslist)
+	rm -f $(manifest)
+test: 
+	@echo $(shell find lib -name "*.jar")	
+
+
+
+
+
+
+

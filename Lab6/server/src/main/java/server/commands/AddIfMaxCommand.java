@@ -27,7 +27,7 @@ public class AddIfMaxCommand extends AbstractCommand {
     @Override
     public boolean execute(String stringArgument, Object objectArgument) {
         try {
-            if (!stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
+            if (!stringArgument.isEmpty() || objectArgument == null) throw new WrongAmountOfElementsException();
             TicketRaw ticketRaw = (TicketRaw) objectArgument;
             Ticket ticketToAdd = new Ticket(
                 collectionManager.generateNextId(),
