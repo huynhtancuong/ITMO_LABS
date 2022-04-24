@@ -35,7 +35,7 @@ public class Outputer {
      * @param toOut Error to print
      */
     public static void printerror(Object toOut) {
-        System.out.println("error: " + toOut);
+        System.out.println("Error: " + toOut);
     }
 
     /**

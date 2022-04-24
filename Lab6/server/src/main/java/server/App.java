@@ -11,33 +11,35 @@ import server.utility.RequestHandler;
 /**
  * Main server class. Creates all server instances.
  *
- * @author Sviridov Dmitry and Orlov Egor.
+ * @author Huynh Tan Cuong.
  */
 public class App {
     public static final int PORT = 1821;
     public static final int CONNECTION_TIMEOUT = 60 * 1000;
     public static final String ENV_VARIABLE = "HEHE";
-    //public static Logger logger = LogManager.getLogger("ServerLogger");
     public static final Logger logger = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
         CollectionFileManager collectionFileManager = new CollectionFileManager(ENV_VARIABLE);
         CollectionManager collectionManager = new CollectionManager(collectionFileManager);
         CommandManager commandManager = new CommandManager(
-                new HelpCommand(),
-                new InfoCommand(collectionManager),
-                new ShowCommand(collectionManager),
                 new AddCommand(collectionManager),
-                new UpdateCommand(collectionManager),
-                new RemoveByIdCommand(collectionManager),
-                new ClearCommand(collectionManager),
-                new SaveCommand(collectionManager),
-                new ExitCommand(),
-                new ExecuteScriptCommand(),
                 new AddIfMaxCommand(collectionManager),
-                new RemoveGreaterCommand(collectionManager),
+                new ClearCommand(collectionManager),
+                new ExecuteScriptCommand(),
+                new ExitCommand(),
+                new FilterByPriceCommand(collectionManager),
+                new HelpCommand(),
                 new HistoryCommand(),
-                new ServerExitCommand()
+                new InfoCommand(collectionManager),
+                new MinByPriceCommand(collectionManager),
+                new RemoveByIdCommand(collectionManager),
+                new RemoveGreaterCommand(collectionManager),
+                new RemoveLowerCommand(collectionManager),
+                new SaveCommand(collectionManager),
+                new ServerExitCommand(),
+                new ShowCommand(collectionManager),
+                new UpdateCommand(collectionManager)
         );
         RequestHandler requestHandler = new RequestHandler(commandManager);
         Server server = new Server(PORT, CONNECTION_TIMEOUT, requestHandler);

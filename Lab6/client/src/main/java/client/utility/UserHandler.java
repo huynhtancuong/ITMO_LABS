@@ -50,7 +50,7 @@ public class UserHandler {
                     while (fileMode() && !userScanner.hasNextLine()) {
                         userScanner.close();
                         userScanner = scannerStack.pop();
-                        Outputer.println("Возвращаюсь к скрипту '" + scriptStack.pop().getName() + "'...");
+                        Outputer.println("Back to the script '" + scriptStack.pop().getName() + "'...");
                     }
                     if (fileMode()) {
                         userInput = userScanner.nextLine();
@@ -66,11 +66,11 @@ public class UserHandler {
                     userCommand[1] = userCommand[1].trim();
                 } catch (NoSuchElementException | IllegalStateException exception) {
                     Outputer.println();
-                    Outputer.printerror("Произошла ошибка при вводе команды!");
+                    Outputer.printerror("An error occurred while entering the command!");
                     userCommand = new String[]{"", ""};
                     rewriteAttempts++;
                     if (rewriteAttempts >= maxRewriteAttempts) {
-                        Outputer.printerror("Превышено количество попыток ввода!");
+                        Outputer.printerror("Exceeded number of input attempts!");
                         System.exit(0);
                     }
                 }
@@ -81,11 +81,11 @@ public class UserHandler {
                     throw new IncorrectInputInScriptException();
                 switch (processingCode) {
                     case OBJECT:
-                        TicketRaw marineAddRaw = generateTicketAdd();
-                        return new Request(userCommand[0], userCommand[1], marineAddRaw);
+                        TicketRaw ticketAddRaw = generateTicketAdd();
+                        return new Request(userCommand[0], userCommand[1], ticketAddRaw);
                     case UPDATE_OBJECT:
-                        TicketRaw marineUpdateRaw = generateTicketUpdate();
-                        return new Request(userCommand[0], userCommand[1], marineUpdateRaw);
+                        TicketRaw ticketUpdateRaw = generateTicketUpdate();
+                        return new Request(userCommand[0], userCommand[1], ticketUpdateRaw);
                     case SCRIPT:
                         File scriptFile = new File(userCommand[1]);
                         if (!scriptFile.exists()) throw new FileNotFoundException();
@@ -94,17 +94,17 @@ public class UserHandler {
                         scannerStack.push(userScanner);
                         scriptStack.push(scriptFile);
                         userScanner = new Scanner(scriptFile);
-                        Outputer.println("Выполняю скрипт '" + scriptFile.getName() + "'...");
+                        Outputer.println("Executing a script '" + scriptFile.getName() + "'...");
                         break;
                 }
             } catch (FileNotFoundException exception) {
-                Outputer.printerror("Файл со скриптом не найден!");
+                Outputer.printerror("Script file not found!");
             } catch (ScriptRecursionException exception) {
-                Outputer.printerror("Скрипты не могут вызываться рекурсивно!");
+                Outputer.printerror("Scripts cannot be called recursively!");
                 throw new IncorrectInputInScriptException();
             }
         } catch (IncorrectInputInScriptException exception) {
-            Outputer.printerror("Выполнение скрипта прервано!");
+            Outputer.printerror("Script execution aborted!");
             while (!scannerStack.isEmpty()) {
                 userScanner.close();
                 userScanner = scannerStack.pop();
@@ -146,9 +146,7 @@ public class UserHandler {
                 case "clear":
                     if (!commandArgument.isEmpty()) throw new CommandUsageException();
                     break;
-                case "save":
-                    if (!commandArgument.isEmpty()) throw new CommandUsageException();
-                    break;
+
                 case "execute_script":
                     if (commandArgument.isEmpty()) throw new CommandUsageException("<file_name>");
                     return ProcessingCode.SCRIPT;
@@ -164,32 +162,32 @@ public class UserHandler {
                 case "history":
                     if (!commandArgument.isEmpty()) throw new CommandUsageException();
                     break;
-                case "sum_of_health":
+                case "remove_lower":
                     if (!commandArgument.isEmpty()) throw new CommandUsageException();
                     break;
-                case "max_by_melee_weapon":
+                case "min_by_price":
                     if (!commandArgument.isEmpty()) throw new CommandUsageException();
                     break;
-                case "filter_by_weapon_type":
-                    if (commandArgument.isEmpty()) throw new CommandUsageException("<weapon_type>");
+                case "filter_by_price":
+                    if (commandArgument.isEmpty()) throw new CommandUsageException("<price>");
                     break;
                 case "server_exit":
                     if (!commandArgument.isEmpty()) throw new CommandUsageException();
                     break;
                 default:
-                    Outputer.println("Команда '" + command + "' не найдена. Наберите 'help' для справки.");
+                    Outputer.println("Command '" + command + "' not found. Type 'help' for help.");
                     return ProcessingCode.ERROR;
             }
         } catch (CommandUsageException exception) {
             if (exception.getMessage() != null) command += " " + exception.getMessage();
-            Outputer.println("Использование: '" + command + "'");
+            Outputer.println("Usage: '" + command + "'");
             return ProcessingCode.ERROR;
         }
         return ProcessingCode.OK;
     }
 
     /**
-     * Generates marine to add.
+     * Generates ticket to add.
      *
      * @return Ticket to add.
      * @throws IncorrectInputInScriptException When something went wrong in script.
@@ -207,7 +205,7 @@ public class UserHandler {
     }
 
     /**
-     * Generates marine to update.
+     * Generates ticket to update.
      *
      * @return Ticket to update.
      * @throws IncorrectInputInScriptException When something went wrong in script.

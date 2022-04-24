@@ -33,7 +33,7 @@ public class MinByPriceCommand extends AbstractCommand {
         } catch (WrongAmountOfElementsException exception) {
             ResponseOutputer.appendln("Usage: '" + getName() + "'");
         } catch (CollectionIsEmptyException exception) {
-            ResponseOutputer.appenderror("Коллекция пуста!");
+            ResponseOutputer.appenderror("Collection is empty!");
         }
         return true;
     }

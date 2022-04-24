@@ -42,7 +42,7 @@ public class FilterByPriceCommand extends AbstractCommand {
         } catch (CollectionIsEmptyException exception) {
             ResponseOutputer.appenderror("Collection is empty");
         } catch (IllegalArgumentException exception) {
-            ResponseOutputer.appenderror("Price must be number");
+            ResponseOutputer.appenderror("Price must be integer number");
         }
         return false;
     }

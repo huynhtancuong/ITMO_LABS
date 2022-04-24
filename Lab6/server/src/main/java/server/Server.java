@@ -58,17 +58,17 @@ public class Server {
      */
     private void stop() {
         try {
-            App.logger.info("Завершение работы сервера...");
+            App.logger.info("Shutting down the server...");
             if (serverSocket == null) throw new ClosingSocketException();
             serverSocket.close();
-            Outputer.println("Работа сервера успешно завершена.");
-            App.logger.info("Работа сервера успешно завершена.");
+            Outputer.println("Server completed successfully.");
+            App.logger.info("Server completed successfully.");
         } catch (ClosingSocketException exception) {
-            Outputer.printerror("Невозможно завершить работу еще не запущенного сервера!");
-            App.logger.error("Невозможно завершить работу еще не запущенного сервера!");
+            Outputer.printerror("Unable to shut down server not yet running!");
+            App.logger.error("Unable to shut down server not yet running!");
         } catch (IOException exception) {
-            Outputer.printerror("Произошла ошибка при завершении работы сервера!");
-            App.logger.error("Произошла ошибка при завершении работы сервера!");
+            Outputer.printerror("An error occurred while shutting down the server!");
+            App.logger.error("An error occurred while shutting down the server!");
         }
     }
 
@@ -77,17 +77,17 @@ public class Server {
      */
     private void openServerSocket() throws OpeningServerSocketException {
         try {
-            App.logger.info("Запуск сервера...");
+            App.logger.info("Server start...");
             serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(soTimeout);
-            App.logger.info("Сервер успешно запущен.");
+            App.logger.info("Server started successfully.");
         } catch (IllegalArgumentException exception) {
-            Outputer.printerror("Порт '" + port + "' находится за пределами возможных значений!");
-            App.logger.error("Порт '" + port + "' находится за пределами возможных значений!");
+            Outputer.printerror("Port '" + port + "' is out of range!");
+            App.logger.error("Port '" + port + "' is out of range!");
             throw new OpeningServerSocketException();
         } catch (IOException exception) {
-            Outputer.printerror("Произошла ошибка при попытке использовать порт '" + port + "'!");
-            App.logger.error("Произошла ошибка при попытке использовать порт '" + port + "'!");
+            Outputer.printerror("An error occurred while trying to use the port '" + port + "'!");
+            App.logger.error("An error occurred while trying to use the port '" + port + "'!");
             throw new OpeningServerSocketException();
         }
     }
@@ -97,19 +97,19 @@ public class Server {
      */
     private Socket connectToClient() throws ConnectionErrorException, SocketTimeoutException {
         try {
-            Outputer.println("Прослушивание порта '" + port + "'...");
-            App.logger.info("Прослушивание порта '" + port + "'...");
+            Outputer.println("Port listening '" + port + "'...");
+            App.logger.info("Port listening '" + port + "'...");
             Socket clientSocket = serverSocket.accept();
-            Outputer.println("Соединение с клиентом успешно установлено.");
-            App.logger.info("Соединение с клиентом успешно установлено.");
+            Outputer.println("Client connection successfully established.");
+            App.logger.info("Client connection successfully established.");
             return clientSocket;
         } catch (SocketTimeoutException exception) {
-            Outputer.printerror("Превышено время ожидания подключения!");
-            App.logger.warn("Превышено время ожидания подключения!");
+            Outputer.printerror("Connection timed out!");
+            App.logger.warn("Connection timed out!");
             throw new SocketTimeoutException();
         } catch (IOException exception) {
-            Outputer.printerror("Произошла ошибка при соединении с клиентом!");
-            App.logger.error("Произошла ошибка при соединении с клиентом!");
+            Outputer.printerror("An error occurred while connecting to the client!");
+            App.logger.error("An error occurred while connecting to the client!");
             throw new ConnectionErrorException();
         }
     }
@@ -125,24 +125,24 @@ public class Server {
             do {
                 userRequest = (Request) clientReader.readObject();
                 responseToUser = requestHandler.handle(userRequest);
-                App.logger.info("Запрос '" + userRequest.getCommandName() + "' успешно обработан.");
+                App.logger.info("Request '" + userRequest.getCommandName() + "' successfully processed.");
                 clientWriter.writeObject(responseToUser);
                 clientWriter.flush();
             } while (responseToUser.getResponseCode() != ResponseCode.SERVER_EXIT);
             return false;
         } catch (ClassNotFoundException exception) {
-            Outputer.printerror("Произошла ошибка при чтении полученных данных!");
-            App.logger.error("Произошла ошибка при чтении полученных данных!");
+            Outputer.printerror("An error occurred while reading received data!");
+            App.logger.error("An error occurred while reading received data!");
         } catch (InvalidClassException | NotSerializableException exception) {
-            Outputer.printerror("Произошла ошибка при отправке данных на клиент!");
-            App.logger.error("Произошла ошибка при отправке данных на клиент!");
+            Outputer.printerror("An error occurred while sending data to the client!");
+            App.logger.error("An error occurred while sending data to the client!");
         } catch (IOException exception) {
             if (userRequest == null) {
-                Outputer.printerror("Непредвиденный разрыв соединения с клиентом!");
-                App.logger.warn("Непредвиденный разрыв соединения с клиентом!");
+                Outputer.printerror("Unexpected loss of connection with the client!");
+                App.logger.warn("Unexpected loss of connection with the client!");
             } else {
-                Outputer.println("Клиент успешно отключен от сервера!");
-                App.logger.info("Клиент успешно отключен от сервера!");
+                Outputer.println("Client successfully disconnected from server!");
+                App.logger.info("Client successfully disconnected from server!");
             }
         }
         return true;

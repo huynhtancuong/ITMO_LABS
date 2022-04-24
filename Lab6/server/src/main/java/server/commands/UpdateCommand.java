@@ -13,7 +13,7 @@ import server.utility.ResponseOutputer;
 
 
 /**
- * Command 'update'. Updates the information about selected marine.
+ * Command 'update'. Updates the information about selected ticket.
  */
 public class UpdateCommand extends AbstractCommand {
     private CollectionManager collectionManager;
@@ -66,7 +66,7 @@ public class UpdateCommand extends AbstractCommand {
         } catch (CollectionIsEmptyException exception) {
             ResponseOutputer.appenderror("Collection is empty");
         } catch (NumberFormatException exception) {
-            ResponseOutputer.appenderror("ID must be number");
+            ResponseOutputer.appenderror("ID must be integer number");
         } catch (TicketNotFoundException exception) {
             ResponseOutputer.appenderror("Ticket with this ID can not be found");
         }

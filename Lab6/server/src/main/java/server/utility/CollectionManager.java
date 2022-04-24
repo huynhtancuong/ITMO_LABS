@@ -233,7 +233,7 @@ public class CollectionManager {
      */
     public Long generateNextId() {
         if (ticketsCollection.isEmpty()) return 1L;
-        return getLast().getId() + 1;
+        return getFirst().getId() + 1;
     }
 
     /**
@@ -268,7 +268,7 @@ public class CollectionManager {
     }
 
     public String showCollection() {
-        if (ticketsCollection.isEmpty()) return "Коллекция пуста!";
+        if (ticketsCollection.isEmpty()) return "Collection is empty!";
         return ticketsCollection.stream().reduce("", (sum, m) -> sum += m + "\n\n", (sum1, sum2) -> sum1 + sum2).trim();
     }
 }

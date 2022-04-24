@@ -42,7 +42,7 @@ public class RemoveByIdCommand extends AbstractCommand {
         } catch (CollectionIsEmptyException exception) {
             ResponseOutputer.appenderror("Collection is empty");
         } catch (NumberFormatException exception) {
-            ResponseOutputer.appenderror("ID must be number");
+            ResponseOutputer.appenderror("ID must be integer number");
         } catch (TicketNotFoundException exception) {
             ResponseOutputer.appenderror("Can not find ticket with this ID");
         }

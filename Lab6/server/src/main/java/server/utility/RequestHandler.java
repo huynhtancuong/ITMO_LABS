@@ -80,8 +80,8 @@ public class RequestHandler {
                 if (!commandManager.exit(commandStringArgument, commandObjectArgument))
                     return ResponseCode.ERROR;
                 break;
-            case "add_if_min":
-                if (!commandManager.addIfMin(commandStringArgument, commandObjectArgument))
+            case "add_if_max":
+                if (!commandManager.addIfMax(commandStringArgument, commandObjectArgument))
                     return ResponseCode.ERROR;
                 break;
             case "remove_greater":
@@ -92,16 +92,16 @@ public class RequestHandler {
                 if (!commandManager.history(commandStringArgument, commandObjectArgument))
                     return ResponseCode.ERROR;
                 break;
-            case "sum_of_health":
-                if (!commandManager.sumOfHealth(commandStringArgument, commandObjectArgument))
+            case "remove_lower":
+                if (!commandManager.removeLowerCommand(commandStringArgument, commandObjectArgument))
                     return ResponseCode.ERROR;
                 break;
-            case "max_by_melee_weapon":
-                if (!commandManager.maxByMeleeWeapon(commandStringArgument, commandObjectArgument))
+            case "min_by_price":
+                if (!commandManager.minByPriceCommand(commandStringArgument, commandObjectArgument))
                     return ResponseCode.ERROR;
                 break;
-            case "filter_by_weapon_type":
-                if (!commandManager.filterByWeaponType(commandStringArgument, commandObjectArgument))
+            case "filter_by_price":
+                if (!commandManager.filterByPriceCommand(commandStringArgument, commandObjectArgument))
                     return ResponseCode.ERROR;
                 break;
             case "server_exit":
@@ -109,7 +109,7 @@ public class RequestHandler {
                     return ResponseCode.ERROR;
                 return ResponseCode.SERVER_EXIT;
             default:
-                ResponseOutputer.appendln("Команда '" + command + "' не найдена. Наберите 'help' для справки.");
+                ResponseOutputer.appendln("Command '" + command + "' not found. Type 'help' for help..");
                 return ResponseCode.ERROR;
         }
         return ResponseCode.OK;

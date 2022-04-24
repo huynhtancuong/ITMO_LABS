@@ -32,10 +32,11 @@ public class Person implements CSV , Serializable {
     private long height; //Значение поля должно быть больше 0
     private String passportID; //Строка не может быть пустой. Значение этого поля должно быть уникальным. Длина строки должна быть не меньше 10, Поле не может быть null
     private static HashSet<String> passportIDHashSet = new HashSet<String>();
+    private static SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
     // A method that returns a string that represents a person in a CSV format.
     public String getCSVString(String CSV_SEPARATOR) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
         return  formatter.format(birthday)+ CSV_SEPARATOR + Long.toString(height) + CSV_SEPARATOR + passportID;
     }
 
@@ -102,7 +103,7 @@ public class Person implements CSV , Serializable {
         String info = "";
         info+= "\n-PassportID = " + passportID;
         info+= "\n-Height = " + height;
-        info+= "\n-Birthday = " + birthday;
+        info+= "\n-Birthday = " + formatter.format(birthday);
         return info;
     }
 

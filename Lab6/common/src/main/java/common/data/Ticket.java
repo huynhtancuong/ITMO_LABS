@@ -145,7 +145,7 @@ public class Ticket implements CSV, Comparable<Ticket> , Serializable {
         info += " (created " + creationDate.toString() + ")";
         info += "\nName: " + name;
         info += "\nCoordinate: " + coordinates;
-        info += "\nPrice: " + price;
+        info += "\nPrice: " + price + "$";
         info += "\nType: " + type;
         info += "\nPerson: " + person;
         return info;

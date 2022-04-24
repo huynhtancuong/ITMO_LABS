@@ -14,6 +14,8 @@ manifest := MANIFEST.MF
 # _path_libs is a variable that store path to all jar file in folder lib
 # the separator between paths is SPACE
 _path_libs += $(shell find lib -name "*.jar") 
+# path to resource 
+_path_libs += server/src/main/resources/
 
 # path_libs is a variable that store path to all jar file in folder lib
 # the separator between paths is COLON

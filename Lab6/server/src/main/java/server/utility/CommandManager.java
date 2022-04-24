@@ -24,17 +24,19 @@ public class CommandManager {
     private Command saveCommand;
     private Command exitCommand;
     private Command executeScriptCommand;
-    private Command addIfMinCommand;
+    private Command addIfMaxCommand;
     private Command removeGreaterCommand;
     private Command historyCommand;
-    private Command sumOfHealthCommand;
-    private Command maxByMeleeWeaponCommand;
-    private Command filterByWeaponTypeCommand;
+    private Command filterByPriceCommand;
+    private Command minByPriceCommand;
+    private Command removeLowerCommand;
     private Command serverExitCommand;
 
-    public CommandManager(Command helpCommand, Command infoCommand, Command showCommand, Command addCommand, Command updateCommand,
-                          Command removeByIdCommand, Command clearCommand, Command saveCommand, Command exitCommand, Command executeScriptCommand,
-                          Command addIfMinCommand, Command removeGreaterCommand, Command historyCommand,  Command serverExitCommand) {
+    public CommandManager(Command addCommand, Command addIfMaxCommand, Command clearCommand, Command executeScriptCommand,
+                          Command exitCommand, Command filterByPriceCommand, Command helpCommand, Command historyCommand,
+                          Command infoCommand, Command minByPriceCommand, Command removeByIdCommand, Command removeGreaterCommand,
+                          Command removeLowerCommand, Command saveCommand, Command serverExitCommand, Command showCommand,
+                          Command updateCommand) {
         this.helpCommand = helpCommand;
         this.infoCommand = infoCommand;
         this.showCommand = showCommand;
@@ -45,10 +47,13 @@ public class CommandManager {
         this.saveCommand = saveCommand;
         this.exitCommand = exitCommand;
         this.executeScriptCommand = executeScriptCommand;
-        this.addIfMinCommand = addIfMinCommand;
+        this.addIfMaxCommand = addIfMaxCommand;
         this.removeGreaterCommand = removeGreaterCommand;
         this.historyCommand = historyCommand;
         this.serverExitCommand = serverExitCommand;
+        this.filterByPriceCommand = filterByPriceCommand;
+        this.minByPriceCommand = minByPriceCommand;
+        this.removeLowerCommand = removeLowerCommand;
 
         commands.add(helpCommand);
         commands.add(infoCommand);
@@ -60,10 +65,13 @@ public class CommandManager {
         commands.add(saveCommand);
         commands.add(exitCommand);
         commands.add(executeScriptCommand);
-        commands.add(addIfMinCommand);
+        commands.add(addIfMaxCommand);
         commands.add(removeGreaterCommand);
         commands.add(historyCommand);
         commands.add(serverExitCommand);
+        commands.add(filterByPriceCommand);
+        commands.add(minByPriceCommand);
+        commands.add(removeLowerCommand);
     }
 
     /**
@@ -100,6 +108,7 @@ public class CommandManager {
     public boolean help(String stringArgument, Object objectArgument) {
         if (helpCommand.execute(stringArgument, objectArgument)) {
             for (Command command : commands) {
+                if (command.getName()== "save") continue;
                 ResponseOutputer.appendtable(command.getName() + " " + command.getUsage(), command.getDescription());
             }
             return true;
@@ -212,8 +221,8 @@ public class CommandManager {
      * @param objectArgument Its object argument.
      * @return Command exit status.
      */
-    public boolean addIfMin(String stringArgument, Object objectArgument) {
-        return addIfMinCommand.execute(stringArgument, objectArgument);
+    public boolean addIfMax(String stringArgument, Object objectArgument) {
+        return addIfMaxCommand.execute(stringArgument, objectArgument);
     }
 
     /**
@@ -258,8 +267,8 @@ public class CommandManager {
      * @param objectArgument Its object argument.
      * @return Command exit status.
      */
-    public boolean sumOfHealth(String stringArgument, Object objectArgument) {
-        return sumOfHealthCommand.execute(stringArgument, objectArgument);
+    public boolean removeLowerCommand(String stringArgument, Object objectArgument) {
+        return removeLowerCommand.execute(stringArgument, objectArgument);
     }
 
     /**
@@ -269,8 +278,8 @@ public class CommandManager {
      * @param objectArgument Its object argument.
      * @return Command exit status.
      */
-    public boolean maxByMeleeWeapon(String stringArgument, Object objectArgument) {
-        return maxByMeleeWeaponCommand.execute(stringArgument, objectArgument);
+    public boolean minByPriceCommand(String stringArgument, Object objectArgument) {
+        return minByPriceCommand.execute(stringArgument, objectArgument);
     }
 
     /**
@@ -280,8 +289,8 @@ public class CommandManager {
      * @param objectArgument Its object argument.
      * @return Command exit status.
      */
-    public boolean filterByWeaponType(String stringArgument, Object objectArgument) {
-        return filterByWeaponTypeCommand.execute(stringArgument, objectArgument);
+    public boolean filterByPriceCommand(String stringArgument, Object objectArgument) {
+        return filterByPriceCommand.execute(stringArgument, objectArgument);
     }
 
     /**
@@ -292,6 +301,7 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean serverExit(String stringArgument, Object objectArgument) {
+        save(stringArgument, objectArgument);
         return serverExitCommand.execute(stringArgument, objectArgument);
     }
 }

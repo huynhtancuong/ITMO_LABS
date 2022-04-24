@@ -40,7 +40,6 @@ public class TicketAsker {
      * Just a date formatter
      */
     private final SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN);
-
     /**
      * @param userScanner Scanner
      */
@@ -132,7 +131,7 @@ public class TicketAsker {
                 Outputer.printerror("X coordinate not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Outputer.printerror("The X coordinate must be represented by a number!");
+                Outputer.printerror("The X coordinate must be represented by a integer number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
                 Outputer.printerror("Unexpected error!");
@@ -163,7 +162,7 @@ public class TicketAsker {
                 Outputer.printerror("Y coordinate not recognized!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Outputer.printerror("The Y coordinate must be represented by a number!");
+                Outputer.printerror("The Y coordinate must be represented by a integer number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
                 Outputer.printerror("Unexpected error!");
@@ -213,7 +212,7 @@ public class TicketAsker {
                 Outputer.printerror("Price must be greater than zero!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Outputer.printerror("Price must be represented by a number!");
+                Outputer.printerror("Price must be represented by a integer number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
                 Outputer.printerror("Unexpected error!");
@@ -250,7 +249,7 @@ public class TicketAsker {
                 Outputer.printerror("Height must be greater than zero!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NumberFormatException exception) {
-                Outputer.printerror("Height must be represented by a number!");
+                Outputer.printerror("Height must be represented by a integer number!");
                 if (fileMode) throw new IncorrectInputInScriptException();
             } catch (NullPointerException | IllegalStateException exception) {
                 Outputer.printerror("Unexpected error!");
@@ -341,6 +340,7 @@ public class TicketAsker {
                 strBirthday = userScanner.nextLine().trim();
                 if (strBirthday==null) throw new NullPointerException();
                 if (fileMode) Outputer.println(strBirthday);
+                formatter.setLenient(false);
                 birthday = formatter.parse(strBirthday);
                 break;
             } catch (ParseException e) {
