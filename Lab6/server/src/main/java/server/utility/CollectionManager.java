@@ -191,6 +191,7 @@ public class CollectionManager {
      */
     public void addToCollection(Ticket ticket) {
         ticketsCollection.add(ticket);
+        regenerateID();
     }
 
     /**
