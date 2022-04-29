@@ -11,6 +11,7 @@ import server.utility.RequestHandler;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
+import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -77,54 +78,65 @@ public class Server {
                         } else if (key.isReadable()) {
                             try {
                                 SocketChannel clientSocket = (SocketChannel) key.channel();
-
                                 clientSocket.configureBlocking(false);
                                 clientSocket.register(key.selector(), SelectionKey.OP_WRITE);
 
-                                ByteBuffer buffer = ByteBuffer.allocate(10000);
-                                clientSocket.read(buffer);
-                                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
+                                ByteBuffer buffer = ByteBuffer.allocate(clientSocket.getOption(StandardSocketOptions.SO_RCVBUF).intValue());
 
+                                clientSocket.read(buffer);
+
+                                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
                                 ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
 
                                 userRequest = (Request) objectInputStream.readObject();
-                                //responseToUser = requestHandler.handle(userRequest);
+                                responseToUser = requestHandler.handle(userRequest);
                                 App.logger.info("Request '" + userRequest.getCommandName() + "' successfully processed.");
-                            } catch (ClassNotFoundException exception) {
+                            } catch (StreamCorruptedException e) {
+
+                            }
+                            catch (ClassNotFoundException exception) {
                                 Outputer.printerror("An error occurred while reading received data!");
                                 App.logger.error("An error occurred while reading received data!");
                             } catch (InvalidClassException | NotSerializableException exception) {
                                 Outputer.printerror("An error occurred while sending data to the client!");
                                 App.logger.error("An error occurred while sending data to the client!");
                             } catch (IOException exception) {
-                                if (userRequest == null) {
-                                    Outputer.printerror("Unexpected loss of connection with the client!");
-                                    App.logger.warn("123Unexpected loss of connection with the client!");
-                                } else {
-                                    Outputer.println("Client successfully disconnected from server!");
-                                    App.logger.info("Client successfully disconnected from server!");
-                                }
+                                //exception.printStackTrace();
+//                                if (userRequest == null) {
+//                                    Outputer.printerror("Unexpected loss of connection with the client!");
+//                                    App.logger.warn("123Unexpected loss of connection with the client!");
+//                                } else {
+//                                    Outputer.println("Client successfully disconnected from server!");
+//                                    App.logger.info("Client successfully disconnected from server!");
+//                                }
                             }
 
-                        } else if (key.isWritable()) {
+                        }
+                        else if (key.isWritable()) {
                             try {
                                 SocketChannel clientSocket = (SocketChannel) key.channel();
+
                                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                                 ObjectOutputStream clientWriter = new ObjectOutputStream(byteArrayOutputStream);
+
                                 clientWriter.writeObject(responseToUser);
-                                clientWriter.flush();
+
                                 clientSocket.write(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()));
+                                clientWriter.flush();
+                            } catch (StreamCorruptedException e) {
+
                             } catch (InvalidClassException | NotSerializableException exception) {
                                 Outputer.printerror("An error occurred while sending data to the client!");
                                 App.logger.error("An error occurred while sending data to the client!");
                             } catch (IOException exception) {
-                                if (userRequest == null) {
-                                    Outputer.printerror("Unexpected loss of connection with the client!");
-                                    App.logger.warn("Unexpected loss of connection with the client!");
-                                } else {
-                                    Outputer.println("Client successfully disconnected from server!");
-                                    App.logger.info("Client successfully disconnected from server!");
-                                }
+                                 exception.printStackTrace();
+//                                if (userRequest == null) {
+//                                    Outputer.printerror("Unexpected loss of connection with the client!");
+//                                    App.logger.warn("Unexpected loss of connection with the client!");
+//                                } else {
+//                                    Outputer.println("Client successfully disconnected from server!");
+//                                    App.logger.info("Client successfully disconnected from server!");
+//                                }
                             }
                         }
                     }
