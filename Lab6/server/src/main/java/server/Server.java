@@ -11,7 +11,6 @@ import server.utility.RequestHandler;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
-import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -55,7 +54,6 @@ public class Server {
                 Set<SelectionKey> readyKeys = selector.selectedKeys();
                 Iterator keys = readyKeys.iterator();
                 while (keys.hasNext()) {
-
                     SelectionKey key = (SelectionKey) keys.next();
                     // Remove key from set, so we don't process it twice
                     keys.remove();
@@ -91,6 +89,7 @@ public class Server {
                                 App.logger.error("An error occurred while sending data to the client!");
                             } catch (IOException exception) {
                                  exception.printStackTrace();
+                                 System.exit(0);
 //                                if (userRequest == null) {
 //                                    Outputer.printerror("Unexpected loss of connection with the client!");
 //                                    App.logger.warn("Unexpected loss of connection with the client!");
@@ -132,19 +131,26 @@ public class Server {
 
     private void read(SelectionKey key, Selector selector, Request userRequest, Response responseToUser) throws IOException, ClassNotFoundException {
         SocketChannel clientSocket = (SocketChannel) key.channel();
-        clientSocket.configureBlocking(false);
-        clientSocket.register(key.selector(), SelectionKey.OP_WRITE);
+//        clientSocket.configureBlocking(false);
+//        clientSocket.register(key.selector(), SelectionKey.OP_WRITE);
 
-        ByteBuffer buffer = ByteBuffer.allocate(clientSocket.getOption(StandardSocketOptions.SO_RCVBUF).intValue());
+        ByteBuffer buffer = ByteBuffer.allocate(1024*16);
 
         clientSocket.read(buffer);
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
         ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
 
-        userRequest = (Request) objectInputStream.readObject();
-        responseToUser = requestHandler.handle(userRequest);
-        App.logger.info("Request '" + userRequest.getCommandName() + "' successfully processed.");
+        try {
+            userRequest = (Request) objectInputStream.readObject();
+        } catch (StreamCorruptedException e) {
+            System.out.println("I'm here");
+            e.printStackTrace();
+        }
+        if (userRequest != null) {
+            responseToUser = requestHandler.handle(userRequest);
+            App.logger.info("Request '" + userRequest.getCommandName() + "' successfully processed.");
+        }
     }
 
     private void write(SelectionKey key, Selector selector, Response responseToUser) throws IOException {

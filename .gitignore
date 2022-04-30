@@ -1,3 +1,9 @@
 /Lab2/target/
 /Lab4/target/
 /Lab6/target/
+/Lab6/MANIFEST.MF
+/Lab6/application*
+/Lab6/client.jar
+/Lab6/server.jar
+/Lab6/sourceslist.txt
+/*/.idea/*
