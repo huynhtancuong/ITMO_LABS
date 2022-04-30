@@ -62,37 +62,13 @@ public class Server {
                     // Operate on the channel
                     if (key.isValid()) {
                         if (key.isAcceptable()) {
-                            serverSocketChannel = (ServerSocketChannel) key.channel();
-                            // Get client socket channel
-                            Outputer.println("Port listening '" + port + "'...");
-                            App.logger.info("Port listening '" + port + "'...");
-
-                            SocketChannel clientSocket = serverSocketChannel.accept();
-
-                            Outputer.println("Client connection successfully established.");
-                            App.logger.info("Client connection successfully established.");
-                            // Non blocking I/O
-                            clientSocket.configureBlocking(false);
-                            // Record it for read/write operations (only read here)
-                            clientSocket.register(selector, SelectionKey.OP_READ, ByteBuffer.allocate(1024));
+                            accept(key, selector);
                         } else if (key.isReadable()) {
                             try {
-                                SocketChannel clientSocket = (SocketChannel) key.channel();
-                                clientSocket.configureBlocking(false);
-                                clientSocket.register(key.selector(), SelectionKey.OP_WRITE);
-
-                                ByteBuffer buffer = ByteBuffer.allocate(clientSocket.getOption(StandardSocketOptions.SO_RCVBUF).intValue());
-
-                                clientSocket.read(buffer);
-
-                                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
-                                ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-
-                                userRequest = (Request) objectInputStream.readObject();
-                                responseToUser = requestHandler.handle(userRequest);
-                                App.logger.info("Request '" + userRequest.getCommandName() + "' successfully processed.");
-                            } catch (StreamCorruptedException e) {
-
+                                read(key, selector, userRequest, responseToUser);
+                            }
+                            catch (StreamCorruptedException e) {
+                                e.printStackTrace();
                             }
                             catch (ClassNotFoundException exception) {
                                 Outputer.printerror("An error occurred while reading received data!");
@@ -101,28 +77,13 @@ public class Server {
                                 Outputer.printerror("An error occurred while sending data to the client!");
                                 App.logger.error("An error occurred while sending data to the client!");
                             } catch (IOException exception) {
-                                //exception.printStackTrace();
-//                                if (userRequest == null) {
-//                                    Outputer.printerror("Unexpected loss of connection with the client!");
-//                                    App.logger.warn("123Unexpected loss of connection with the client!");
-//                                } else {
-//                                    Outputer.println("Client successfully disconnected from server!");
-//                                    App.logger.info("Client successfully disconnected from server!");
-//                                }
+                                exception.printStackTrace();
                             }
 
                         }
                         else if (key.isWritable()) {
                             try {
-                                SocketChannel clientSocket = (SocketChannel) key.channel();
-
-                                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                                ObjectOutputStream clientWriter = new ObjectOutputStream(byteArrayOutputStream);
-
-                                clientWriter.writeObject(responseToUser);
-
-                                clientSocket.write(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()));
-                                clientWriter.flush();
+                                write(key, selector, responseToUser);
                             } catch (StreamCorruptedException e) {
 
                             } catch (InvalidClassException | NotSerializableException exception) {
@@ -150,6 +111,52 @@ public class Server {
             Outputer.printerror("An error occurred while trying to terminate the connection with the client!");
             App.logger.error("An error occurred while trying to terminate the connection with the client!");
         }
+    }
+
+    private void accept(SelectionKey key, Selector selector) throws IOException {
+        serverSocketChannel = (ServerSocketChannel) key.channel();
+        // Get client socket channel
+        Outputer.println("Port listening '" + port + "'...");
+        App.logger.info("Port listening '" + port + "'...");
+
+        SocketChannel clientSocket = serverSocketChannel.accept();
+
+        Outputer.println("Client connection successfully established.");
+        App.logger.info("Client connection successfully established.");
+        // Non blocking I/O
+        clientSocket.configureBlocking(false);
+        // Record it for read/write operations (only read here)
+        clientSocket.register(selector, SelectionKey.OP_READ, ByteBuffer.allocate(1024));
+    }
+
+
+    private void read(SelectionKey key, Selector selector, Request userRequest, Response responseToUser) throws IOException, ClassNotFoundException {
+        SocketChannel clientSocket = (SocketChannel) key.channel();
+        clientSocket.configureBlocking(false);
+        clientSocket.register(key.selector(), SelectionKey.OP_WRITE);
+
+        ByteBuffer buffer = ByteBuffer.allocate(clientSocket.getOption(StandardSocketOptions.SO_RCVBUF).intValue());
+
+        clientSocket.read(buffer);
+
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
+        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+
+        userRequest = (Request) objectInputStream.readObject();
+        responseToUser = requestHandler.handle(userRequest);
+        App.logger.info("Request '" + userRequest.getCommandName() + "' successfully processed.");
+    }
+
+    private void write(SelectionKey key, Selector selector, Response responseToUser) throws IOException {
+        SocketChannel clientSocket = (SocketChannel) key.channel();
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ObjectOutputStream clientWriter = new ObjectOutputStream(byteArrayOutputStream);
+
+        clientWriter.writeObject(responseToUser);
+
+        clientSocket.write(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()));
+        clientWriter.flush();
     }
 
     /**
