@@ -32,6 +32,9 @@ public class Server {
     private Selector selector;
     private ServerSocketChannel serverSocketChannel;
 
+    private Request userRequest = null;
+     private Response responseToUser = null;
+
     public Server(int port, int soTimeout, RequestHandler requestHandler) {
         this.port = port;
         this.soTimeout = soTimeout;
@@ -42,8 +45,7 @@ public class Server {
      * Begins server operation.
      */
     public void run() {
-        Request userRequest = null;
-        Response responseToUser = null;
+
         try {
             openServerSocket();
             boolean processingStatus = true;
@@ -59,11 +61,13 @@ public class Server {
                     keys.remove();
                     // Operate on the channel
                     if (key.isValid()) {
+
                         if (key.isAcceptable()) {
                             accept(key, selector);
+
                         } else if (key.isReadable()) {
                             try {
-                                read(key, selector, userRequest, responseToUser);
+                                read(key);
                             }
                             catch (StreamCorruptedException e) {
                                 e.printStackTrace();
@@ -81,7 +85,7 @@ public class Server {
                         }
                         else if (key.isWritable()) {
                             try {
-                                write(key, selector, responseToUser);
+                                write(key, responseToUser);
                             } catch (StreamCorruptedException e) {
 
                             } catch (InvalidClassException | NotSerializableException exception) {
@@ -129,40 +133,52 @@ public class Server {
     }
 
 
-    private void read(SelectionKey key, Selector selector, Request userRequest, Response responseToUser) throws IOException, ClassNotFoundException {
+    private void read(SelectionKey key) throws IOException, ClassNotFoundException {
         SocketChannel clientSocket = (SocketChannel) key.channel();
-//        clientSocket.configureBlocking(false);
-//        clientSocket.register(key.selector(), SelectionKey.OP_WRITE);
+        clientSocket.configureBlocking(false);
+        clientSocket.register(key.selector(), SelectionKey.OP_WRITE);
 
         ByteBuffer buffer = ByteBuffer.allocate(1024*16);
 
-        clientSocket.read(buffer);
-
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
-        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-
-        try {
-            userRequest = (Request) objectInputStream.readObject();
-        } catch (StreamCorruptedException e) {
-            System.out.println("I'm here");
-            e.printStackTrace();
+        int readStatus = clientSocket.read(buffer);
+        if (readStatus == -1) {
+            key.cancel();
+            return;
         }
-        if (userRequest != null) {
+
+        Object obj = null;
+
+        if (readStatus != -1) {
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+
+            obj = objectInputStream.readObject();
+        }
+
+        if (obj instanceof Request) {
+            userRequest = (Request) obj;
             responseToUser = requestHandler.handle(userRequest);
             App.logger.info("Request '" + userRequest.getCommandName() + "' successfully processed.");
         }
     }
 
-    private void write(SelectionKey key, Selector selector, Response responseToUser) throws IOException {
+    private void write(SelectionKey key, Response responseToUser) throws IOException {
         SocketChannel clientSocket = (SocketChannel) key.channel();
+        clientSocket.configureBlocking(false);
+        clientSocket.register(key.selector(), SelectionKey.OP_READ);
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream clientWriter = new ObjectOutputStream(byteArrayOutputStream);
+        clientWriter.flush();
 
         clientWriter.writeObject(responseToUser);
 
-        clientSocket.write(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()));
-        clientWriter.flush();
+        ByteBuffer buffer = ByteBuffer.wrap(byteArrayOutputStream.toByteArray());
+        int totalWrite = 0;
+        while (totalWrite < buffer.capacity()) {
+            int writeStatus = clientSocket.write(buffer);
+            totalWrite+=writeStatus;
+        }
     }
 
     /**

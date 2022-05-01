@@ -5,10 +5,12 @@ import common.exceptions.ConnectionErrorException;
 import common.exceptions.NotInDeclaredLimitsException;
 import common.interaction.Request;
 import common.interaction.Response;
+import common.interaction.ResponseCode;
 import common.utility.Outputer;
 
 import java.io.*;
 import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
 /**
@@ -77,11 +79,15 @@ public class Client {
         try {
             if (reconnectionAttempts >= 1) Outputer.println("Reconnecting to the server...");
             socketChannel = SocketChannel.open(new InetSocketAddress(host, port));
-            Outputer.println("Reconnecting to the server.");
-            Outputer.println("Waiting for permission to communicate...");
-            serverWriter = new ObjectOutputStream(socketChannel.socket().getOutputStream());
-            serverReader = new ObjectInputStream(socketChannel.socket().getInputStream());
-            Outputer.println("Permission to share data received.");
+            if (socketChannel != null) {
+                Outputer.println("Connected to server.");
+            } else {
+                Outputer.println("Reconnecting to the server.");
+            }
+//            Outputer.println("Waiting for permission to communicate...");
+//            serverWriter = new ObjectOutputStream(socketChannel.socket().getOutputStream());
+//            serverReader = new ObjectInputStream(socketChannel.socket().getInputStream());
+//            Outputer.println("Permission to share data received.");
         } catch (IllegalArgumentException exception) {
             Outputer.printerror("Server address entered incorrectly!");
             throw new NotInDeclaredLimitsException();
@@ -102,8 +108,12 @@ public class Client {
                 requestToServer = serverResponse != null ? userHandler.handle(serverResponse.getResponseCode()) :
                         userHandler.handle(null);
                 if (requestToServer.isEmpty()) continue;
-                serverWriter.writeObject(requestToServer);
-                serverResponse = (Response) serverReader.readObject();
+
+                // writing Request object here
+                myWriteObject(requestToServer);
+                // reading Response object here
+                serverResponse = myReadObject();
+
                 Outputer.print(serverResponse.getResponseBody());
             } catch (InvalidClassException | NotSerializableException exception) {
                 Outputer.printerror(exception);
@@ -120,8 +130,42 @@ public class Client {
                         Outputer.println("The command will not be registered on the server.");
                     else Outputer.println("Try repeating the command later.");
                 }
+            } catch (NullPointerException e) {
+                Outputer.printerror("Catched NullPointerExeption");
             }
         } while (!requestToServer.getCommandName().equals("exit"));
         return false;
+    }
+
+    private Response myReadObject() throws IOException, ClassNotFoundException {
+        Response serverResponse = new Response(ResponseCode.ERROR, "");
+        ByteBuffer buffer = ByteBuffer.allocate(1024*16);
+        buffer.clear();
+
+        int read = socketChannel.read(buffer);
+        if (read < 0) return serverResponse;
+
+        buffer.flip();
+
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
+        serverReader = new ObjectInputStream(byteArrayInputStream);
+
+        Object obj = serverReader.readObject();
+
+        if (obj instanceof Response) {
+            serverResponse = (Response) obj;
+        }
+        return serverResponse;
+    }
+
+    private void myWriteObject(Request requestToServer) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        serverWriter = new ObjectOutputStream(byteArrayOutputStream);
+        serverWriter.flush();
+
+        serverWriter.writeObject(requestToServer);
+
+        ByteBuffer buffer = ByteBuffer.wrap(byteArrayOutputStream.toByteArray());
+        socketChannel.write(buffer);
     }
 }
