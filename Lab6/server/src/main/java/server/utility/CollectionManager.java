@@ -5,6 +5,7 @@ import common.data.Ticket;
 import common.exceptions.CollectionIsEmptyException;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -18,7 +19,7 @@ public class CollectionManager {
     private LocalDateTime lastSaveTime;
 
     /**
-     * @param CollectionFileManager File Manager class for managing the file
+     * @param collectionFileManager File Manager class for managing the file
      */
     public CollectionManager(CollectionFileManager collectionFileManager) {
         this.lastInitTime = null;
@@ -162,12 +163,14 @@ public class CollectionManager {
     public String minByPrice() throws CollectionIsEmptyException {
         if (ticketsCollection.isEmpty()) throw new CollectionIsEmptyException();
 
-        Ticket minTicket = getFirst();
-        for (Ticket ticket : ticketsCollection) {
-            if (ticket.getPrice().compareTo(minTicket.getPrice()) < 0) {
-                minTicket = ticket;
-            }
-        }
+//        Ticket minTicket = getFirst();
+//        for (Ticket ticket : ticketsCollection) {
+//            if (ticket.getPrice().compareTo(minTicket.getPrice()) < 0) {
+//                minTicket = ticket;
+//            }
+//        }
+
+        Ticket minTicket = ticketsCollection.stream().min(Comparator.comparing(Ticket::getPrice)).get();
         return minTicket.toString();
     }
 
