@@ -1,7 +1,6 @@
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.StreamCorruptedException;
+import jdk.nashorn.internal.objects.NativeArray;
+
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.StandardSocketOptions;
@@ -30,21 +29,27 @@ public class Server {
         // Read byte coming from the client
         ByteBuffer buffer = ByteBuffer.allocate(16*1024);
         try {
-            socketChannel.read(buffer);
+            int readStatus = socketChannel.read(buffer);
+            if (readStatus == -1) key.cancel();
 
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
-            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+            Object obj = null;
+            if (readStatus != -1) {
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array());
+                ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+                obj = objectInputStream.readObject();
+                buffer.flip();
+                buffer.clear();
+            }
 
-            Object obj = objectInputStream.readObject();
-
-            if (obj instanceof String) {
-                System.out.println("We got a String object!!!" + (String) obj);
+            if (obj instanceof Request) {
+                System.out.println("We got a Request object!!!\n" + ((Request) obj).toString());
             }
 
             buffer.clear();
-            key.interestOps(SelectionKey.OP_WRITE);
+//            key.interestOps(SelectionKey.OP_WRITE);
         } catch (StreamCorruptedException e) {
             e.printStackTrace();
+            System.exit(0);
         } catch (Exception e) {
             // cleint is no longer active
             e.printStackTrace();
@@ -54,15 +59,26 @@ public class Server {
 
     public static void write(SelectionKey key, Selector selector) throws IOException {
         SocketChannel channel = (SocketChannel) key.channel();
-        ByteBuffer buffer = ByteBuffer.allocate(channel.getOption(StandardSocketOptions.SO_RCVBUF).intValue());
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
         buffer.flip();
-        channel.write(buffer);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+        objectOutputStream.flush();
+
+        Response serverResponse = new Response("Hi, this is my request");
+
+        objectOutputStream.writeObject(serverResponse);
+        objectOutputStream.flush();
+
+        int writeStatus = channel.write(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()));
+
         if (buffer.hasRemaining()) { // nghia la chung ta van chua gui het du lieu trong buffer o vong lap truoc
             buffer.compact(); // di chuyen nhung du lieu con lai toi vi tri dau tien cua buffer
         } else {
             buffer.clear();
         }
-        key.interestOps(SelectionKey.OP_READ);
+//        key.interestOps(SelectionKey.OP_READ);
     }
 
     public static void main(String args[]) {
@@ -78,27 +94,55 @@ public class Server {
             serverChannel.register(selector, SelectionKey.OP_ACCEPT);
 
             while (true) {
-                int readyCount = selector.selectNow();
-                if (readyCount == 0) continue;
+                selector.select();
+
                 // process selected keys
                 Set<SelectionKey> readyKeys = selector.selectedKeys();
-                Iterator keyIterator = readyKeys.iterator();
-                while (keyIterator.hasNext()) {
-
-                    SelectionKey key = (SelectionKey) keyIterator.next();
+                int readyCount = readyKeys.size();
+                if (readyCount == 0) continue;
+//                Iterator keyIterator = readyKeys.iterator();
+//                while (keyIterator.hasNext()) {
+//
+//                    SelectionKey key = (SelectionKey) keyIterator.next();
+//                    if (key.isValid()) {
+//
+//                        if (key.isAcceptable()) { // accept connection
+//                            accept(key, selector);
+//                        } else if (key.isReadable()) { // If readable then the server is ready to read
+//                            read(key, selector);
+//                        } else if (key.isWritable()) {
+//                            write(key, selector);
+//                        }
+//
+//                    }
+//                    keyIterator.remove();
+//                }
+//                for (SelectionKey key: readyKeys) {
+//                    if (key.isValid()){
+//                        if (key.isAcceptable()) { // accept connection
+//                            accept(key, selector);
+//                        } else if (key.isReadable()) { // If readable then the server is ready to read
+//                            read(key, selector);
+//                        } else if (key.isWritable()) {
+//                            write(key, selector);
+//                        }
+//                    }
+//                }
+//                Iterator iter;
+                for (Iterator<SelectionKey> it = readyKeys.iterator(); it.hasNext(); ){
+                    SelectionKey key = it.next();
+                    it.remove();
                     if (key.isValid()) {
-
-                        if (key.isAcceptable()) { // accept connection
-                            //accept(key, selector);
-                        } else if (key.isReadable()) { // If readable then the server is ready to read
+                        if (key.isAcceptable()) {accept(key, selector);} // accept
+                        else if (key.isReadable()) {
                             read(key, selector);
-                        } else if (key.isWritable()) {
-                            write(key, selector);
                         }
-
+                        else if (key.isWritable()) {
+                            write(key, selector);
+                        } // write
                     }
-                    keyIterator.remove();
-                }
+            }
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

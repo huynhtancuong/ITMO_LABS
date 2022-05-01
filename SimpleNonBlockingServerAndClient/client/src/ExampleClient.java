@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * This is CrunchifyNIOClient.java
  */
 
-public class CrunchifyNIOClient {
+public class ExampleClient {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
@@ -28,7 +28,7 @@ public class CrunchifyNIOClient {
         companyDetails.add("Twitter");
         companyDetails.add("IBM");
         companyDetails.add("Google");
-        companyDetails.add("Crunchify");
+        companyDetails.add("Crunchify.com");
 
         for (String companyName : companyDetails) {
 
