@@ -10,7 +10,6 @@ import server.utility.RequestHandler;
 
 import java.io.*;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -23,11 +22,9 @@ import java.util.Set;
  * Runs the server.
  */
 public class Server {
-    private int port;
-    private int soTimeout;
-    private ServerSocket serverSocket;
+    private final int port;
 
-    private RequestHandler requestHandler;
+    private final RequestHandler requestHandler;
     // NonBlocking IO
     private Selector selector;
     private ServerSocketChannel serverSocketChannel;
@@ -37,7 +34,6 @@ public class Server {
 
     public Server(int port, int soTimeout, RequestHandler requestHandler) {
         this.port = port;
-        this.soTimeout = soTimeout;
         this.requestHandler = requestHandler;
     }
 
@@ -69,17 +65,15 @@ public class Server {
                             try {
                                 read(key);
                             }
-                            catch (StreamCorruptedException e) {
-                                e.printStackTrace();
-                            }
-                            catch (ClassNotFoundException exception) {
+                            catch (StreamCorruptedException | ClassNotFoundException e) {
                                 Outputer.printerror("An error occurred while reading received data!");
                                 App.logger.error("An error occurred while reading received data!");
                             } catch (InvalidClassException | NotSerializableException exception) {
-                                Outputer.printerror("An error occurred while sending data to the client!");
-                                App.logger.error("An error occurred while sending data to the client!");
+                                Outputer.printerror("An error occurred while reading received data!");
+                                App.logger.error("An error occurred while reading received data!");
                             } catch (IOException exception) {
-                                exception.printStackTrace();
+                                Outputer.printerror("An error occurred while trying to terminate the connection with the client!");
+                                App.logger.error("An error occurred while trying to terminate the connection with the client!");
                             }
 
                         }
@@ -92,15 +86,13 @@ public class Server {
                                 Outputer.printerror("An error occurred while sending data to the client!");
                                 App.logger.error("An error occurred while sending data to the client!");
                             } catch (IOException exception) {
-                                 exception.printStackTrace();
-                                 System.exit(0);
-//                                if (userRequest == null) {
-//                                    Outputer.printerror("Unexpected loss of connection with the client!");
-//                                    App.logger.warn("Unexpected loss of connection with the client!");
-//                                } else {
-//                                    Outputer.println("Client successfully disconnected from server!");
-//                                    App.logger.info("Client successfully disconnected from server!");
-//                                }
+                                if (userRequest == null) {
+                                    Outputer.printerror("Unexpected loss of connection with the client!");
+                                    App.logger.warn("Unexpected loss of connection with the client!");
+                                } else {
+                                    Outputer.println("Client successfully disconnected from server!");
+                                    App.logger.info("Client successfully disconnected from server!");
+                                }
                             }
                         }
                     }
@@ -142,7 +134,7 @@ public class Server {
 
         int readStatus = clientSocket.read(buffer);
         if (readStatus == -1) {
-            key.cancel();
+            key.cancel(); // Cancel the key when there are nothing to read
             return;
         }
 
@@ -159,6 +151,7 @@ public class Server {
             userRequest = (Request) obj;
             responseToUser = requestHandler.handle(userRequest);
             App.logger.info("Request '" + userRequest.getCommandName() + "' successfully processed.");
+            if (responseToUser.getResponseCode() == ResponseCode.SERVER_EXIT) ;
         }
     }
 
@@ -191,6 +184,7 @@ public class Server {
             serverSocketChannel.close();
             Outputer.println("Server completed successfully.");
             App.logger.info("Server completed successfully.");
+            System.exit(0);
         } catch (ClosingSocketException exception) {
             Outputer.printerror("Unable to shut down server not yet running!");
             App.logger.error("Unable to shut down server not yet running!");
@@ -229,37 +223,4 @@ public class Server {
     }
 
 
-    /**
-     * The process of receiving a request from a client.
-     */
-    private boolean processClientRequest(SocketChannel clientSocket) {
-        Request userRequest = null;
-        Response responseToUser = null;
-        try (ObjectInputStream clientReader = new ObjectInputStream(clientSocket.socket().getInputStream());
-             ObjectOutputStream clientWriter = new ObjectOutputStream(clientSocket.socket().getOutputStream())) {
-            do {
-                userRequest = (Request) clientReader.readObject();
-                responseToUser = requestHandler.handle(userRequest);
-                App.logger.info("Request '" + userRequest.getCommandName() + "' successfully processed.");
-                clientWriter.writeObject(responseToUser);
-                clientWriter.flush();
-            } while (responseToUser.getResponseCode() != ResponseCode.SERVER_EXIT);
-            return false;
-        } catch (ClassNotFoundException exception) {
-            Outputer.printerror("An error occurred while reading received data!");
-            App.logger.error("An error occurred while reading received data!");
-        } catch (InvalidClassException | NotSerializableException exception) {
-            Outputer.printerror("An error occurred while sending data to the client!");
-            App.logger.error("An error occurred while sending data to the client!");
-        } catch (IOException exception) {
-            if (userRequest == null) {
-                Outputer.printerror("Unexpected loss of connection with the client!");
-                App.logger.warn("Unexpected loss of connection with the client!");
-            } else {
-                Outputer.println("Client successfully disconnected from server!");
-                App.logger.info("Client successfully disconnected from server!");
-            }
-        }
-        return true;
-    }
 }

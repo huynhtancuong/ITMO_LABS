@@ -84,10 +84,10 @@ public class Client {
             } else {
                 Outputer.println("Reconnecting to the server.");
             }
-//            Outputer.println("Waiting for permission to communicate...");
+            Outputer.println("Waiting for permission to communicate...");
 //            serverWriter = new ObjectOutputStream(socketChannel.socket().getOutputStream());
 //            serverReader = new ObjectInputStream(socketChannel.socket().getInputStream());
-//            Outputer.println("Permission to share data received.");
+            Outputer.println("Permission to share data received.");
         } catch (IllegalArgumentException exception) {
             Outputer.printerror("Server address entered incorrectly!");
             throw new NotInDeclaredLimitsException();
@@ -137,6 +137,11 @@ public class Client {
         return false;
     }
 
+    /**
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private Response myReadObject() throws IOException, ClassNotFoundException {
         Response serverResponse = new Response(ResponseCode.ERROR, "");
         ByteBuffer buffer = ByteBuffer.allocate(1024*16);
