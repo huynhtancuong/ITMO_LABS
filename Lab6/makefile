@@ -35,6 +35,7 @@ server: target
 	jar -cvfm $(out_server) $(manifest) target/common target/server $(_path_libs)
 
 run-server: $(out_server) 
+	$(env_var_name)=$(shell pwd)/$(env_var_value);\
 	export $(env_var_name)=$(shell pwd)/$(env_var_value);\
 	java -jar $(out_server)	
 
