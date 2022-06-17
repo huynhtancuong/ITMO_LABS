@@ -7,6 +7,7 @@ import server.commands.Command;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -36,8 +37,8 @@ public class CommandManager {
     private Command loginCommand;
     private Command registerCommand;
 
-    private ReadWriteLock historyLocker = new ReentrantReadWriteLock();
-    private ReadWriteLock collectionLocker = new ReentrantReadWriteLock();
+    private ReentrantLock historyLocker = new ReentrantLock();
+    private ReentrantLock collectionLocker = new ReentrantLock();
 
     public CommandManager(Command helpCommand, Command infoCommand, Command showCommand, Command addCommand, Command updateCommand,
                           Command removeByIdCommand, Command clearCommand, Command exitCommand, Command executeScriptCommand,
@@ -88,7 +89,7 @@ public class CommandManager {
      * @param user           User object.
      */
     public void addToHistory(String commandToStore, User user) {
-        historyLocker.writeLock().lock();
+        historyLocker.lock();
         try {
             for (Command command : commands) {
                 if (command.getName().equals(commandToStore)) {
@@ -99,7 +100,7 @@ public class CommandManager {
                 }
             }
         } finally {
-            historyLocker.writeLock().unlock();
+            historyLocker.unlock();
         }
     }
 
@@ -129,11 +130,11 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean info(String stringArgument, Object objectArgument, User user) {
-        collectionLocker.readLock().lock();
+        collectionLocker.lock();
         try {
             return infoCommand.execute(stringArgument, objectArgument, user);
         } finally {
-            collectionLocker.readLock().unlock();
+            collectionLocker.unlock();
         }
     }
 
@@ -146,11 +147,11 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean show(String stringArgument, Object objectArgument, User user) {
-        collectionLocker.readLock().lock();
+        collectionLocker.lock();
         try {
             return showCommand.execute(stringArgument, objectArgument, user);
         } finally {
-            collectionLocker.readLock().unlock();
+            collectionLocker.unlock();
         }
     }
 
@@ -163,11 +164,11 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean add(String stringArgument, Object objectArgument, User user) {
-        collectionLocker.writeLock().lock();
+        collectionLocker.lock();
         try {
             return addCommand.execute(stringArgument, objectArgument, user);
         } finally {
-            collectionLocker.writeLock().unlock();
+            collectionLocker.unlock();
         }
     }
 
@@ -180,11 +181,11 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean update(String stringArgument, Object objectArgument, User user) {
-        collectionLocker.writeLock().lock();
+        collectionLocker.lock();
         try {
             return updateCommand.execute(stringArgument, objectArgument, user);
         } finally {
-            collectionLocker.writeLock().unlock();
+            collectionLocker.unlock();
         }
     }
 
@@ -197,11 +198,11 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean removeById(String stringArgument, Object objectArgument, User user) {
-        collectionLocker.writeLock().lock();
+        collectionLocker.lock();
         try {
             return removeByIdCommand.execute(stringArgument, objectArgument, user);
         } finally {
-            collectionLocker.writeLock().unlock();
+            collectionLocker.unlock();
         }
     }
 
@@ -214,11 +215,11 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean clear(String stringArgument, Object objectArgument, User user) {
-        collectionLocker.writeLock().lock();
+        collectionLocker.lock();
         try {
             return clearCommand.execute(stringArgument, objectArgument, user);
         } finally {
-            collectionLocker.writeLock().unlock();
+            collectionLocker.unlock();
         }
     }
 
@@ -255,11 +256,11 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean addIfMin(String stringArgument, Object objectArgument, User user) {
-        collectionLocker.writeLock().lock();
+        collectionLocker.lock();
         try {
             return addIfMinCommand.execute(stringArgument, objectArgument, user);
         } finally {
-            collectionLocker.writeLock().unlock();
+            collectionLocker.unlock();
         }
     }
 
@@ -272,11 +273,11 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean removeGreater(String stringArgument, Object objectArgument, User user) {
-        collectionLocker.writeLock().lock();
+        collectionLocker.lock();
         try {
             return removeGreaterCommand.execute(stringArgument, objectArgument, user);
         } finally {
-            collectionLocker.writeLock().unlock();
+            collectionLocker.unlock();
         }
     }
 
@@ -290,7 +291,7 @@ public class CommandManager {
      */
     public boolean history(String stringArgument, Object objectArgument, User user) {
         if (historyCommand.execute(stringArgument, objectArgument, user)) {
-            historyLocker.readLock().lock();
+            historyLocker.lock();
             try {
                 if (commandHistory.length == 0) throw new HistoryIsEmptyException();
                 ResponseOutputer.appendln("Последние использованные команды:");
@@ -301,7 +302,7 @@ public class CommandManager {
             } catch (HistoryIsEmptyException exception) {
                 ResponseOutputer.appendln("Ни одной команды еще не было использовано!");
             } finally {
-                historyLocker.readLock().unlock();
+                historyLocker.unlock();
             }
         }
         return false;
@@ -316,11 +317,11 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean sumOfHealth(String stringArgument, Object objectArgument, User user) {
-        collectionLocker.readLock().lock();
+        collectionLocker.lock();
         try {
             return sumOfHealthCommand.execute(stringArgument, objectArgument, user);
         } finally {
-            collectionLocker.readLock().unlock();
+            collectionLocker.unlock();
         }
     }
 
@@ -333,11 +334,11 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean maxByMeleeWeapon(String stringArgument, Object objectArgument, User user) {
-        collectionLocker.readLock().lock();
+        collectionLocker.lock();
         try {
             return maxByMeleeWeaponCommand.execute(stringArgument, objectArgument, user);
         } finally {
-            collectionLocker.readLock().unlock();
+            collectionLocker.unlock();
         }
     }
 
@@ -350,11 +351,11 @@ public class CommandManager {
      * @return Command exit status.
      */
     public boolean filterByWeaponType(String stringArgument, Object objectArgument, User user) {
-        collectionLocker.readLock().lock();
+        collectionLocker.lock();
         try {
             return filterByWeaponTypeCommand.execute(stringArgument, objectArgument, user);
         } finally {
-            collectionLocker.readLock().lock();
+            collectionLocker.lock();
         }
     }
 

@@ -20,8 +20,9 @@ public class ConnectionHandler implements Runnable {
     private Server server;
     private Socket clientSocket;
     private CommandManager commandManager;
-    private ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
+//    private ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
     private ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1);
+    private ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
 
     public ConnectionHandler(Server server, Socket clientSocket, CommandManager commandManager) {
@@ -42,7 +43,12 @@ public class ConnectionHandler implements Runnable {
              ObjectOutputStream clientWriter = new ObjectOutputStream(clientSocket.getOutputStream())) {
             do {
                 userRequest = (Request) clientReader.readObject();
-                responseToUser = forkJoinPool.invoke(new HandleRequestTask(userRequest, commandManager)); // Using forkJoinPool for processing request
+//                responseToUser = forkJoinPool.invoke(new HandleRequestTask(userRequest, commandManager)); // Using forkJoinPool for processing request
+                Request finalUserRequest = userRequest;
+                responseToUser = cachedThreadPool.submit(() -> { // Using cached thread pool for processing request
+                    HandleRequestTask handleRequestTask = new HandleRequestTask(finalUserRequest, commandManager);
+                    return handleRequestTask.compute();
+                }).get();
                 App.logger.info("Запрос '" + userRequest.getCommandName() + "' обработан.");
                 Response finalResponseToUser = responseToUser;
                 if (!fixedThreadPool.submit(() -> { // Using fixed thread pool for writing response to client

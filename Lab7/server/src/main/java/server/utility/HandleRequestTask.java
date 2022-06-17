@@ -5,12 +5,10 @@ import common.interaction.Response;
 import common.interaction.ResponseCode;
 import common.interaction.User;
 
-import java.util.concurrent.RecursiveTask;
-
 /**
  * A class for handle request task.
  */
-public class HandleRequestTask extends RecursiveTask<Response> {
+public class HandleRequestTask {
     private Request request;
     private CommandManager commandManager;
 
@@ -19,8 +17,8 @@ public class HandleRequestTask extends RecursiveTask<Response> {
         this.commandManager = commandManager;
     }
 
-    @Override
-    protected Response compute() {
+//    @Override
+    public Response compute() {
         User hashedUser = new User(
                 request.getUser().getUsername(),
                 PasswordHasher.hashPassword(request.getUser().getPassword())
@@ -29,6 +27,7 @@ public class HandleRequestTask extends RecursiveTask<Response> {
         ResponseCode responseCode = executeCommand(request.getCommandName(), request.getCommandStringArgument(),
                 request.getCommandObjectArgument(), hashedUser);
         return new Response(responseCode, ResponseOutputer.getAndClear());
+//        return false;
     }
 
     /**
