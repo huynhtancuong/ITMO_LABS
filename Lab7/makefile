@@ -52,6 +52,9 @@ clean:
 	rm -f $(out_sourceslist)
 	rm -f $(manifest)
 	rm -rf $(logs)
+	rm -rf client/build
+	rm -rf server/build
+	rm -rf common/build
 test: 
 	@echo $(shell find lib -name "*.jar")	
 
