@@ -66,6 +66,7 @@ public class DatabaseHandler {
             Outputer.println("Database connection established.");
             App.logger.info("Database connection established.");
         } catch (SQLException exception) {
+            exception.printStackTrace();
             Outputer.printerror("An error occurred while connecting to the database!");
             App.logger.error("An error occurred while connecting to the database!");
         } catch (ClassNotFoundException exception) {
