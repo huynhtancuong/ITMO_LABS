@@ -13,7 +13,7 @@ public class MaxByMeleeWeaponCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
     public MaxByMeleeWeaponCommand(CollectionManager collectionManager) {
-        super("max_by_melee_weapon", "", "вывести элемент, значение поля meleeWeapon которого максимально");
+        super("max_by_melee_weapon", "", "display the element whose meleeWeapon field value is maximum");
         this.collectionManager = collectionManager;
     }
 
@@ -29,9 +29,9 @@ public class MaxByMeleeWeaponCommand extends AbstractCommand {
             ResponseOutputer.appendln(collectionManager.maxByMeleeWeapon());
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + " " + getUsage() + "'");
         } catch (CollectionIsEmptyException exception) {
-            ResponseOutputer.appenderror("Коллекция пуста!");
+            ResponseOutputer.appenderror("Collection is empty!");
         }
         return true;
     }

@@ -28,7 +28,7 @@ public class AuthHandler {
      */
     public Request handle() {
         AuthAsker authAsker = new AuthAsker(userScanner);
-        String command = authAsker.askQuestion("У вас уже есть учетная запись?") ? loginCommand : registerCommand;
+        String command = authAsker.askQuestion("You already have an account?") ? loginCommand : registerCommand;
         User user = new User(authAsker.askLogin(), authAsker.askPassword());
         return new Request(command, "", user);
     }

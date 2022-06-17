@@ -14,7 +14,7 @@ public class InfoCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
     public InfoCommand(CollectionManager collectionManager) {
-        super("info", "", "вывести информацию о коллекции");
+        super("info", "", "display information about the collection");
         this.collectionManager = collectionManager;
     }
 
@@ -28,16 +28,16 @@ public class InfoCommand extends AbstractCommand {
         try {
             if (!stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
             LocalDateTime lastInitTime = collectionManager.getLastInitTime();
-            String lastInitTimeString = (lastInitTime == null) ? "в данной сессии инициализации еще не происходило" :
+            String lastInitTimeString = (lastInitTime == null) ? "initialization has not yet taken place in this session" :
                     lastInitTime.toLocalDate().toString() + " " + lastInitTime.toLocalTime().toString();
 
-            ResponseOutputer.appendln("Сведения о коллекции:");
-            ResponseOutputer.appendln(" Тип: " + collectionManager.collectionType());
-            ResponseOutputer.appendln(" Количество элементов: " + collectionManager.collectionSize());
-            ResponseOutputer.appendln(" Дата последней инициализации: " + lastInitTimeString);
+            ResponseOutputer.appendln("Collection details:");
+            ResponseOutputer.appendln(" Type of: " + collectionManager.collectionType());
+            ResponseOutputer.appendln(" Amount of elements: " + collectionManager.collectionSize());
+            ResponseOutputer.appendln(" Date of last initialization: " + lastInitTimeString);
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + " " + getUsage() + "'");
         }
         return false;
     }

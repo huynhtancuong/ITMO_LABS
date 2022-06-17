@@ -49,7 +49,7 @@ public class ConnectionHandler implements Runnable {
                     HandleRequestTask handleRequestTask = new HandleRequestTask(finalUserRequest, commandManager);
                     return handleRequestTask.compute();
                 }).get();
-                App.logger.info("Запрос '" + userRequest.getCommandName() + "' обработан.");
+                App.logger.info("Request '" + userRequest.getCommandName() + "' processed.");
                 Response finalResponseToUser = responseToUser;
                 if (!fixedThreadPool.submit(() -> { // Using fixed thread pool for writing response to client
                     try {
@@ -57,8 +57,8 @@ public class ConnectionHandler implements Runnable {
                         clientWriter.flush();
                         return true;
                     } catch (IOException exception) {
-                        Outputer.printerror("Произошла ошибка при отправке данных на клиент!");
-                        App.logger.error("Произошла ошибка при отправке данных на клиент!");
+                        Outputer.printerror("An error occurred while sending data to the client!");
+                        App.logger.error("An error occurred while sending data to the client!");
                     }
                     return false;
                 }).get()) break;
@@ -67,23 +67,23 @@ public class ConnectionHandler implements Runnable {
             if (responseToUser.getResponseCode() == ResponseCode.SERVER_EXIT)
                 stopFlag = true;
         } catch (ClassNotFoundException exception) {
-            Outputer.printerror("Произошла ошибка при чтении полученных данных!");
-            App.logger.error("Произошла ошибка при чтении полученных данных!");
+            Outputer.printerror("An error occurred while reading received data!");
+            App.logger.error("An error occurred while reading received data!");
         } catch (CancellationException | ExecutionException | InterruptedException exception) {
-            Outputer.println("При обработке запроса произошла ошибка многопоточности!");
-            App.logger.warn("При обработке запроса произошла ошибка многопоточности!");
+            Outputer.println("A multithreading error occurred while processing the request!");
+            App.logger.warn("A multithreading error occurred while processing the request!");
         } catch (IOException exception) {
-            Outputer.printerror("Непредвиденный разрыв соединения с клиентом!");
-            App.logger.warn("Непредвиденный разрыв соединения с клиентом!");
+            Outputer.printerror("Unexpected loss of connection with the client!");
+            App.logger.warn("Unexpected loss of connection with the client!");
         } finally {
             try {
                 fixedThreadPool.shutdown();
                 clientSocket.close();
-                Outputer.println("Клиент отключен от сервера.");
-                App.logger.info("Клиент отключен от сервера.");
+                Outputer.println("Client disconnected from server.");
+                App.logger.info("Client disconnected from server.");
             } catch (IOException exception) {
-                Outputer.printerror("Произошла ошибка при попытке завершить соединение с клиентом!");
-                App.logger.error("Произошла ошибка при попытке завершить соединение с клиентом!");
+                Outputer.printerror("An error occurred while trying to terminate the connection with the client!");
+                App.logger.error("An error occurred while trying to terminate the connection with the client!");
             }
             if (stopFlag) server.stop();
             server.releaseConnection();

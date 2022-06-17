@@ -13,7 +13,7 @@ public class SumOfHealthCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
     public SumOfHealthCommand(CollectionManager collectionManager) {
-        super("sum_of_health", "", "вывести сумму значений поля health для всех элементов коллекции");
+        super("sum_of_health", "", "display the sum of the health field values for all elements of the collection");
         this.collectionManager = collectionManager;
     }
 
@@ -28,12 +28,12 @@ public class SumOfHealthCommand extends AbstractCommand {
             if (!stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
             double sum_of_health = collectionManager.getSumOfHealth();
             if (sum_of_health == 0) throw new CollectionIsEmptyException();
-            ResponseOutputer.appendln("Сумма здоровья всех солдат: " + sum_of_health);
+            ResponseOutputer.appendln("Total health of all soldiers: " + sum_of_health);
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + " " + getUsage() + "'");
         } catch (CollectionIsEmptyException exception) {
-            ResponseOutputer.appenderror("Коллекция пуста!");
+            ResponseOutputer.appenderror("Collection is empty!");
         }
         return false;
     }

@@ -18,7 +18,7 @@ public class ClearCommand extends AbstractCommand {
     private DatabaseCollectionManager databaseCollectionManager;
 
     public ClearCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager) {
-        super("clear", "", "очистить коллекцию");
+        super("clear", "", "clear the collection");
         this.collectionManager = collectionManager;
         this.databaseCollectionManager = databaseCollectionManager;
     }
@@ -38,18 +38,18 @@ public class ClearCommand extends AbstractCommand {
             }
             databaseCollectionManager.clearCollection();
             collectionManager.clearCollection();
-            ResponseOutputer.appendln("Коллекция очищена!");
+            ResponseOutputer.appendln("Collection cleared!");
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + " " + getUsage() + "'");
         } catch (DatabaseHandlingException exception) {
-            ResponseOutputer.appenderror("Произошла ошибка при обращении к базе данных!");
+            ResponseOutputer.appenderror("An error occurred while accessing the database!");
         } catch (PermissionDeniedException exception) {
-            ResponseOutputer.appenderror("Недостаточно прав для выполнения данной команды!");
-            ResponseOutputer.appendln("Принадлежащие другим пользователям объекты доступны только для чтения.");
+            ResponseOutputer.appenderror("Insufficient rights to execute this command!");
+            ResponseOutputer.appendln("Objects owned by other users are read-only.");
         } catch (ManualDatabaseEditException exception) {
-            ResponseOutputer.appenderror("Произошло прямое изменение базы данных!");
-            ResponseOutputer.appendln("Перезапустите клиент для избежания возможных ошибок.");
+            ResponseOutputer.appenderror("A direct database change has occurred!");
+            ResponseOutputer.appendln("Restart the client to avoid possible errors.");
         }
         return false;
     }

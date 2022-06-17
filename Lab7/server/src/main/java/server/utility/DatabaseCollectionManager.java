@@ -157,12 +157,12 @@ public class DatabaseCollectionManager {
             preparedSelectMarineByIdStatement = databaseHandler.getPreparedStatement(SELECT_MARINE_BY_ID, false);
             preparedSelectMarineByIdStatement.setLong(1, marineId);
             ResultSet resultSet = preparedSelectMarineByIdStatement.executeQuery();
-            App.logger.info("Выполнен запрос SELECT_MARINE_BY_ID.");
+            App.logger.info("Request completed SELECT_MARINE_BY_ID.");
             if (resultSet.next()) {
                 chapterId = resultSet.getLong(DatabaseHandler.MARINE_TABLE_CHAPTER_ID_COLUMN);
             } else throw new SQLException();
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при выполнении запроса SELECT_MARINE_BY_ID!");
+            App.logger.error("An error occurred while executing the request SELECT_MARINE_BY_ID!");
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(preparedSelectMarineByIdStatement);
@@ -183,7 +183,7 @@ public class DatabaseCollectionManager {
                     databaseHandler.getPreparedStatement(SELECT_COORDINATES_BY_MARINE_ID, false);
             preparedSelectCoordinatesByMarineIdStatement.setLong(1, marineId);
             ResultSet resultSet = preparedSelectCoordinatesByMarineIdStatement.executeQuery();
-            App.logger.info("Выполнен запрос SELECT_COORDINATES_BY_MARINE_ID.");
+            App.logger.info("Request completed SELECT_COORDINATES_BY_MARINE_ID.");
             if (resultSet.next()) {
                 coordinates = new Coordinates(
                         resultSet.getDouble(DatabaseHandler.COORDINATES_TABLE_X_COLUMN),
@@ -191,7 +191,7 @@ public class DatabaseCollectionManager {
                 );
             } else throw new SQLException();
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при выполнении запроса SELECT_COORDINATES_BY_MARINE_ID!");
+            App.logger.error("An error occurred while executing the request SELECT_COORDINATES_BY_MARINE_ID!");
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(preparedSelectCoordinatesByMarineIdStatement);
@@ -212,7 +212,7 @@ public class DatabaseCollectionManager {
                     databaseHandler.getPreparedStatement(SELECT_CHAPTER_BY_ID, false);
             preparedSelectChapterByIdStatement.setLong(1, chapterId);
             ResultSet resultSet = preparedSelectChapterByIdStatement.executeQuery();
-            App.logger.info("Выполнен запрос SELECT_CHAPTER_BY_ID.");
+            App.logger.info("Request completed SELECT_CHAPTER_BY_ID.");
             if (resultSet.next()) {
                 chapter = new Chapter(
                         resultSet.getString(DatabaseHandler.CHAPTER_TABLE_NAME_COLUMN),
@@ -220,7 +220,7 @@ public class DatabaseCollectionManager {
                 );
             } else throw new SQLException();
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при выполнении запроса SELECT_CHAPTER_BY_ID!");
+            App.logger.error("An error occurred while executing the request SELECT_CHAPTER_BY_ID!");
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(preparedSelectChapterByIdStatement);
@@ -258,7 +258,7 @@ public class DatabaseCollectionManager {
             if (generatedChapterKeys.next()) {
                 chapterId = generatedChapterKeys.getLong(1);
             } else throw new SQLException();
-            App.logger.info("Выполнен запрос INSERT_CHAPTER.");
+            App.logger.info("Request completed INSERT_CHAPTER.");
 
             preparedInsertMarineStatement.setString(1, marineRaw.getName());
             preparedInsertMarineStatement.setTimestamp(2, Timestamp.valueOf(creationTime));
@@ -275,13 +275,13 @@ public class DatabaseCollectionManager {
             if (generatedMarineKeys.next()) {
                 spaceMarineId = generatedMarineKeys.getLong(1);
             } else throw new SQLException();
-            App.logger.info("Выполнен запрос INSERT_MARINE.");
+            App.logger.info("Request completed INSERT_MARINE.");
 
             preparedInsertCoordinatesStatement.setLong(1, spaceMarineId);
             preparedInsertCoordinatesStatement.setDouble(2, marineRaw.getCoordinates().getX());
             preparedInsertCoordinatesStatement.setFloat(3, marineRaw.getCoordinates().getY());
             if (preparedInsertCoordinatesStatement.executeUpdate() == 0) throw new SQLException();
-            App.logger.info("Выполнен запрос INSERT_COORDINATES.");
+            App.logger.info("Request completed INSERT_COORDINATES.");
 
             marine = new SpaceMarine(
                     spaceMarineId,
@@ -299,7 +299,7 @@ public class DatabaseCollectionManager {
             databaseHandler.commit();
             return marine;
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при выполнении группы запросов на добавление нового объекта!");
+            App.logger.error("An error occurred while executing a group of requests to add a new object!");
             exception.printStackTrace();
             databaseHandler.rollback();
             throw new DatabaseHandlingException();
@@ -341,50 +341,50 @@ public class DatabaseCollectionManager {
                 preparedUpdateMarineNameByIdStatement.setString(1, marineRaw.getName());
                 preparedUpdateMarineNameByIdStatement.setLong(2, marineId);
                 if (preparedUpdateMarineNameByIdStatement.executeUpdate() == 0) throw new SQLException();
-                App.logger.info("Выполнен запрос UPDATE_MARINE_NAME_BY_ID.");
+                App.logger.info("Request completed UPDATE_MARINE_NAME_BY_ID.");
             }
             if (marineRaw.getCoordinates() != null) {
                 preparedUpdateCoordinatesByMarineIdStatement.setDouble(1, marineRaw.getCoordinates().getX());
                 preparedUpdateCoordinatesByMarineIdStatement.setFloat(2, marineRaw.getCoordinates().getY());
                 preparedUpdateCoordinatesByMarineIdStatement.setLong(3, marineId);
                 if (preparedUpdateCoordinatesByMarineIdStatement.executeUpdate() == 0) throw new SQLException();
-                App.logger.info("Выполнен запрос UPDATE_COORDINATES_BY_MARINE_ID.");
+                App.logger.info("Request completed UPDATE_COORDINATES_BY_MARINE_ID.");
             }
             if (marineRaw.getHealth() != -1) {
                 preparedUpdateMarineHealthByIdStatement.setDouble(1, marineRaw.getHealth());
                 preparedUpdateMarineHealthByIdStatement.setLong(2, marineId);
                 if (preparedUpdateMarineHealthByIdStatement.executeUpdate() == 0) throw new SQLException();
-                App.logger.info("Выполнен запрос UPDATE_MARINE_HEALTH_BY_ID.");
+                App.logger.info("Request completed UPDATE_MARINE_HEALTH_BY_ID.");
             }
             if (marineRaw.getCategory() != null) {
                 preparedUpdateMarineCategoryByIdStatement.setString(1, marineRaw.getCategory().toString());
                 preparedUpdateMarineCategoryByIdStatement.setLong(2, marineId);
                 if (preparedUpdateMarineCategoryByIdStatement.executeUpdate() == 0) throw new SQLException();
-                App.logger.info("Выполнен запрос UPDATE_MARINE_CATEGORY_BY_ID.");
+                App.logger.info("Request completed UPDATE_MARINE_CATEGORY_BY_ID.");
             }
             if (marineRaw.getWeaponType() != null) {
                 preparedUpdateMarineWeaponTypeByIdStatement.setString(1, marineRaw.getWeaponType().toString());
                 preparedUpdateMarineWeaponTypeByIdStatement.setLong(2, marineId);
                 if (preparedUpdateMarineWeaponTypeByIdStatement.executeUpdate() == 0) throw new SQLException();
-                App.logger.info("Выполнен запрос UPDATE_MARINE_WEAPON_TYPE_BY_ID.");
+                App.logger.info("Request completed UPDATE_MARINE_WEAPON_TYPE_BY_ID.");
             }
             if (marineRaw.getMeleeWeapon() != null) {
                 preparedUpdateMarineMeleeWeaponByIdStatement.setString(1, marineRaw.getMeleeWeapon().toString());
                 preparedUpdateMarineMeleeWeaponByIdStatement.setLong(2, marineId);
                 if (preparedUpdateMarineMeleeWeaponByIdStatement.executeUpdate() == 0) throw new SQLException();
-                App.logger.info("Выполнен запрос UPDATE_MARINE_MELEE_WEAPON_BY_ID.");
+                App.logger.info("Request completed UPDATE_MARINE_MELEE_WEAPON_BY_ID.");
             }
             if (marineRaw.getChapter() != null) {
                 preparedUpdateChapterByIdStatement.setString(1, marineRaw.getChapter().getName());
                 preparedUpdateChapterByIdStatement.setLong(2, marineRaw.getChapter().getMarinesCount());
                 preparedUpdateChapterByIdStatement.setLong(3, getChapterIdByMarineId(marineId));
                 if (preparedUpdateChapterByIdStatement.executeUpdate() == 0) throw new SQLException();
-                App.logger.info("Выполнен запрос UPDATE_CHAPTER_BY_ID.");
+                App.logger.info("Request completed UPDATE_CHAPTER_BY_ID.");
             }
 
             databaseHandler.commit();
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при выполнении группы запросов на обновление объекта!");
+            App.logger.error("An error occurred while executing a query group to update an object!");
             databaseHandler.rollback();
             throw new DatabaseHandlingException();
         } finally {
@@ -426,9 +426,9 @@ public class DatabaseCollectionManager {
             if (preparedSelectCoordinatesByMarineIdStatement.executeUpdate() == 0) Outputer.println(3);
             if (preparedDeleteMarineByIdStatement.executeUpdate() == 0) Outputer.println(3);
             if (preparedDeleteChapterByIdStatement.executeUpdate() == 0) Outputer.println(3);
-            App.logger.info("Выполнен запрос DELETE_MARINE_BY_ID.");
+            App.logger.info("Request completed DELETE_MARINE_BY_ID.");
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при выполнении запроса DELETE_MARINE_BY_ID!");
+            App.logger.error("An error occurred while executing the request DELETE_MARINE_BY_ID!");
 //            exception.printStackTrace(); // can be commented
             throw new DatabaseHandlingException();
         } finally {
@@ -453,10 +453,10 @@ public class DatabaseCollectionManager {
             preparedSelectMarineByIdAndUserIdStatement.setLong(1, marineId);
             preparedSelectMarineByIdAndUserIdStatement.setLong(2, databaseUserManager.getUserIdByUsername(user));
             ResultSet resultSet = preparedSelectMarineByIdAndUserIdStatement.executeQuery();
-            App.logger.info("Выполнен запрос SELECT_MARINE_BY_ID_AND_USER_ID.");
+            App.logger.info("Request completed SELECT_MARINE_BY_ID_AND_USER_ID.");
             return resultSet.next();
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при выполнении запроса SELECT_MARINE_BY_ID_AND_USER_ID!");
+            App.logger.error("An error occurred while executing the request SELECT_MARINE_BY_ID_AND_USER_ID!");
             throw new DatabaseHandlingException();
         } finally {
             databaseHandler.closePreparedStatement(preparedSelectMarineByIdAndUserIdStatement);

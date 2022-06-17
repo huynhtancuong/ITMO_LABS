@@ -16,7 +16,7 @@ public class AddCommand extends AbstractCommand {
     private DatabaseCollectionManager databaseCollectionManager;
 
     public AddCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager) {
-        super("add", "{element}", "добавить новый элемент в коллекцию");
+        super("add", "{element}", "add a new element to the collection");
         this.collectionManager = collectionManager;
         this.databaseCollectionManager = databaseCollectionManager;
     }
@@ -32,14 +32,14 @@ public class AddCommand extends AbstractCommand {
             if (!stringArgument.isEmpty() || objectArgument == null) throw new WrongAmountOfElementsException();
             MarineRaw marineRaw = (MarineRaw) objectArgument;
             collectionManager.addToCollection(databaseCollectionManager.insertMarine(marineRaw, user));
-            ResponseOutputer.appendln("Солдат успешно добавлен!");
+            ResponseOutputer.appendln("Soldier successfully added!");
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + " " + getUsage() + "'");
         } catch (ClassCastException exception) {
-            ResponseOutputer.appenderror("Переданный клиентом объект неверен!");
+            ResponseOutputer.appenderror("The object passed by the client is invalid!");
         } catch (DatabaseHandlingException exception) {
-            ResponseOutputer.appenderror("Произошла ошибка при обращении к базе данных!");
+            ResponseOutputer.appenderror("An error occurred while accessing the database!");
         }
         return false;
     }

@@ -63,14 +63,14 @@ public class DatabaseHandler {
             connection = DriverManager.getConnection(url, user, password);
 //            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb",
 //                    "s336231", "123456");
-            Outputer.println("Соединение с базой данных установлено.");
-            App.logger.info("Соединение с базой данных установлено.");
+            Outputer.println("Database connection established.");
+            App.logger.info("Database connection established.");
         } catch (SQLException exception) {
-            Outputer.printerror("Произошла ошибка при подключении к базе данных!");
-            App.logger.error("Произошла ошибка при подключении к базе данных!");
+            Outputer.printerror("An error occurred while connecting to the database!");
+            App.logger.error("An error occurred while connecting to the database!");
         } catch (ClassNotFoundException exception) {
-            Outputer.printerror("Драйвер управления базой дынных не найден!");
-            App.logger.error("Драйвер управления базой дынных не найден!");
+            Outputer.printerror("Database management driver not found!");
+            App.logger.error("Database management driver not found!");
         }
     }
 
@@ -90,7 +90,7 @@ public class DatabaseHandler {
             return preparedStatement;
         } catch (SQLException exception) {
             //App.logger.error("Произошла ошибка при подготовке SQL запроса '" + sqlStatement + "'.");
-            if (connection == null) App.logger.error("Соединение с базой данных не установлено!");
+            if (connection == null) App.logger.error("Database connection not established!");
             throw new SQLException(exception);
         }
     }
@@ -104,9 +104,9 @@ public class DatabaseHandler {
         if (sqlStatement == null) return;
         try {
             sqlStatement.close();
-            App.logger.info("Закрыт SQL запрос '" + sqlStatement + "'.");
+            App.logger.info("Closed SQL query '" + sqlStatement + "'.");
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при закрытии SQL запроса '" + sqlStatement + "'.");
+            App.logger.error("An error occurred while closing the SQL query '" + sqlStatement + "'.");
         }
     }
 
@@ -117,11 +117,11 @@ public class DatabaseHandler {
         if (connection == null) return;
         try {
             connection.close();
-            Outputer.println("Соединение с базой данных разорвано.");
-            App.logger.info("Соединение с базой данных разорвано.");
+            Outputer.println("Database connection lost.");
+            App.logger.info("Database connection lost.");
         } catch (SQLException exception) {
-            Outputer.printerror("Произошла ошибка при разрыве соединения с базой данных!");
-            App.logger.error("Произошла ошибка при разрыве соединения с базой данных!");
+            Outputer.printerror("An error occurred while disconnecting the database connection!");
+            App.logger.error("An error occurred while disconnecting the database connection!");
         }
     }
 
@@ -133,7 +133,7 @@ public class DatabaseHandler {
             if (connection == null) throw new SQLException();
             connection.setAutoCommit(false);
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при установлении режима транзакции базы данных!");
+            App.logger.error("An error occurred while setting the database transaction mode!");
         }
     }
 
@@ -145,7 +145,7 @@ public class DatabaseHandler {
             if (connection == null) throw new SQLException();
             connection.setAutoCommit(true);
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при установлении нормального режима базы данных!");
+            App.logger.error("An error occurred while establishing normal database mode!");
         }
     }
 
@@ -157,7 +157,7 @@ public class DatabaseHandler {
             if (connection == null) throw new SQLException();
             connection.commit();
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при подтверждении нового состояния базы данных!");
+            App.logger.error("An error occurred while confirming the new state of the database!");
         }
     }
 
@@ -169,7 +169,7 @@ public class DatabaseHandler {
             if (connection == null) throw new SQLException();
             connection.rollback();
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при возврате исходного состояния базы данных!");
+            App.logger.error("An error occurred while reverting the original state of the database!");
         }
     }
 
@@ -181,7 +181,7 @@ public class DatabaseHandler {
             if (connection == null) throw new SQLException();
             connection.setSavepoint();
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при сохранении состояния базы данных!");
+            App.logger.error("An error occurred while saving the database state!");
         }
     }
 }

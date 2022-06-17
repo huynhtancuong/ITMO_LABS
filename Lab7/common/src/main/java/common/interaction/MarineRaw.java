@@ -79,14 +79,14 @@ public class MarineRaw implements Serializable {
     @Override
     public String toString() {
         String info = "";
-        info += "'Сырой' солдат";
-        info += "\n Имя: " + name;
-        info += "\n Местоположение: " + coordinates;
-        info += "\n Здоровье: " + health;
-        info += "\n Категория: " + category;
-        info += "\n Дальнее оружие: " + weaponType;
-        info += "\n Ближнее оружие: " + meleeWeapon;
-        info += "\n Орден: " + chapter;
+        info += "'Raw' soldier";
+        info += "\n Name: " + name;
+        info += "\n Location: " + coordinates;
+        info += "\n Health: " + health;
+        info += "\n Category: " + category;
+        info += "\n Weapon type: " + weaponType;
+        info += "\n Melee weapon: " + meleeWeapon;
+        info += "\n Chapter: " + chapter;
         return info;
     }
 

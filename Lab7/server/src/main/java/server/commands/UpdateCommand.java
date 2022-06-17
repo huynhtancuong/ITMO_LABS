@@ -18,7 +18,7 @@ public class UpdateCommand extends AbstractCommand {
     private DatabaseCollectionManager databaseCollectionManager;
 
     public UpdateCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager) {
-        super("update", "<ID> {element}", "обновить значение элемента коллекции по ID");
+        super("update", "<ID> {element}", "update collection element value by ID");
         this.collectionManager = collectionManager;
         this.databaseCollectionManager = databaseCollectionManager;
     }
@@ -66,26 +66,26 @@ public class UpdateCommand extends AbstractCommand {
                     chapter,
                     user
             ));
-            ResponseOutputer.appendln("Солдат успешно изменен!");
+            ResponseOutputer.appendln("Soldier successfully changed!");
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + " " + getUsage() + "'");
         } catch (CollectionIsEmptyException exception) {
-            ResponseOutputer.appenderror("Коллекция пуста!");
+            ResponseOutputer.appenderror("Collection is empty!");
         } catch (NumberFormatException exception) {
-            ResponseOutputer.appenderror("ID должен быть представлен положительным числом!");
+            ResponseOutputer.appenderror("ID must be represented as a positive number!");
         } catch (MarineNotFoundException exception) {
-            ResponseOutputer.appenderror("Солдата с таким ID в коллекции нет!");
+            ResponseOutputer.appenderror("There is no soldier with this ID in the collection!");
         } catch (ClassCastException exception) {
-            ResponseOutputer.appenderror("Переданный клиентом объект неверен!");
+            ResponseOutputer.appenderror("The object passed by the client is invalid!");
         } catch (DatabaseHandlingException exception) {
-            ResponseOutputer.appenderror("Произошла ошибка при обращении к базе данных!");
+            ResponseOutputer.appenderror("An error occurred while accessing the database!");
         } catch (PermissionDeniedException exception) {
-            ResponseOutputer.appenderror("Недостаточно прав для выполнения данной команды!");
-            ResponseOutputer.appendln("Принадлежащие другим пользователям объекты доступны только для чтения.");
+            ResponseOutputer.appenderror("Insufficient rights to execute this command!");
+            ResponseOutputer.appendln("Objects owned by other users are read-only.");
         } catch (ManualDatabaseEditException exception) {
-            ResponseOutputer.appenderror("Произошло прямое изменение базы данных!");
-            ResponseOutputer.appendln("Перезапустите клиент для избежания возможных ошибок.");
+            ResponseOutputer.appenderror("A direct database change has occurred!");
+            ResponseOutputer.appendln("Restart the client to avoid possible errors.");
         }
         return false;
     }

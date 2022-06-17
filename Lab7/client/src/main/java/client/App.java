@@ -49,11 +49,11 @@ public class App {
                     .getLocation()
                     .getPath())
                     .getName();
-            Outputer.println("Использование: 'java -jar " + jarName + " <host> <port>'");
+            Outputer.println("Usage: 'java -jar " + jarName + " <host> <port>'");
         } catch (NumberFormatException exception) {
-            Outputer.printerror("Порт должен быть представлен числом!");
+            Outputer.printerror("The port must be represented by a number!");
         } catch (NotInDeclaredLimitsException exception) {
-            Outputer.printerror("Порт не может быть отрицательным!");
+            Outputer.printerror("Port cannot be negative!");
         }
         return false;
     }

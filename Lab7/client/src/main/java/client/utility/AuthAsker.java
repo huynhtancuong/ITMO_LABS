@@ -27,17 +27,17 @@ public class AuthAsker {
         String login;
         while (true) {
             try {
-                Outputer.println("Введите логин:");
+                Outputer.println("Enter login:");
                 Outputer.print(App.PS2);
                 login = userScanner.nextLine().trim();
                 if (login.equals("")) throw new MustBeNotEmptyException();
                 break;
             } catch (NoSuchElementException exception) {
-                Outputer.printerror("Данного логина не существует!");
+                Outputer.printerror("This login does not exist.!");
             } catch (MustBeNotEmptyException exception) {
-                Outputer.printerror("Имя не может быть пустым!");
+                Outputer.printerror("Name cannot be empty!");
             } catch (IllegalStateException exception) {
-                Outputer.printerror("Непредвиденная ошибка!");
+                Outputer.printerror("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -53,14 +53,14 @@ public class AuthAsker {
         String password;
         while (true) {
             try {
-                Outputer.println("Введите пароль:");
+                Outputer.println("Enter password:");
                 Outputer.print(App.PS2);
                 password = userScanner.nextLine().trim();
                 break;
             } catch (NoSuchElementException exception) {
-                Outputer.printerror("Неверный логин или пароль!");
+                Outputer.printerror("Wrong login or password!");
             } catch (IllegalStateException exception) {
-                Outputer.printerror("Непредвиденная ошибка!");
+                Outputer.printerror("Unexpected error!");
                 System.exit(0);
             }
         }
@@ -84,11 +84,11 @@ public class AuthAsker {
                 if (!answer.equals("+") && !answer.equals("-")) throw new NotInDeclaredLimitsException();
                 break;
             } catch (NoSuchElementException exception) {
-                Outputer.printerror("Ответ не распознан!");
+                Outputer.printerror("Answer not recognized!");
             } catch (NotInDeclaredLimitsException exception) {
-                Outputer.printerror("Ответ должен быть представлен знаками '+' или '-'!");
+                Outputer.printerror("The answer must be represented by '+' or '-'!");
             } catch (IllegalStateException exception) {
-                Outputer.printerror("Непредвиденная ошибка!");
+                Outputer.printerror("Unexpected error!");
                 System.exit(0);
             }
         }

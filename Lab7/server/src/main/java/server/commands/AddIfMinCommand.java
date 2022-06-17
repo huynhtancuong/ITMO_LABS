@@ -17,7 +17,7 @@ public class AddIfMinCommand extends AbstractCommand {
     private DatabaseCollectionManager databaseCollectionManager;
 
     public AddIfMinCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager) {
-        super("add_if_min", "{element}", "добавить новый элемент, если его значение меньше, чем у наименьшего");
+        super("add_if_min", "{element}", "add a new element if its value is less than that of the smallest");
         this.collectionManager = collectionManager;
         this.databaseCollectionManager = databaseCollectionManager;
     }
@@ -35,15 +35,15 @@ public class AddIfMinCommand extends AbstractCommand {
             SpaceMarine marineToAdd = databaseCollectionManager.insertMarine(marineRaw, user);
             if (collectionManager.collectionSize() == 0 || marineToAdd.compareTo(collectionManager.getFirst()) < 0) {
                 collectionManager.addToCollection(marineToAdd);
-                ResponseOutputer.appendln("Солдат успешно добавлен!");
+                ResponseOutputer.appendln("Soldier successfully added!");
                 return true;
-            } else ResponseOutputer.appenderror("Значение солдата больше, чем значение наименьшего из солдат!");
+            } else ResponseOutputer.appenderror("The value of a soldier is greater than the value of the smallest of the soldiers!");
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + " " + getUsage() + "'");
         } catch (ClassCastException exception) {
-            ResponseOutputer.appenderror("Переданный клиентом объект неверен!");
+            ResponseOutputer.appenderror("The object passed by the client is invalid!");
         } catch (DatabaseHandlingException exception) {
-            ResponseOutputer.appenderror("Произошла ошибка при обращении к базе данных!");
+            ResponseOutputer.appenderror("An error occurred while accessing the database!");
         }
         return false;
     }

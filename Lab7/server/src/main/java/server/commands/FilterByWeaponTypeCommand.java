@@ -15,7 +15,7 @@ public class FilterByWeaponTypeCommand extends AbstractCommand {
 
     public FilterByWeaponTypeCommand(CollectionManager collectionManager) {
         super("filter_by_weapon_type", "<weaponType>",
-                "вывести элементы, значение поля weaponType которых равно заданному");
+                "display elements whose weaponType field value is equal to the given one");
         this.collectionManager = collectionManager;
     }
 
@@ -32,15 +32,15 @@ public class FilterByWeaponTypeCommand extends AbstractCommand {
             Weapon weapon = Weapon.valueOf(stringArgument.toUpperCase());
             String filteredInfo = collectionManager.weaponFilteredInfo(weapon);
             if (!filteredInfo.isEmpty()) ResponseOutputer.appendln(filteredInfo);
-            else ResponseOutputer.appendln("В коллекции нет солдат с выбранным типом оружия!");
+            else ResponseOutputer.appendln("There are no soldiers in the collection with the selected weapon type!");
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + " " + getUsage() + "'");
         } catch (CollectionIsEmptyException exception) {
-            ResponseOutputer.appenderror("Коллекция пуста!");
+            ResponseOutputer.appenderror("Collection is empty!");
         } catch (IllegalArgumentException exception) {
-            ResponseOutputer.appenderror("Оружия нет в списке!");
-            ResponseOutputer.appendln("Список оружия дальнего боя - " + Weapon.nameList());
+            ResponseOutputer.appenderror("Weapon not listed!");
+            ResponseOutputer.appendln("List of ranged weapons - " + Weapon.nameList());
         }
         return false;
     }

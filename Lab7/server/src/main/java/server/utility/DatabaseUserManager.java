@@ -43,7 +43,7 @@ public class DatabaseUserManager {
                     databaseHandler.getPreparedStatement(SELECT_USER_BY_ID, false);
             preparedSelectUserByIdStatement.setLong(1, userId);
             ResultSet resultSet = preparedSelectUserByIdStatement.executeQuery();
-            App.logger.info("Выполнен запрос SELECT_USER_BY_ID.");
+            App.logger.info("Request completed SELECT_USER_BY_ID.");
             if (resultSet.next()) {
                 user = new User(
                         resultSet.getString(DatabaseHandler.USER_TABLE_USERNAME_COLUMN),
@@ -51,7 +51,7 @@ public class DatabaseUserManager {
                 );
             } else throw new SQLException();
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при выполнении запроса SELECT_USER_BY_ID!");
+            App.logger.error("An error occurred while executing the request SELECT_USER_BY_ID!");
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(preparedSelectUserByIdStatement);
@@ -74,10 +74,10 @@ public class DatabaseUserManager {
             preparedSelectUserByUsernameAndPasswordStatement.setString(1, user.getUsername());
             preparedSelectUserByUsernameAndPasswordStatement.setString(2, user.getPassword());
             ResultSet resultSet = preparedSelectUserByUsernameAndPasswordStatement.executeQuery();
-            App.logger.info("Выполнен запрос SELECT_USER_BY_USERNAME_AND_PASSWORD.");
+            App.logger.info("Request completed SELECT_USER_BY_USERNAME_AND_PASSWORD.");
             return resultSet.next();
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при выполнении запроса SELECT_USER_BY_USERNAME_AND_PASSWORD!");
+            App.logger.error("An error occurred while executing the request SELECT_USER_BY_USERNAME_AND_PASSWORD!");
             throw new DatabaseHandlingException();
         } finally {
             databaseHandler.closePreparedStatement(preparedSelectUserByUsernameAndPasswordStatement);
@@ -99,13 +99,13 @@ public class DatabaseUserManager {
                     databaseHandler.getPreparedStatement(SELECT_USER_BY_USERNAME, false);
             preparedSelectUserByUsernameStatement.setString(1, user.getUsername());
             ResultSet resultSet = preparedSelectUserByUsernameStatement.executeQuery();
-            App.logger.info("Выполнен запрос SELECT_USER_BY_USERNAME.");
+            App.logger.info("Request completed SELECT_USER_BY_USERNAME.");
             if (resultSet.next()) {
                 userId = resultSet.getLong(DatabaseHandler.USER_TABLE_ID_COLUMN);
             } else userId = -1;
             return userId;
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при выполнении запроса SELECT_USER_BY_USERNAME!");
+            App.logger.error("An error occurred while executing the request SELECT_USER_BY_USERNAME!");
             throw new DatabaseHandlingException();
         } finally {
             databaseHandler.closePreparedStatement(preparedSelectUserByUsernameStatement);
@@ -128,10 +128,10 @@ public class DatabaseUserManager {
             preparedInsertUserStatement.setString(1, user.getUsername());
             preparedInsertUserStatement.setString(2, user.getPassword());
             if (preparedInsertUserStatement.executeUpdate() == 0) throw new SQLException();
-            App.logger.info("Выполнен запрос INSERT_USER.");
+            App.logger.info("Request completed INSERT_USER.");
             return true;
         } catch (SQLException exception) {
-            App.logger.error("Произошла ошибка при выполнении запроса INSERT_USER!");
+            App.logger.error("An error occurred while executing the request INSERT_USER!");
             throw new DatabaseHandlingException();
         } finally {
             databaseHandler.closePreparedStatement(preparedInsertUserStatement);

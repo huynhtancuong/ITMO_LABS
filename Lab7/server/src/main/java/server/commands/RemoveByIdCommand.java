@@ -15,7 +15,7 @@ public class RemoveByIdCommand extends AbstractCommand {
     private DatabaseCollectionManager databaseCollectionManager;
 
     public RemoveByIdCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager) {
-        super("remove_by_id", "<ID>", "удалить элемент из коллекции по ID");
+        super("remove_by_id", "<ID>", "remove item from collection by ID");
         this.collectionManager = collectionManager;
         this.databaseCollectionManager = databaseCollectionManager;
     }
@@ -37,24 +37,24 @@ public class RemoveByIdCommand extends AbstractCommand {
             if (!databaseCollectionManager.checkMarineUserId(marineToRemove.getId(), user)) throw new ManualDatabaseEditException();
             databaseCollectionManager.deleteMarineById(id);
             collectionManager.removeFromCollection(marineToRemove);
-            ResponseOutputer.appendln("Солдат успешно удален!");
+            ResponseOutputer.appendln("Soldier successfully removed!");
             return true;
         } catch (WrongAmountOfElementsException exception) {
-            ResponseOutputer.appendln("Использование: '" + getName() + " " + getUsage() + "'");
+            ResponseOutputer.appendln("Usage: '" + getName() + " " + getUsage() + "'");
         } catch (CollectionIsEmptyException exception) {
-            ResponseOutputer.appenderror("Коллекция пуста!");
+            ResponseOutputer.appenderror("Collection is empty!");
         } catch (NumberFormatException exception) {
-            ResponseOutputer.appenderror("ID должен быть представлен числом!");
+            ResponseOutputer.appenderror("ID must be represented by a number!");
         } catch (MarineNotFoundException exception) {
-            ResponseOutputer.appenderror("Солдата с таким ID в коллекции нет!");
+            ResponseOutputer.appenderror("There is no soldier with this ID in the collection!");
         } catch (DatabaseHandlingException exception) {
-            ResponseOutputer.appenderror("Произошла ошибка при обращении к базе данных!");
+            ResponseOutputer.appenderror("An error occurred while accessing the database!");
         } catch (PermissionDeniedException exception) {
-            ResponseOutputer.appenderror("Недостаточно прав для выполнения данной команды!");
-            ResponseOutputer.appendln("Принадлежащие другим пользователям объекты доступны только для чтения.");
+            ResponseOutputer.appenderror("Insufficient rights to execute this command!");
+            ResponseOutputer.appendln("Objects owned by other users are read-only.");
         } catch (ManualDatabaseEditException exception) {
-            ResponseOutputer.appenderror("Произошло прямое изменение базы данных!");
-            ResponseOutputer.appendln("Перезапустите клиент для избежания возможных ошибок.");
+            ResponseOutputer.appenderror("A direct database change has occurred!");
+            ResponseOutputer.appendln("Restart the client to avoid possible errors.");
         }
         return false;
     }

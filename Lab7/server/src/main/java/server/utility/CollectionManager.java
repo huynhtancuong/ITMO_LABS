@@ -89,7 +89,7 @@ public class CollectionManager {
      * @return Collection content or corresponding string if collection is empty.
      */
     public String showCollection() {
-        if (marinesCollection.isEmpty()) return "Коллекция пуста!";
+        if (marinesCollection.isEmpty()) return "Collection is empty!";
         return marinesCollection.stream().reduce("", (sum, m) -> sum += m + "\n\n", (sum1, sum2) -> sum1 + sum2).trim();
     }
 
@@ -161,12 +161,12 @@ public class CollectionManager {
         try {
             marinesCollection = databaseCollectionManager.getCollection();
             lastInitTime = LocalDateTime.now();
-            Outputer.println("Коллекция загружена.");
-            App.logger.info("Коллекция загружена.");
+            Outputer.println("Collection loaded.");
+            App.logger.info("Collection loaded.");
         } catch (DatabaseHandlingException exception) {
             marinesCollection = new TreeSet<>();
-            Outputer.printerror("Коллекция не может быть загружена!");
-            App.logger.error("Коллекция не может быть загружена!");
+            Outputer.printerror("Collection could not be loaded!");
+            App.logger.error("Collection could not be loaded!");
         }
     }
 }

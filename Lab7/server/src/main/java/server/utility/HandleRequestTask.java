@@ -116,7 +116,7 @@ public class HandleRequestTask {
                     return ResponseCode.ERROR;
                 break;
             default:
-                ResponseOutputer.appendln("Команда '" + command + "' не найдена. Наберите 'help' для справки.");
+                ResponseOutputer.appendln("Team '" + command + "' not found. Type 'help' for help.");
                 return ResponseCode.ERROR;
         }
         return ResponseCode.OK;

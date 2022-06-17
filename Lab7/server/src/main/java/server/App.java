@@ -14,7 +14,7 @@ import server.utility.*;
  * @author Huynh Tan Cuong.
  */
 public class App {
-    // TODO: Добавить в delete запрос where + еще 1 условие, чтобы при командах изменения проверялся пользователь (его можно имзенить в самой бд)
+    // TODO: Add a where query to delete + 1 more condition so that the user is checked during change commands (you can change it in the database itself)
     private static final int MAX_CLIENTS = 1000;
     public static Logger logger = LogManager.getLogger("ServerLogger");
     private static String databaseUsername = "s336231";
@@ -72,15 +72,15 @@ public class App {
                     .getLocation()
                     .getPath())
                     .getName();
-            Outputer.println("Использование: 'java -jar " + jarName + " <port> <db_host> <db_password>'");
+            Outputer.println("Usage: 'java -jar " + jarName + " <port> <db_host> <db_password>'");
         } catch (NumberFormatException exception) {
-            Outputer.printerror("Порт должен быть представлен числом!");
-            App.logger.fatal("Порт должен быть представлен числом!");
+            Outputer.printerror("The port must be represented by a number!");
+            App.logger.fatal("The port must be represented by a number!");
         } catch (NotInDeclaredLimitsException exception) {
-            Outputer.printerror("Порт не может быть отрицательным!");
-            App.logger.fatal("Порт не может быть отрицательным!");
+            Outputer.printerror("Port cannot be negative!");
+            App.logger.fatal("Port cannot be negative!");
         }
-        App.logger.fatal("Ошибка инициализации порта запуска!");
+        App.logger.fatal("Launch port initialization error!");
         return false;
     }
 }

@@ -46,18 +46,18 @@ public class Server {
                     cachedThreadPool.submit(new ConnectionHandler(this, clientSocket, commandManager)); // Use cached thread pool for reading request
                 } catch (ConnectionErrorException exception) {
                     if (!isStopped()) {
-                        Outputer.printerror("Произошла ошибка при соединении с клиентом!");
-                        App.logger.error("Произошла ошибка при соединении с клиентом!");
+                        Outputer.printerror("An error occurred while connecting to the client!");
+                        App.logger.error("An error occurred while connecting to the client!");
                     } else break;
                 }
             }
             cachedThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-            Outputer.println("Работа сервера завершена.");
+            Outputer.println("Server shut down.");
         } catch (OpeningServerSocketException exception) {
-            Outputer.printerror("Сервер не может быть запущен!");
-            App.logger.fatal("Сервер не может быть запущен!");
+            Outputer.printerror("Server cannot be started!");
+            App.logger.fatal("Server cannot be started!");
         } catch (InterruptedException e) {
-            Outputer.printerror("Произошла ошибка при завершении работы с уже подключенными клиентами!");
+            Outputer.printerror("An error occurred while shutting down already connected clients!");
         }
     }
 
@@ -67,10 +67,10 @@ public class Server {
     public void acquireConnection() {
         try {
             semaphore.acquire();
-            App.logger.info("Разрешение на новое соединение получено.");
+            App.logger.info("New connection granted.");
         } catch (InterruptedException exception) {
-            Outputer.printerror("Произошла ошибка при получении разрешения на новое соединение!");
-            App.logger.error("Произошла ошибка при получении разрешения на новое соединение!");
+            Outputer.printerror("An error occurred while obtaining permission for a new connection!");
+            App.logger.error("An error occurred while obtaining permission for a new connection!");
         }
     }
 
@@ -79,7 +79,7 @@ public class Server {
      */
     public void releaseConnection() {
         semaphore.release();
-        App.logger.info("Разрыв соединения зарегистрирован.");
+        App.logger.info("Connection disconnect registered.");
     }
 
     /**
@@ -87,20 +87,20 @@ public class Server {
      */
     public synchronized void stop() {
         try {
-            App.logger.info("Завершение работы сервера...");
+            App.logger.info("Shutting down the server...");
             if (serverSocket == null) throw new ClosingSocketException();
             isStopped = true;
             cachedThreadPool.shutdown();
             serverSocket.close();
-            Outputer.println("Завершение работы с уже подключенными клиентами...");
-            App.logger.info("Работа сервера завершена.");
+            Outputer.println("End of work with already connected clients...");
+            App.logger.info("Server shut down.");
         } catch (ClosingSocketException exception) {
-            Outputer.printerror("Невозможно завершить работу еще не запущенного сервера!");
-            App.logger.error("Невозможно завершить работу еще не запущенного сервера!");
+            Outputer.printerror("Unable to shut down server not yet running!");
+            App.logger.error("Unable to shut down server not yet running!");
         } catch (IOException exception) {
-            Outputer.printerror("Произошла ошибка при завершении работы сервера!");
-            Outputer.println("Завершение работы с уже подключенными клиентами...");
-            App.logger.error("Произошла ошибка при завершении работы сервера!");
+            Outputer.printerror("An error occurred while shutting down the server!");
+            Outputer.println("End of work with already connected clients...");
+            App.logger.error("An error occurred while shutting down the server!");
         }
     }
 
@@ -118,16 +118,16 @@ public class Server {
      */
     private void openServerSocket() throws OpeningServerSocketException {
         try {
-            App.logger.info("Запуск сервера...");
+            App.logger.info("Server start...");
             serverSocket = new ServerSocket(port);
-            App.logger.info("Сервер запущен.");
+            App.logger.info("Server started.");
         } catch (IllegalArgumentException exception) {
-            Outputer.printerror("Порт '" + port + "' находится за пределами возможных значений!");
-            App.logger.fatal("Порт '" + port + "' находится за пределами возможных значений!");
+            Outputer.printerror("Port '" + port + "' is out of range!");
+            App.logger.fatal("Port '" + port + "' is out of range!");
             throw new OpeningServerSocketException();
         } catch (IOException exception) {
-            Outputer.printerror("Произошла ошибка при попытке использовать порт '" + port + "'!");
-            App.logger.fatal("Произошла ошибка при попытке использовать порт '" + port + "'!");
+            Outputer.printerror("An error occurred while trying to use the port '" + port + "'!");
+            App.logger.fatal("An error occurred while trying to use the port '" + port + "'!");
             throw new OpeningServerSocketException();
         }
     }
@@ -137,11 +137,11 @@ public class Server {
      */
     private Socket connectToClient() throws ConnectionErrorException {
         try {
-            Outputer.println("Прослушивание порта '" + port + "'...");
-            App.logger.info("Прослушивание порта '" + port + "'...");
+            Outputer.println("Port listening '" + port + "'...");
+            App.logger.info("Port listening '" + port + "'...");
             Socket clientSocket = serverSocket.accept();
-            Outputer.println("Соединение с клиентом установлено.");
-            App.logger.info("Соединение с клиентом установлено.");
+            Outputer.println("Client connection established.");
+            App.logger.info("Client connection established.");
             return clientSocket;
         } catch (IOException exception) {
             throw new ConnectionErrorException();

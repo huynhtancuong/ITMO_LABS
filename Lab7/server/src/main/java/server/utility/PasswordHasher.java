@@ -27,7 +27,7 @@ public class PasswordHasher {
             }
             return newPassword;
         } catch (NoSuchAlgorithmException exception) {
-            App.logger.error("Не найден алгоритм хэширования пароля!");
+            App.logger.error("Password hashing algorithm not found!");
             throw new IllegalStateException(exception);
         }
     }
