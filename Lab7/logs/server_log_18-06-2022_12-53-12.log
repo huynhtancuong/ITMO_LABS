@@ -1,0 +1,39 @@
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseHandler - Database connection established.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseCollectionManager - Request completed SELECT_COORDINATES_BY_MARINE_ID.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM coordinates WHERE space_marine_id = 4'.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseCollectionManager - Request completed SELECT_CHAPTER_BY_ID.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM chapter WHERE id = 9'.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseUserManager - Request completed SELECT_USER_BY_ID.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM account WHERE id = 1'.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseCollectionManager - Request completed SELECT_COORDINATES_BY_MARINE_ID.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM coordinates WHERE space_marine_id = 1'.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseCollectionManager - Request completed SELECT_CHAPTER_BY_ID.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM chapter WHERE id = 10'.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseUserManager - Request completed SELECT_USER_BY_ID.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM account WHERE id = 2'.
+INFO  | 18-06-2022 12:53:13 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM space_marine'.
+INFO  | 18-06-2022 12:53:13 | utility.CollectionManager - Collection loaded.
+INFO  | 18-06-2022 12:53:13 | server.Server - Server start...
+INFO  | 18-06-2022 12:53:13 | server.Server - Server started.
+INFO  | 18-06-2022 12:53:13 | server.Server - New connection granted.
+INFO  | 18-06-2022 12:53:13 | server.Server - Port listening '25565'...
+INFO  | 18-06-2022 12:53:20 | server.Server - Client connection established.
+INFO  | 18-06-2022 12:53:20 | server.Server - New connection granted.
+INFO  | 18-06-2022 12:53:20 | server.Server - Port listening '25565'...
+INFO  | 18-06-2022 12:53:23 | utility.ConnectionHandler - Request 'show' processed.
+INFO  | 18-06-2022 12:53:35 | utility.ConnectionHandler - Request 'execute_script' processed.
+INFO  | 18-06-2022 12:53:35 | utility.DatabaseUserManager - Request completed SELECT_USER_BY_USERNAME_AND_PASSWORD.
+INFO  | 18-06-2022 12:53:35 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM account WHERE username = 'cuong' AND password = '40bd001563085fc35165329ea1ff5c5ecbdbbeef''.
+INFO  | 18-06-2022 12:53:35 | utility.DatabaseCollectionManager - Request completed INSERT_CHAPTER.
+INFO  | 18-06-2022 12:53:35 | utility.DatabaseUserManager - Request completed SELECT_USER_BY_USERNAME.
+INFO  | 18-06-2022 12:53:35 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM account WHERE username = 'cuong''.
+INFO  | 18-06-2022 12:53:35 | utility.DatabaseCollectionManager - Request completed INSERT_MARINE.
+INFO  | 18-06-2022 12:53:35 | utility.DatabaseCollectionManager - Request completed INSERT_COORDINATES.
+INFO  | 18-06-2022 12:53:35 | utility.DatabaseHandler - Closed SQL query 'INSERT INTO space_marine (name, creation_date, health, category, weapon_type, melee_weapon, chapter_id, user_id) VALUES ('huynh', '2022-06-18 12:53:35.417065+03', 123.0, 'ASSAULT'::astartes_category,'GRAV_GUN'::weapon, 'CHAIN_SWORD'::melee_weapon, 11, 2)
+RETURNING *'.
+INFO  | 18-06-2022 12:53:35 | utility.DatabaseHandler - Closed SQL query 'INSERT INTO coordinates (space_marine_id, x, y) VALUES (2, 2.0, 3.0)
+RETURNING *'.
+INFO  | 18-06-2022 12:53:35 | utility.DatabaseHandler - Closed SQL query 'INSERT INTO chapter (name, marines_count) VALUES ('cuong', 100)
+RETURNING *'.
+INFO  | 18-06-2022 12:53:35 | utility.ConnectionHandler - Request 'add' processed.
+INFO  | 18-06-2022 12:53:43 | utility.ConnectionHandler - Request 'show' processed.

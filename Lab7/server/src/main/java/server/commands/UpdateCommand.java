@@ -6,6 +6,7 @@ import common.interaction.MarineRaw;
 import common.interaction.User;
 import server.utility.CollectionManager;
 import server.utility.DatabaseCollectionManager;
+import server.utility.DatabaseUserManager;
 import server.utility.ResponseOutputer;
 
 import java.time.LocalDateTime;
@@ -17,10 +18,11 @@ public class UpdateCommand extends AbstractCommand {
     private CollectionManager collectionManager;
     private DatabaseCollectionManager databaseCollectionManager;
 
-    public UpdateCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager) {
+    public UpdateCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager, DatabaseUserManager databaseUserManager) {
         super("update", "<ID> {element}", "update collection element value by ID");
         this.collectionManager = collectionManager;
         this.databaseCollectionManager = databaseCollectionManager;
+        this.databaseUserManager = databaseUserManager;
     }
 
     /**
@@ -31,6 +33,7 @@ public class UpdateCommand extends AbstractCommand {
     @Override
     public boolean execute(String stringArgument, Object objectArgument, User user) {
         try {
+            if (!databaseUserManager.checkUserByUsernameAndPassword(user)) throw new UserIsNotFoundException();
             if (stringArgument.isEmpty() || objectArgument == null) throw new WrongAmountOfElementsException();
             if (collectionManager.collectionSize() == 0) throw new CollectionIsEmptyException();
 
@@ -86,6 +89,8 @@ public class UpdateCommand extends AbstractCommand {
         } catch (ManualDatabaseEditException exception) {
             ResponseOutputer.appenderror("A direct database change has occurred!");
             ResponseOutputer.appendln("Restart the client to avoid possible errors.");
+        } catch (UserIsNotFoundException e) {
+            ResponseOutputer.appenderror("Incorrect username or password!");
         }
         return false;
     }

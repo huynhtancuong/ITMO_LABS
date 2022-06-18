@@ -5,6 +5,7 @@ import common.exceptions.*;
 import common.interaction.User;
 import server.utility.CollectionManager;
 import server.utility.DatabaseCollectionManager;
+import server.utility.DatabaseUserManager;
 import server.utility.ResponseOutputer;
 
 /**
@@ -14,10 +15,11 @@ public class RemoveByIdCommand extends AbstractCommand {
     private CollectionManager collectionManager;
     private DatabaseCollectionManager databaseCollectionManager;
 
-    public RemoveByIdCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager) {
+    public RemoveByIdCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager, DatabaseUserManager databaseUserManager) {
         super("remove_by_id", "<ID>", "remove item from collection by ID");
         this.collectionManager = collectionManager;
         this.databaseCollectionManager = databaseCollectionManager;
+        this.databaseUserManager = databaseUserManager;
     }
 
     /**
@@ -28,6 +30,7 @@ public class RemoveByIdCommand extends AbstractCommand {
     @Override
     public boolean execute(String stringArgument, Object objectArgument, User user) {
         try {
+            if (!databaseUserManager.checkUserByUsernameAndPassword(user)) throw new UserIsNotFoundException();
             if (stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
             if (collectionManager.collectionSize() == 0) throw new CollectionIsEmptyException();
             long id = Long.parseLong(stringArgument);
@@ -55,6 +58,8 @@ public class RemoveByIdCommand extends AbstractCommand {
         } catch (ManualDatabaseEditException exception) {
             ResponseOutputer.appenderror("A direct database change has occurred!");
             ResponseOutputer.appendln("Restart the client to avoid possible errors.");
+        } catch (UserIsNotFoundException e) {
+            ResponseOutputer.appenderror("Incorrect username or password!");
         }
         return false;
     }

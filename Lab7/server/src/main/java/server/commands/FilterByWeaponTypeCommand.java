@@ -2,9 +2,12 @@ package server.commands;
 
 import common.data.Weapon;
 import common.exceptions.CollectionIsEmptyException;
+import common.exceptions.DatabaseHandlingException;
+import common.exceptions.UserIsNotFoundException;
 import common.exceptions.WrongAmountOfElementsException;
 import common.interaction.User;
 import server.utility.CollectionManager;
+import server.utility.DatabaseUserManager;
 import server.utility.ResponseOutputer;
 
 /**
@@ -13,10 +16,11 @@ import server.utility.ResponseOutputer;
 public class FilterByWeaponTypeCommand extends AbstractCommand {
     private CollectionManager collectionManager;
 
-    public FilterByWeaponTypeCommand(CollectionManager collectionManager) {
+    public FilterByWeaponTypeCommand(CollectionManager collectionManager, DatabaseUserManager databaseUserManager) {
         super("filter_by_weapon_type", "<weaponType>",
                 "display elements whose weaponType field value is equal to the given one");
         this.collectionManager = collectionManager;
+        this.databaseUserManager = databaseUserManager;
     }
 
     /**
@@ -27,6 +31,7 @@ public class FilterByWeaponTypeCommand extends AbstractCommand {
     @Override
     public boolean execute(String stringArgument, Object objectArgument, User user) {
         try {
+            if (!databaseUserManager.checkUserByUsernameAndPassword(user)) throw new UserIsNotFoundException();
             if (stringArgument.isEmpty() || objectArgument != null) throw new WrongAmountOfElementsException();
             if (collectionManager.collectionSize() == 0) throw new CollectionIsEmptyException();
             Weapon weapon = Weapon.valueOf(stringArgument.toUpperCase());
@@ -41,6 +46,10 @@ public class FilterByWeaponTypeCommand extends AbstractCommand {
         } catch (IllegalArgumentException exception) {
             ResponseOutputer.appenderror("Weapon not listed!");
             ResponseOutputer.appendln("List of ranged weapons - " + Weapon.nameList());
+        } catch (UserIsNotFoundException e) {
+            ResponseOutputer.appenderror("Incorrect username or password!");
+        } catch (DatabaseHandlingException e) {
+            throw new RuntimeException(e);
         }
         return false;
     }

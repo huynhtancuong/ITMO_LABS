@@ -7,6 +7,7 @@ import common.interaction.MarineRaw;
 import common.interaction.User;
 import server.utility.CollectionManager;
 import server.utility.DatabaseCollectionManager;
+import server.utility.DatabaseUserManager;
 import server.utility.ResponseOutputer;
 
 /**
@@ -16,10 +17,11 @@ public class AddIfMinCommand extends AbstractCommand {
     private CollectionManager collectionManager;
     private DatabaseCollectionManager databaseCollectionManager;
 
-    public AddIfMinCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager) {
+    public AddIfMinCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager, DatabaseUserManager databaseUserManager) {
         super("add_if_min", "{element}", "add a new element if its value is less than that of the smallest");
         this.collectionManager = collectionManager;
         this.databaseCollectionManager = databaseCollectionManager;
+        this.databaseUserManager = databaseUserManager;
     }
 
     /**

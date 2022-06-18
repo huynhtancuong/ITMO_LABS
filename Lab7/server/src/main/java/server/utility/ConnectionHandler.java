@@ -20,7 +20,6 @@ public class ConnectionHandler implements Runnable {
     private Server server;
     private Socket clientSocket;
     private CommandManager commandManager;
-//    private ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
     private ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1);
     private ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
@@ -42,9 +41,7 @@ public class ConnectionHandler implements Runnable {
         try (ObjectInputStream clientReader = new ObjectInputStream(clientSocket.getInputStream());
              ObjectOutputStream clientWriter = new ObjectOutputStream(clientSocket.getOutputStream())) {
             do {
-                userRequest = (Request) clientReader.readObject();
-//                responseToUser = forkJoinPool.invoke(new HandleRequestTask(userRequest, commandManager)); // Using forkJoinPool for processing request
-                Request finalUserRequest = userRequest;
+                userRequest = (Request) clientReader.readObject();Request finalUserRequest = userRequest;
                 responseToUser = cachedThreadPool.submit(() -> { // Using cached thread pool for processing request
                     HandleRequestTask handleRequestTask = new HandleRequestTask(finalUserRequest, commandManager);
                     return handleRequestTask.compute();

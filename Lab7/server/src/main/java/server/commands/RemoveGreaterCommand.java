@@ -6,6 +6,7 @@ import common.interaction.MarineRaw;
 import common.interaction.User;
 import server.utility.CollectionManager;
 import server.utility.DatabaseCollectionManager;
+import server.utility.DatabaseUserManager;
 import server.utility.ResponseOutputer;
 
 import java.time.LocalDateTime;
@@ -17,10 +18,11 @@ public class RemoveGreaterCommand extends AbstractCommand {
     private CollectionManager collectionManager;
     private DatabaseCollectionManager databaseCollectionManager;
 
-    public RemoveGreaterCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager) {
+    public RemoveGreaterCommand(CollectionManager collectionManager, DatabaseCollectionManager databaseCollectionManager, DatabaseUserManager databaseUserManager) {
         super("remove_greater", "{element}", "remove from the collection all elements greater than the given");
         this.collectionManager = collectionManager;
         this.databaseCollectionManager = databaseCollectionManager;
+        this.databaseUserManager = databaseUserManager;
     }
 
     /**
@@ -31,6 +33,7 @@ public class RemoveGreaterCommand extends AbstractCommand {
     @Override
     public boolean execute(String stringArgument, Object objectArgument, User user) {
         try {
+            if (!databaseUserManager.checkUserByUsernameAndPassword(user)) throw new UserIsNotFoundException();
             if (!stringArgument.isEmpty() || objectArgument == null) throw new WrongAmountOfElementsException();
             if (collectionManager.collectionSize() == 0) throw new CollectionIsEmptyException();
             MarineRaw marineRaw = (MarineRaw) objectArgument;
@@ -74,6 +77,8 @@ public class RemoveGreaterCommand extends AbstractCommand {
         } catch (ManualDatabaseEditException exception) {
             ResponseOutputer.appenderror("A direct database change has occurred!");
             ResponseOutputer.appendln("A direct database change has occurred.");
+        } catch (UserIsNotFoundException e) {
+            ResponseOutputer.appenderror("Incorrect username or password!");
         }
         return false;
     }

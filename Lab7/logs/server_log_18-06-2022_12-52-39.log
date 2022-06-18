@@ -1,0 +1,26 @@
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseHandler - Database connection established.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseCollectionManager - Request completed SELECT_COORDINATES_BY_MARINE_ID.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM coordinates WHERE space_marine_id = 4'.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseCollectionManager - Request completed SELECT_CHAPTER_BY_ID.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM chapter WHERE id = 9'.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseUserManager - Request completed SELECT_USER_BY_ID.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM account WHERE id = 1'.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseCollectionManager - Request completed SELECT_COORDINATES_BY_MARINE_ID.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM coordinates WHERE space_marine_id = 1'.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseCollectionManager - Request completed SELECT_CHAPTER_BY_ID.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM chapter WHERE id = 10'.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseUserManager - Request completed SELECT_USER_BY_ID.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM account WHERE id = 2'.
+INFO  | 18-06-2022 12:52:40 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM space_marine'.
+INFO  | 18-06-2022 12:52:40 | utility.CollectionManager - Collection loaded.
+INFO  | 18-06-2022 12:52:40 | server.Server - Server start...
+INFO  | 18-06-2022 12:52:40 | server.Server - Server started.
+INFO  | 18-06-2022 12:52:40 | server.Server - New connection granted.
+INFO  | 18-06-2022 12:52:40 | server.Server - Port listening '25565'...
+INFO  | 18-06-2022 12:52:51 | server.Server - Client connection established.
+INFO  | 18-06-2022 12:52:51 | server.Server - New connection granted.
+INFO  | 18-06-2022 12:52:51 | server.Server - Port listening '25565'...
+INFO  | 18-06-2022 12:53:02 | utility.DatabaseUserManager - Request completed SELECT_USER_BY_USERNAME_AND_PASSWORD.
+INFO  | 18-06-2022 12:53:02 | utility.DatabaseHandler - Closed SQL query 'SELECT * FROM account WHERE username = 'cuong' AND password = '40bd001563085fc35165329ea1ff5c5ecbdbbeef''.
+INFO  | 18-06-2022 12:53:02 | utility.ConnectionHandler - Request 'login' processed.
+INFO  | 18-06-2022 12:53:05 | utility.ConnectionHandler - Request 'show' processed.

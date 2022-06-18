@@ -1,5 +1,7 @@
 package server.commands;
 
+import server.utility.DatabaseUserManager;
+
 /**
  * Abstract Command class contains Object methods, name and description.
  */
@@ -7,6 +9,7 @@ public abstract class AbstractCommand implements Command {
     private String name;
     private String usage;
     private String description;
+    protected DatabaseUserManager databaseUserManager;
 
     public AbstractCommand(String name, String usage, String description) {
         this.name = name;
